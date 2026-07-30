@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>专业版下载 · CrownStar</title>
+    <style>
+        /* Same CSS – just copy from advanced or basic, we'll reuse */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.85); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.4); padding:0.8rem 0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+        .logo { font-size:1.6rem; font-weight:700; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav { display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; align-items:center; }
+        .nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.95rem; transition:color 0.3s; }
+        .nav a:hover { color:#0a2e5c; }
+        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.8rem; border-radius:3rem; font-weight:600; }
+        .nav .cta:hover { background:#1a4a7a; }
+        .nav .active { color:#0a2e5c; font-weight:600; border-bottom:2px solid #c9a84c; }
+        .nav .cta-gold { background:#c9a84c; color:#0a2e5c !important; }
+        .nav .cta-gold:hover { background:#dbb95e; }
+        .page-hero { text-align:center; padding:2.5rem 0 1.5rem; }
+        .page-hero h1 { font-size:2.6rem; font-weight:800; color:#0a2e5c; }
+        .page-hero h1 .gold { color:#c9a84c; }
+        .page-hero .subtitle { font-size:1.1rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
+        .back-link { display:inline-block; margin:0 0 1.5rem 0; color:#0a2e5c; font-weight:500; }
+        .back-link:hover { color:#c9a84c; }
+        .locked-notice { background:rgba(255,255,255,0.8); border:1px solid #c9a84c; border-radius:1.5rem; padding:2rem; text-align:center; margin:1.5rem 0; }
+        .locked-notice h2 { color:#0a2e5c; margin-bottom:0.5rem; }
+        .locked-notice .upgrade-note { font-size:0.85rem; color:#5a5a7a; margin:0.5rem 0 1rem; }
+        .payment-row { display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:center; align-items:center; margin:1rem 0; }
+        .payment-row .stripe-container { flex:1; min-width:280px; }
+        .payment-row .qr-container { flex:0 0 auto; text-align:center; }
+        .payment-row .qr-container img { max-width:150px; border-radius:12px; border:1px solid #e8ecf0; }
+        .payment-row .qr-container .caption { font-size:0.75rem; color:#7a7a9a; margin-top:0.3rem; }
+        .payment-row .direct-link { display:inline-block; margin-top:0.5rem; padding:0.5rem 1.5rem; border-radius:2rem; background:#0a2e5c; color:#fff; text-decoration:none; font-weight:600; font-size:0.85rem; transition:background 0.2s; }
+        .payment-row .direct-link:hover { background:#1a4a7a; }
+        .asset-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; margin:2rem 0; }
+        .asset-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.2rem; padding:1.2rem 1.5rem; transition:transform 0.3s; display:flex; flex-direction:column; align-items:center; text-align:center; opacity:0.6; filter:grayscale(0.3); }
+        .asset-card .platform-icon { font-size:2.2rem; font-weight:700; width:3rem; height:3rem; line-height:3rem; border-radius:50%; background:#f0f4fa; color:#0a2e5c; margin-bottom:0.3rem; }
+        .asset-card .filename { font-weight:600; font-size:0.95rem; color:#0a2e5c; word-break:break-all; }
+        .asset-card .details { font-size:0.8rem; color:#7a7a9a; margin:0.2rem 0; }
+        .asset-card .size { font-size:0.75rem; color:#8a8aaa; }
+        .asset-card .btn-locked { margin-top:0.6rem; padding:0.4rem 1.5rem; border-radius:2rem; background:#d0d8e0; color:#7a7a9a; font-weight:600; font-size:0.85rem; cursor:not-allowed; }
+        .asset-card .badge-locked { font-size:0.55rem; font-weight:600; text-transform:uppercase; padding:0.05rem 0.6rem; border-radius:12px; background:#fff3e0; color:#e65100; margin-top:0.2rem; }
+        .footer { text-align:center; padding:2rem 0; color:#7a7a9a; border-top:1px solid rgba(0,0,0,0.04); font-size:0.9rem; }
+        .footer a { color:#0a2e5c; font-weight:500; }
+        .footer a:hover { color:#c9a84c; }
+        @media (max-width:768px) { .nav a { font-size:0.85rem; } .nav .cta { padding:0.4rem 1rem; font-size:0.8rem; } .asset-grid { grid-template-columns:1fr; } .payment-row { flex-direction:column; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html">案例</a>
+                <a href="security.html">安全</a>
+                <a href="download-free.html">免费下载</a>
+                <a href="downloads.html" class="active">下载中心</a>
+                <a href="swagger.html" target="_blank">API</a>
+                <a href="articles.html">文章库</a>
+                <a href="ai-groups.html" class="cta cta-gold">AI-Groups</a>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div style="padding-top:1.5rem;">
+            <a href="downloads.html" class="back-link">← 返回下载中心</a>
+        </div>
+
+        <section class="page-hero">
+            <h1>💼 <span class="gold">专业版</span> 下载</h1>
+            <p class="subtitle">购买后解锁所有安装包和源代码，并享受 <strong>终身免费升级</strong>。</p>
+        </section>
+
+        <div class="locked-notice">
+            <h2>🔒 购买专业版</h2>
+            <p class="upgrade-note">一次性购买 ¥389，终身免费升级。支付完成后您将通过邮件收到所有安装包和许可证密钥。</p>
+
+            <div class="payment-row">
+                <div class="stripe-container">
+                    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+                    <stripe-buy-button
+                        buy-button-id="buy_btn_1Tt7KWJ1ruuDi5YqpRUOlsMU"
+                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
+                    >
+                    </stripe-buy-button>
+                </div>
+                <div class="qr-container">
+                    <img src="images/qr_4gM14o4nf57hd7waGKefC0c_pro.png" alt="微信支付二维码" />
+                    <div class="caption">扫码支付 (微信)</div>
+                </div>
+            </div>
+
+            <p style="margin-top:0.5rem;">
+                <a href="https://buy.stripe.com/4gM14o4nf57hd7waGKefC0c?prefilled_email=skyocean2024%40myyahoo.com" class="direct-link" target="_blank">或点击这里直接支付 →</a>
+            </p>
+            <p style="font-size:0.8rem; color:#7a7a9a; margin-top:0.3rem;">
+                💡 您也可以复制链接到浏览器：<br>
+                <code style="font-size:0.75rem; word-break:break-all;">https://buy.stripe.com/4gM14o4nf57hd7waGKefC0c?prefilled_email=skyocean2024%40myyahoo.com</code>
+            </p>
+        </div>
+
+        <div class="asset-grid">
+            <div class="asset-card"><div class="platform-icon">🪟</div><div class="filename">CrownStar-Professional-Win64.exe</div><div class="details">Windows x64 安装包</div><div class="size">~45 MB</div><span class="btn-locked">🔒 购买后解锁</span><div class="badge-locked">需要购买</div></div>
+            <div class="asset-card"><div class="platform-icon">🪟</div><div class="filename">CrownStar-Professional-Win64.msi</div><div class="details">Windows x64 MSI 安装包</div><div class="size">~48 MB</div><span class="btn-locked">🔒 购买后解锁</span><div class="badge-locked">需要购买</div></div>
+            <div class="asset-card"><div class="platform-icon">🪟</div><div class="filename">CrownStar-Professional-Win64.zip</div><div class="details">Windows x64 便携版</div><div class="size">~40 MB</div><span class="btn-locked">🔒 购买后解锁</span><div class="badge-locked">需要购买</div></div>
+            <div class="asset-card"><div class="platform-icon">🐧</div><div class="filename">crownstar-pro_7.1.0_amd64.deb</div><div class="details">Linux Debian/Ubuntu</div><div class="size">~38 MB</div><span class="btn-locked">🔒 购买后解锁</span><div class="badge-locked">需要购买</div></div>
+            <div class="asset-card"><div class="platform-icon">🐧</div><div class="filename">crownstar-pro-7.1.0-x86_64.rpm</div><div class="details">Linux RHEL/Fedora</div><div class="size">~38 MB</div><span class="btn-locked">🔒 购买后解锁</span><div class="badge-locked">需要购买</div></div>
+            <div class="asset-card"><div class="platform-icon">🍎</div><div class="filename">CrownStar-Professional-macOS.dmg</div><div class="details">macOS 安装包</div><div class="size">~40 MB</div><span class="btn-locked">🔒 购买后解锁</span><div class="badge-locked">需要购买</div></div>
+            <div class="asset-card"><div class="platform-icon">📦</div><div class="filename">CrownStar-Professional-Portable.zip</div><div class="details">通用便携版</div><div class="size">~32 MB</div><span class="btn-locked">🔒 购买后解锁</span><div class="badge-locked">需要购买</div></div>
+            <div class="asset-card"><div class="platform-icon">📄</div><div class="filename">CrownStar-Professional-Source.zip</div><div class="details">完整源代码</div><div class="size">~18 MB</div><span class="btn-locked">🔒 购买后解锁</span><div class="badge-locked">需要购买</div></div>
+        </div>
+    </div>
+
+    <div style="margin:2rem auto; padding:1rem 1.5rem; background:#fef9e7; border-left:4px solid #f0ad4e; border-radius:8px; font-size:0.85rem; color:#856404; max-width:800px;">
+        <strong>📌 安装提示（适用于 Windows 用户）</strong><br>
+        如果下载的 .exe 文件被 Windows SmartScreen 拦截，请按以下步骤操作：<br>
+        1. 右键点击文件 → 选择 <strong>“属性”</strong><br>
+        2. 在 <strong>“常规”</strong> 选项卡中，勾选 <strong>“解除锁定”</strong> → 点击“应用”和“确定”<br>
+        3. 重新双击运行即可。<br>
+        <span style="font-size:0.75rem; color:#999;">此提示仅适用于 Windows 平台，Linux 和 macOS 用户无需操作。</span>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>

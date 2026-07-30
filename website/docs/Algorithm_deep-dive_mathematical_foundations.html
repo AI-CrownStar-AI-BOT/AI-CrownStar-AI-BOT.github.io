@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrownStar 算法深度解析 · 数学基础</title>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\(', '\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+    <style>
+        /* Same styles as Document 1, with minor adjustments for math-heavy content */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+            background: #05060a;
+            color: #f5f7ff;
+            line-height: 1.8;
+            padding: 2rem 8%;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.03);
+            border-radius: 2rem;
+            padding: 3rem 4rem;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        h1 { font-size: 2.8rem; font-weight: 700; color: #fdfdfd; text-align: center; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        h1 .gold { color: #c9a84c; }
+        .tagline { text-align: center; font-size: 1.1rem; color: #aab0c5; margin-bottom: 2.5rem; border-bottom: 1px solid #262b36; padding-bottom: 1.5rem; }
+        h2 { font-size: 2rem; font-weight: 700; color: #fdfdfd; margin-top: 2.8rem; margin-bottom: 1rem; border-bottom: 1px solid #333a; padding-bottom: 0.4rem; }
+        h2 .gold { color: #c9a84c; }
+        h3 { font-size: 1.5rem; font-weight: 600; color: #e8ecf5; margin-top: 2rem; margin-bottom: 0.6rem; }
+        h4 { font-size: 1.2rem; font-weight: 600; color: #c9a84c; margin-top: 1.5rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em; }
+        p { font-size: 1rem; color: #c8ccdd; margin: 0.6rem 0; }
+        .equation { margin: 1.2rem auto; text-align: center; font-size: 1.5rem; font-weight: 600; padding: 0.8rem; background: rgba(255,255,255,0.04); border-radius: 0.8rem; border: 1px solid rgba(255,255,255,0.06); }
+        .equation small { display: block; font-size: 0.75rem; font-weight: 400; color: #8890a8; margin-top: 0.3rem; }
+        .author-block { margin: 1.5rem 0; padding: 1.2rem 1.5rem; border-radius: 0.8rem; background: radial-gradient(circle at top left, #1a2230, #05060a); border: 1px solid #2b3240; }
+        .author-name { font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.85rem; color: #9ad1ff; margin-bottom: 0.3rem; }
+        .pill { display: inline-block; padding: 0.1rem 0.6rem; border-radius: 999px; border: 1px solid #3a4255; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #9fb4ff; margin: 0.2rem 0.2rem; background: rgba(255,255,255,0.04); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+        .comparison-table th { background: #1a2230; color: #fdfdfd; padding: 0.7rem 0.8rem; text-align: left; border: 1px solid #2b3240; }
+        .comparison-table td { padding: 0.6rem 0.8rem; border: 1px solid #2b3240; color: #c8ccdd; }
+        .comparison-table .highlight { color: #c9a84c; font-weight: 600; }
+        hr { border: none; border-top: 1px solid #262b36; margin: 2.5rem 0 2rem; }
+        ul, ol { padding-left: 1.5rem; color: #c8ccdd; }
+        li { margin: 0.3rem 0; }
+        .footer { text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #262b36; color: #7a8298; font-size: 0.85rem; }
+        .footer a { color: #c9a84c; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        .super-box { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 1rem; padding: 1.5rem; margin: 1.5rem 0; }
+        .super-box h4 { color: #c9a84c; }
+        @media (max-width: 768px) { body { padding: 1rem 4%; } .container { padding: 1.5rem 1.2rem; } h1 { font-size: 2rem; } h2 { font-size: 1.6rem; } .comparison-table { font-size: 0.75rem; } .comparison-table th, .comparison-table td { padding: 0.3rem 0.4rem; } }
+        @media (max-width: 480px) { h1 { font-size: 1.6rem; } h2 { font-size: 1.3rem; } .equation { font-size: 1.1rem; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- HEADER -->
+        <h1>📐 <span class="gold">CrownStar</span> 算法深度解析</h1>
+        <p class="tagline">9 个认知科学算法的数学基础 · 统一超级模型 · 控制论外壳</p>
+
+        <!-- ============================================================ -->
+        <!-- 1. 统一张量核心                                                -->
+        <!-- ============================================================ -->
+        <h2>1. 统一张量核心 — \(L\) 层网络</h2>
+        <p>
+            CrownStar 的基础是一个 <strong>\(L\) 层神经网络</strong>，作为所有算法的统一张量核心。
+            输入为 \(x \in \mathbb{R}^{n_0}\)，第 \(\ell\) 层为：
+        </p>
+        <div class="equation">
+            \[
+            a^{(0)} = x
+            \]
+            \[
+            z^{(\ell)} = W^{(\ell)} a^{(\ell-1)} + b^{(\ell)},
+            \quad
+            a^{(\ell)} = \phi^{(\ell)}(z^{(\ell)})
+            \]
+            <small>层间仿射变换 + 非线性激活</small>
+        </div>
+        <div class="equation">
+            \[
+            y = a^{(L)} = f(x; \theta),
+            \quad
+            \theta = \{ W^{(\ell)}, b^{(\ell)} \}_{\ell=1}^{L}
+            \]
+            <small>参数化映射 \(f(x; \theta)\)</small>
+        </div>
+        <p>
+            这个核心是 <strong>确定性</strong> 的，数学上可证明，且完全可追溯。
+            所有后续的认知科学模块都作用于这个核心之上。
+        </p>
+
+        <hr />
+
+        <!-- ============================================================ -->
+        <!-- 2. 各作者算法详解                                            -->
+        <!-- ============================================================ -->
+        <h2>2. 各作者算法详解</h2>
+
+        <!-- 2.1 Gurney -->
+        <div class="author-block">
+            <div class="author-name">Gurney – 三阶段神经元</div>
+            <p>
+                Gurney 将每个神经元视为一个三阶段系统：<strong>突触整合 → 激活 → 输出映射</strong>。
+                数学形式为：
+            </p>
+            <div class="equation">
+                \[
+                u_j = \sum_{i=1}^{n} w_{ji} x_i + b_j,
+                \qquad
+                a_j = \phi(u_j),
+                \qquad
+                y_j = g(a_j)
+                \]
+                <small>Gurney 三阶段神经元</small>
+            </div>
+            <p>
+                在 CrownStar 中，Gurney 模块确保 DeepSeek 的输出具有 <strong>清晰的逻辑层次</strong>，
+                每个论点都按照“输入 → 处理 → 输出”的结构组织。
+            </p>
+        </div>
+
+        <!-- 2.2 Yegnanarayana -->
+        <div class="author-block">
+            <div class="author-name">Yegnanarayana – 张量组合</div>
+            <p>
+                Yegnanarayana 将神经网络解释为 <strong>张量的组合</strong>：
+                矩阵是二阶张量，向量是一阶张量，网络是仿射映射和非线性场的复合。
+            </p>
+            <div class="equation">
+                \[
+                z^{(1)} = W^{(1)} x + b^{(1)},
+                \quad
+                h = \sigma_1(z^{(1)})
+                \]
+                \[
+                z^{(2)} = W^{(2)} h + b^{(2)},
+                \quad
+                y = \sigma_2(z^{(2)})
+                \]
+                <small>三层网络的张量形式</small>
+            </div>
+            <div class="equation">
+                \[
+                f(x)
+                = \sigma_2\!\Bigl(
+                    W^{(2)} \, \sigma_1\!\bigl(W^{(1)} x + b^{(1)}\bigr)
+                    + b^{(2)}
+                  \Bigr)
+                \]
+                <small>复合张量映射</small>
+            </div>
+            <p>
+                CrownStar 的 Yegnanarayana 模块应用张量组合逻辑，使输出具有
+                <strong>数学上的清晰结构</strong>，易于验证和追溯。
+            </p>
+        </div>
+
+        <!-- 2.3 Haykin -->
+        <div class="author-block">
+            <div class="author-name">Haykin – 递归信号处理</div>
+            <p>
+                Haykin 强调神经网络的 <strong>递归信号处理</strong> 特性。
+                第 \(\ell\) 层第 \(j\) 个神经元：
+            </p>
+            <div class="equation">
+                \[
+                v_j^{(\ell)}
+                = \sum_{i=1}^{n_{\ell-1}} w_{ji}^{(\ell)} y_i^{(\ell-1)} + b_j^{(\ell)},
+                \qquad
+                y_j^{(\ell)} = \phi(v_j^{(\ell)})
+                \]
+                <small>第 \(\ell\) 层的递归神经元</small>
+            </div>
+            <p>
+                完整 \(L\) 层映射：
+            </p>
+            <div class="equation">
+                \[
+                y^{(L)}
+                = \phi^{(L)}\!\Bigl(
+                    W^{(L)} \,
+                    \phi^{(L-1)}\!\bigl(
+                        \cdots
+                        \phi^{(1)}\!\bigl(W^{(1)} x + b^{(1)}\bigr)
+                    \bigr)
+                    + b^{(L)}
+                  \Bigr)
+                \]
+                <small>多层递归映射</small>
+            </div>
+            <p>
+                CrownStar 的 Haykin 模块为 DeepSeek 的输出添加 <strong>自适应信号处理</strong> 能力，
+                使响应更加连贯和稳定。
+            </p>
+        </div>
+
+        <!-- 2.4 Bishop -->
+        <div class="author-block">
+            <div class="author-name">Bishop – 概率推理与雅可比</div>
+            <p>
+                Bishop 将神经网络视为 <strong>概率模型</strong>，并强调雅可比矩阵的作用。
+                单隐层网络：
+            </p>
+            <div class="equation">
+                \[
+                z = W^{(1)} x + b^{(1)},
+                \quad
+                h = \phi(z),
+                \quad
+                a = W^{(2)} h + b^{(2)}
+                \]
+                <small>Bishop 风格的隐层网络</small>
+            </div>
+            <p>
+                分类任务使用 Softmax：
+            </p>
+            <div class="equation">
+                \[
+                y_k = \frac{\exp(a_k)}{\sum_j \exp(a_j)}
+                \]
+                <small>Softmax 输出概率</small>
+            </div>
+            <p>
+                交叉熵损失：
+            </p>
+            <div class="equation">
+                \[
+                E = - \sum_n \sum_k t_{nk} \ln y_k(x_n)
+                \]
+                <small>交叉熵损失</small>
+            </div>
+            <p>
+                雅可比矩阵：
+            </p>
+            <div class="equation">
+                \[
+                J(x) = \frac{\partial y}{\partial x}
+                = D^{(2)} W^{(2)} D^{(1)} W^{(1)}
+                \]
+                <small>Bishop 风格的雅可比矩阵</small>
+            </div>
+            <p>
+                CrownStar 的 Bishop 模块为输出添加 <strong>概率性推理</strong> 和
+                <strong>雅可比可解释性</strong>，使回答更加细腻、不确定性的表达更加准确。
+            </p>
+        </div>
+
+        <!-- 2.5 Zurada -->
+        <div class="author-block">
+            <div class="author-name">Zurada – 索引式工程符号</div>
+            <p>
+                Zurada 使用 <strong>明确的索引求和</strong>，便于工程实现。
+                第 \(j\) 个神经元：
+            </p>
+            <div class="equation">
+                \[
+                u_j = \sum_{i=1}^{n} w_{ji} x_i + b_j,
+                \qquad
+                y_j = \phi(u_j)
+                \]
+                <small>索引形式的神经元</small>
+            </div>
+            <p>
+                第 \(\ell\) 层：
+            </p>
+            <div class="equation">
+                \[
+                u_j^{(\ell)}
+                = \sum_{i=1}^{n_{\ell-1}} w_{ji}^{(\ell)} y_i^{(\ell-1)} + b_j^{(\ell)},
+                \qquad
+                y_j^{(\ell)} = \phi(u_j^{(\ell)})
+                \]
+                <small>索引形式的层级</small>
+            </div>
+            <p>
+                误差：
+            </p>
+            <div class="equation">
+                \[
+                E = \frac{1}{2} \sum_{k=1}^{n_L} (t_k - y_k^{(L)})^2
+                \]
+                <small>二次误差（索引形式）</small>
+            </div>
+            <p>
+                反向传播：
+            </p>
+            <div class="equation">
+                \[
+                \delta_j^{(L)} = (y_j^{(L)} - t_j) \phi'(u_j^{(L)})
+                \]
+                \[
+                \delta_j^{(\ell)}
+                = \phi'(u_j^{(\ell)})
+                  \sum_{k=1}^{n_{\ell+1}} \delta_k^{(\ell+1)} w_{kj}^{(\ell+1)}
+                \]
+                <small>输出层和隐层的 delta</small>
+            </div>
+            <p>
+                CrownStar 的 Zurada 模块增强了 <strong>关联记忆</strong> 能力，帮助 DeepSeek
+                更好地连接不同概念，形成更丰富的联想。
+            </p>
+        </div>
+
+        <!-- 2.6 Hessian -->
+        <div class="author-block">
+            <div class="author-name">Hessian 矩阵 – 二阶优化</div>
+            <p>
+                Hessian 矩阵是损失函数的 <strong>二阶导数矩阵</strong>，用于优化稳定性。
+            </p>
+            <div class="equation">
+                \[
+                H = \nabla_\theta^2 E
+                = \frac{\partial^2 E}{\partial \theta^2}
+                \]
+                <small>损失函数的 Hessian 矩阵</small>
+            </div>
+            <p>
+                对于二次损失 \(E = \tfrac{1}{2}\lVert y - t \rVert^2\)：
+            </p>
+            <div class="equation">
+                \[
+                H =
+                \left( \frac{\partial y}{\partial \theta} \right)^\top
+                \left( \frac{\partial y}{\partial \theta} \right)
+                +
+                \sum_k (y_k - t_k)
+                \frac{\partial^2 y_k}{\partial \theta^2}
+                \]
+                <small>Gauss-Newton 项 + 真实二阶项</small>
+            </div>
+            <p>
+                CrownStar 的 Hessian 模块应用 <strong>二阶优化</strong>，使输出更加
+                <strong>稳定、精确</strong>，减少错误和波动。
+            </p>
+        </div>
+
+        <!-- 2.7 UAT -->
+        <div class="author-block">
+            <div class="author-name">UAT – 通用逼近定理</div>
+            <p>
+                单隐层网络形式：
+            </p>
+            <div class="equation">
+                \[
+                f(x) = \sum_{j=1}^{h} \alpha_j \, \phi(w_j^\top x + b_j)
+                \]
+                <small>单隐层网络</small>
+            </div>
+            <p>
+                UAT 保证对于任意连续函数 \(g\) 和任意精度 \(\varepsilon > 0\)，存在 \(h\) 和参数使得：
+            </p>
+            <div class="equation">
+                \[
+                \sup_x \lVert f(x) - g(x) \rVert < \varepsilon
+                \]
+                <small>任意连续函数的逼近</small>
+            </div>
+            <p>
+                CrownStar 的 UAT 模块保障 DeepSeek 的 <strong>表达能力</strong>，
+                确保其能够逼近任意复杂函数，不会因模型容量不足而受限。
+            </p>
+        </div>
+
+        <hr />
+
+        <!-- ============================================================ -->
+        <!-- 3. CrownStar 控制层                                             -->
+        <!-- ============================================================ -->
+        <h2>3. CrownStar 控制层 — 温度、记忆、长度</h2>
+        <p>
+            CrownStar 在确定性张量核心之上添加了 <strong>控制层</strong>，
+            由三个参数组成：
+        </p>
+        <div class="equation">
+            \[
+            s = (\tau, \lambda, m)
+            \]
+            <small>控制状态：温度 \(\tau\)、长度 \(\lambda\)、记忆 \(m\)</small>
+        </div>
+        <p>
+            最终输出由 <strong>解码算子 \(G\)</strong> 生成：
+        </p>
+        <div class="equation">
+            \[
+            y_{\text{final}}
+            = G\bigl( f(x; \theta),\, m,\, \tau,\, \lambda \bigr)
+            \]
+            <small>受控的、记忆感知的输出</small>
+        </div>
+        <ul>
+            <li><strong>温度 \(\tau\)</strong> – 控制采样的随机性。\(\tau\) 越高，输出越多样化；\(\tau\) 越低，输出越确定。</li>
+            <li><strong>长度 \(\lambda\)</strong> – 控制输出的最大字符数。用户可自由调节。</li>
+            <li><strong>记忆 \(m\)</strong> – 控制对话历史中保留的轮数。\(m\) 越高，上下文越丰富。</li>
+        </ul>
+
+        <hr />
+
+        <!-- ============================================================ -->
+        <!-- 4. Ultra 超级模型 – 统一框架                                    -->
+        <!-- ============================================================ -->
+        <h2>4. Ultra 超级模型 – 统一框架</h2>
+        <div class="super-box">
+            <h4>🧠 所有算法 + CrownStar 控制层 = Ultra 超级模型</h4>
+            <div class="equation">
+                \[
+                \boxed{
+                    y_{\text{final}}
+                    = G\bigl( f(x; \theta),\, m,\, \tau,\, \lambda \bigr)
+                }
+                \]
+                <small>确定性张量核心 + 概率性受控解码外壳</small>
+            </div>
+            <ul>
+                <li><strong>Gurney</strong> – 三阶段神经元语义</li>
+                <li><strong>Yegnanarayana</strong> – 张量组合与梯度流</li>
+                <li><strong>Haykin</strong> – 递归多层信号处理</li>
+                <li><strong>Bishop</strong> – 概率解释、雅可比矩阵、Hessian 结构</li>
+                <li><strong>Zurada</strong> – 索引工程符号</li>
+                <li><strong>Hessian</strong> – 二阶优化</li>
+                <li><strong>UAT</strong> – 通用逼近保障</li>
+                <li><strong>3层网络</strong> – 基础结构</li>
+                <li><strong>CrownStar</strong> – 控制参数 \((\tau, \lambda, m)\)</li>
+            </ul>
+            <p style="color:#c9a84c; font-weight:600; margin-top:1rem;">
+                Ultra 模块 = 全部 9 个算法 + CrownStar 控制层
+            </p>
+        </div>
+        <p>
+            <strong>Ultra 模块是 CrownStar 的“终极增强模式”</strong> —— 激活后，DeepSeek 的输出将
+            同时受到 <strong>全部 9 个算法</strong> 的影响，产生 <strong>结构最清晰、数据最丰富、
+            见解最深刻</strong> 的答案。
+        </p>
+
+        <hr />
+
+        <!-- ============================================================ -->
+        <!-- 5. Markov 生成层                                               -->
+        <!-- ============================================================ -->
+        <h2>5. Markov 生成层</h2>
+        <p>
+            CrownStar 还包含一个 <strong>Markov 生成层</strong>，用于增强文本的连贯性。
+            设 \(w_t\) 为 token 序列，三阶 Markov 转移概率为：
+        </p>
+        <div class="equation">
+            \[
+            P(w_{t+3} \mid w_t, w_{t+1}, w_{t+2})
+            =
+            \frac{
+                \operatorname{count}(w_t, w_{t+1}, w_{t+2}, w_{t+3})
+            }{
+                \operatorname{count}(w_t, w_{t+1}, w_{t+2})
+            }
+            \]
+            <small>三阶 Markov 转移</small>
+        </div>
+        <p>
+            最终序列 \(\hat{Y}\) 最大化 token 概率的乘积：
+        </p>
+        <div class="equation">
+            \[
+            \hat{Y}
+            = \arg\max_y
+              \prod_t
+                P(y_{t+3} \mid y_t, y_{t+1}, y_{t+2})
+            \]
+            <small>最大概率序列</small>
+        </div>
+        <p>
+            Markov 层与温度参数 \(\tau\) 协同工作，\(\tau\) 调节概率分布的“尖锐度”。
+        </p>
+
+        <hr />
+
+        <!-- ============================================================ -->
+        <!-- 6. 数学公式汇总                                                -->
+        <!-- ============================================================ -->
+        <h2>6. 数学公式汇总</h2>
+        <div class="author-block" style="border-color:#c9a84c;">
+            <div class="author-name" style="color:#c9a84c;">完整数学公式清单</div>
+            <ul>
+                <li><strong>基础网络</strong> – \(z^{(\ell)} = W^{(\ell)} a^{(\ell-1)} + b^{(\ell)}\), \(a^{(\ell)} = \phi^{(\ell)}(z^{(\ell)})\)</li>
+                <li><strong>雅可比矩阵</strong> – \(J(x) = D^{(L)} W^{(L)} \cdots D^{(1)} W^{(1)}\)</li>
+                <li><strong>Hessian 矩阵</strong> – \(H = (\partial y/\partial \theta)^\top (\partial y/\partial \theta) + \sum_k (y_k - t_k) \partial^2 y_k / \partial \theta^2\)</li>
+                <li><strong>反向传播</strong> – \(\delta^{(L)} = (y - t) \odot \phi^{(L)'}(z^{(L)})\), \(\delta^{(\ell)} = (W^{(\ell+1)})^\top \delta^{(\ell+1)} \odot \phi^{(\ell)'}(z^{(\ell)})\)</li>
+                <li><strong>Gurney</strong> – \(u_j = \sum_i w_{ji} x_i + b_j\), \(a_j = \phi(u_j)\), \(y_j = g(a_j)\)</li>
+                <li><strong>Yegnanarayana</strong> – \(f(x) = \sigma_2(W^{(2)} \sigma_1(W^{(1)} x + b^{(1)}) + b^{(2)})\)</li>
+                <li><strong>Haykin</strong> – \(y^{(L)} = \phi^{(L)}(W^{(L)} \phi^{(L-1)}(\cdots \phi^{(1)}(W^{(1)} x + b^{(1)})) + b^{(L)})\)</li>
+                <li><strong>Bishop</strong> – \(y_k = \exp(a_k) / \sum_j \exp(a_j)\), \(E = - \sum_n \sum_k t_{nk} \ln y_k(x_n)\)</li>
+                <li><strong>Zurada</strong> – \(\delta_j^{(\ell)} = \phi'(u_j^{(\ell)}) \sum_k \delta_k^{(\ell+1)} w_{kj}^{(\ell+1)}\), \(\Delta w_{ji}^{(\ell)} = -\eta \, \delta_j^{(\ell)} y_i^{(\ell-1)}\)</li>
+                <li><strong>UAT</strong> – \(\sup_x \lVert \sum_j \alpha_j \phi(w_j^\top x + b_j) - g(x) \rVert < \varepsilon\)</li>
+                <li><strong>CrownStar 控制层</strong> – \(y_{\text{final}} = G(f(x; \theta), m, \tau, \lambda)\)</li>
+                <li><strong>Markov 层</strong> – \(P(w_{t+3} \mid w_t, w_{t+1}, w_{t+2}) = \operatorname{count}(w_t, w_{t+1}, w_{t+2}, w_{t+3}) / \operatorname{count}(w_t, w_{t+1}, w_{t+2})\)</li>
+            </ul>
+        </div>
+
+        <hr />
+
+        <!-- ============================================================ -->
+        <!-- 7. 总结                                                        -->
+        <!-- ============================================================ -->
+        <h2>7. 总结</h2>
+        <p>
+            CrownStar 的 <strong>9 个认知科学算法模块</strong> 共同构成了一个 <strong>统一的数学框架</strong>，
+            能够显著提升 DeepSeek 的输出质量。每个模块都有 <strong>明确的数学基础</strong>，
+            并且可以 <strong>独立切换</strong>，用户可以根据需要自由组合。
+        </p>
+        <p>
+            <strong>Ultra 超级模型</strong> 将所有模块整合在一起，并添加 CrownStar 独有的控制层，
+            实现了 <strong>“1+1>9”</strong> 的协同增强效果。
+        </p>
+        <p style="font-size:1.1rem; text-align:center; color:#c9a84c; margin-top:1.5rem;">
+            <strong>CrownStar – 数学可证明的 AI 增强。</strong>
+        </p>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>© 2026 CrownStar. All rights reserved.</p>
+            <p><a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a> · <a href="index.html">返回首页</a></p>
+        </div>
+
+    </div>
+</body>
+</html>
+

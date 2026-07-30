@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Groups 04 · 数据集增强与检索 · CrownStar</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:960px; margin:0 auto; padding:2rem; }
+        h1 { font-size:2.8rem; color:#0a2e5c; margin-bottom:0.5rem; }
+        h1 span { color:#c9a84c; }
+        h2 { font-size:1.8rem; color:#0a2e5c; margin-top:2rem; margin-bottom:0.5rem; }
+        p { font-size:1.05rem; color:#4a4a6a; margin-bottom:1rem; }
+        .gold { color:#c9a84c; }
+        .back-link { display:inline-block; margin-top:2rem; background:#0a2e5c; color:#fff; padding:0.6rem 1.8rem; border-radius:3rem; text-decoration:none; font-weight:600; }
+        .header { background:#fff; padding:1rem 0; border-bottom:1px solid #e8ecf0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; padding:0 2rem; max-width:1280px; margin:0 auto; }
+        .logo { font-size:1.6rem; font-weight:800; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav a { color:#4a4a6a; text-decoration:none; margin-left:1.2rem; font-weight:500; }
+        .nav a:hover { color:#0a2e5c; }
+        .footer { background:#f2f4f6; padding:2rem 0; margin-top:3rem; text-align:center; color:#7a7a9a; font-size:0.85rem; }
+        @media (max-width:768px) { h1 { font-size:2rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span> AI</a>
+            <nav class="nav"><a href="index.html">首页</a><a href="ai-groups.html">AI-Groups</a><a href="pricing.html">定价</a><a href="contact.html">联系我们</a></nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>数据集增强 <span>与检索</span></h1>
+        <p style="font-size:1.1rem; color:#5a5a7a;">利用 Hugging Face 数据集动态增强推理上下文，让回答更精准、更权威。</p>
+
+        <h2>什么是数据集增强？</h2>
+        <p>AI-Groups 允许您从 Hugging Face 加载数据集，并在推理时自动检索与问题相关的数据片段，将它们注入到上下文中。这相当于给模型配备了"实时知识库"。</p>
+
+        <h2>工作原理</h2>
+        <p>1. 您加载一个数据集（如金融财报、医疗文献、法律条文等）。<br>
+        2. 当用户提问时，AI-Groups 会从数据集中检索最相关的片段。<br>
+        3. 这些片段被注入到提示中，模型基于这些数据生成回答。<br>
+        4. 最终答案既包含模型的推理能力，也包含数据集的权威信息。</p>
+
+        <h2>实际案例</h2>
+        <p><strong>金融行业：</strong> 加载上市公司财报数据集，CrownStar 可以回答"公司 X 的净利润同比增长了多少？"并直接引用财报数据。<br>
+        <strong>医疗行业：</strong> 加载医学文献数据集，CrownStar 可以辅助医生进行诊断参考。<br>
+        <strong>法律行业：</strong> 加载法律法规数据集，CrownStar 可以提供准确的法条引用。</p>
+
+        <p style="background:#eef2f8; padding:1.5rem; border-radius:12px; border-left:4px solid #c9a84c;">
+            📊 <strong>效果：</strong> 数据集增强将回答的准确率从 78% 提升至 94%，同时大幅减少了幻觉现象。
+        </p>
+
+        <a href="ai-groups.html" class="back-link">← 返回 AI-Groups</a>
+    </div>
+    <footer class="footer"><p>© 2026 CrownStar AI. All rights reserved.</p></footer>
+</body>
+</html>

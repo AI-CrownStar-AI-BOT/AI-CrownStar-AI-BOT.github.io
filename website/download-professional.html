@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>专业版 下载 · CrownStar v7.1.1</title>
+    <style>
+        /* ============================================================
+           CROWNSTAR PREMIUM DESIGN – Deep Navy + Gold
+           ============================================================ */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --primary: #0a2e5c;
+            --primary-light: #1a4a7a;
+            --gold: #c9a84c;
+            --gold-light: #e8c86a;
+            --gold-hover: #dbb95e;
+            --bg: #f5f7fb;
+            --text: #1a1a2e;
+            --text-secondary: #5a5a7a;
+            --text-muted: #8a8aaa;
+            --border: #e8ecf0;
+            --radius: 16px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.06);
+            --shadow-hover: 0 16px 48px rgba(0,0,0,0.12);
+            --glass: rgba(255,255,255,0.6);
+            --glass-border: rgba(255,255,255,0.4);
+            --font: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;
+            --transition: 0.3s cubic-bezier(.25,.46,.45,.94);
+        }
+        html { scroll-behavior:smooth; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        a { text-decoration:none; color:inherit; }
+
+        /* ===== PARTICLES CANVAS ===== */
+        #particles-canvas {
+            position: fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            pointer-events:none;
+            z-index:0;
+            opacity:0.5;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position:sticky;
+            top:0;
+            z-index:1000;
+            background:rgba(255,255,255,0.82);
+            backdrop-filter:blur(24px) saturate(1.8);
+            -webkit-backdrop-filter:blur(24px) saturate(1.8);
+            border-bottom:1px solid rgba(255,255,255,0.3);
+            padding:0.6rem 0;
+            transition: box-shadow var(--transition);
+        }
+        .header.scrolled { box-shadow:0 4px 30px rgba(0,0,0,0.06); }
+        .header .container {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:0.5rem;
+        }
+        .logo {
+            display:flex;
+            align-items:center;
+            gap:0.6rem;
+            font-size:1.6rem;
+            font-weight:700;
+            color:var(--primary);
+        }
+        .logo svg { width:2.2rem; height:2.2rem; flex-shrink:0; }
+        .logo svg .crown { fill:var(--gold); }
+        .logo svg .star { fill:var(--primary); }
+        .logo span { color:var(--gold); }
+        .nav {
+            display:flex;
+            flex-wrap:wrap;
+            gap:0.3rem 1.2rem;
+            align-items:center;
+        }
+        .nav a {
+            color:#4a4a6a;
+            font-weight:500;
+            text-decoration:none;
+            font-size:0.92rem;
+            padding:0.2rem 0;
+            position:relative;
+            transition:color var(--transition);
+        }
+        .nav a::after {
+            content:'';
+            position:absolute;
+            bottom:-2px; left:0;
+            width:0; height:2px;
+            background:linear-gradient(90deg, var(--gold), var(--primary));
+            transition:width 0.4s ease;
+        }
+        .nav a:hover { color:var(--primary); }
+        .nav a:hover::after { width:100%; }
+        .nav .cta {
+            background:var(--primary);
+            color:#fff !important;
+            padding:0.4rem 1.8rem;
+            border-radius:3rem;
+            font-weight:600;
+            transition:all var(--transition);
+        }
+        .nav .cta::after { display:none; }
+        .nav .cta:hover {
+            background:var(--primary-light);
+            transform:scale(1.03);
+            box-shadow:0 8px 24px rgba(10,46,92,0.25);
+        }
+        .nav .cta-gold {
+            background:var(--gold);
+            color:var(--primary) !important;
+        }
+        .nav .cta-gold:hover {
+            background:var(--gold-hover);
+        }
+        .nav .active {
+            color:var(--gold);
+            font-weight:600;
+        }
+        .nav .active::after { width:100%; }
+
+        /* ===== HERO ===== */
+        .hero {
+            position:relative;
+            text-align:center;
+            padding:3rem 0 2rem;
+            z-index:1;
+        }
+        .hero h1 {
+            font-size:3.2rem;
+            font-weight:800;
+            color:var(--primary);
+            line-height:1.1;
+            letter-spacing:-0.02em;
+        }
+        .hero h1 .gold { color:var(--gold); }
+        .hero .subtitle {
+            font-size:1.2rem;
+            color:var(--text-secondary);
+            max-width:600px;
+            margin:0.5rem auto;
+        }
+        .hero .version-badge {
+            display:inline-block;
+            background:var(--gold);
+            color:var(--primary);
+            padding:0.15rem 1.2rem;
+            border-radius:2rem;
+            font-size:0.7rem;
+            font-weight:600;
+            margin-left:0.5rem;
+        }
+        .hero .price-badge {
+            display:inline-block;
+            font-size:1.1rem;
+            font-weight:600;
+            color:var(--gold);
+            margin-top:0.3rem;
+        }
+        .hero .back-link {
+            display:inline-block;
+            margin-bottom:1rem;
+            color:var(--text-secondary);
+            font-weight:500;
+            transition:color var(--transition);
+        }
+        .hero .back-link:hover { color:var(--gold); }
+
+        /* ===== PAYMENT SECTION ===== */
+        .payment-section {
+            background:rgba(255,255,255,0.7);
+            backdrop-filter:blur(12px);
+            -webkit-backdrop-filter:blur(12px);
+            border:1px solid var(--glass-border);
+            border-radius:var(--radius);
+            padding:2rem;
+            text-align:center;
+            margin:1.5rem 0;
+            box-shadow:var(--shadow);
+            position:relative;
+            z-index:1;
+        }
+        .payment-section .lock-icon { font-size:2.5rem; }
+        .payment-section h2 {
+            font-size:1.6rem;
+            color:var(--primary);
+            margin-bottom:0.3rem;
+        }
+        .payment-section .upgrade-note {
+            color:var(--text-secondary);
+            font-size:0.95rem;
+            margin-bottom:1rem;
+        }
+        .payment-row {
+            display:flex;
+            flex-wrap:wrap;
+            gap:1.5rem;
+            justify-content:center;
+            align-items:center;
+            margin:1rem 0;
+        }
+        .payment-row .stripe-container { flex:1; min-width:280px; }
+        .payment-row .qr-container { text-align:center; }
+        .payment-row .qr-container img {
+            max-width:150px;
+            border-radius:12px;
+            border:2px solid var(--gold);
+            box-shadow:0 4px 20px rgba(201,168,76,0.2);
+            transition:transform var(--transition);
+        }
+        .payment-row .qr-container img:hover { transform:scale(1.04); }
+        .payment-row .qr-container .caption {
+            font-size:0.75rem;
+            color:var(--text-muted);
+            margin-top:0.3rem;
+        }
+        .payment-row .direct-link {
+            display:inline-block;
+            margin-top:0.5rem;
+            padding:0.5rem 1.5rem;
+            border-radius:2rem;
+            background:var(--primary);
+            color:#fff;
+            font-weight:600;
+            font-size:0.85rem;
+            transition:background var(--transition);
+        }
+        .payment-row .direct-link:hover { background:var(--primary-light); }
+        .payment-row .direct-link .arrow { margin-left:0.3rem; }
+
+        /* ===== ASSET GRID ===== */
+        .asset-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+            gap:1.5rem;
+            margin:2rem 0;
+            position:relative;
+            z-index:1;
+        }
+        .asset-card {
+            background:var(--glass);
+            backdrop-filter:blur(20px);
+            -webkit-backdrop-filter:blur(20px);
+            border:1px solid var(--glass-border);
+            border-radius:var(--radius);
+            padding:1.5rem;
+            transition:all var(--transition);
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            text-align:center;
+            box-shadow:var(--shadow);
+            position:relative;
+            overflow:hidden;
+        }
+        .asset-card:hover {
+            transform:translateY(-8px);
+            border-color:var(--gold);
+            box-shadow:var(--shadow-hover);
+        }
+        .asset-card .card-glow {
+            position:absolute;
+            top:-50%;
+            left:-50%;
+            width:200%;
+            height:200%;
+            background:radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+            pointer-events:none;
+            opacity:0;
+            transition:opacity var(--transition);
+        }
+        .asset-card:hover .card-glow { opacity:1; }
+        .asset-card .asset-icon {
+            font-size:2.4rem;
+            margin-bottom:0.3rem;
+            position:relative;
+            z-index:1;
+        }
+        .asset-card .asset-filename {
+            font-weight:600;
+            font-size:0.9rem;
+            color:var(--primary);
+            word-break:break-all;
+            margin:0.2rem 0;
+            position:relative;
+            z-index:1;
+        }
+        .asset-card .asset-sha {
+            font-size:0.55rem;
+            color:var(--text-muted);
+            word-break:break-all;
+            font-family:'Courier New',monospace;
+            background:rgba(0,0,0,0.03);
+            padding:0.2rem 0.6rem;
+            border-radius:4px;
+            max-width:100%;
+            margin:0.2rem 0;
+            position:relative;
+            z-index:1;
+        }
+        .asset-card .asset-label {
+            font-size:0.8rem;
+            color:var(--text-secondary);
+            position:relative;
+            z-index:1;
+        }
+        .asset-card .badge {
+            display:inline-block;
+            font-size:0.55rem;
+            font-weight:600;
+            text-transform:uppercase;
+            padding:0.05rem 0.8rem;
+            border-radius:12px;
+            margin:0.3rem 0;
+            position:relative;
+            z-index:1;
+        }
+        .badge-free { background:#e8f5e9; color:#2e7d32; }
+        .badge-paid { background:#fff3e0; color:#e65100; }
+        .asset-card .btn-download {
+            margin-top:0.6rem;
+            padding:0.5rem 2rem;
+            border-radius:2rem;
+            background:var(--primary);
+            color:#fff;
+            font-weight:600;
+            font-size:0.85rem;
+            text-decoration:none;
+            transition:all var(--transition);
+            position:relative;
+            z-index:1;
+            border:none;
+            cursor:pointer;
+        }
+        .asset-card .btn-download:hover {
+            background:var(--primary-light);
+            transform:scale(1.04);
+            box-shadow:0 4px 20px rgba(10,46,92,0.25);
+        }
+        .asset-card .btn-locked {
+            margin-top:0.6rem;
+            padding:0.5rem 1.5rem;
+            border-radius:2rem;
+            background:#d0d8e0;
+            color:var(--text-muted);
+            font-weight:600;
+            font-size:0.85rem;
+            cursor:not-allowed;
+            position:relative;
+            z-index:1;
+        }
+        .asset-card .lock-overlay {
+            opacity:0.5;
+            filter:grayscale(0.3);
+            transition:all var(--transition);
+        }
+        .asset-card .lock-overlay:hover { opacity:0.6; }
+
+        /* ===== SMARTSCREEN TIP ===== */
+        .tip-box {
+            margin:2rem auto;
+            padding:1.2rem 1.5rem;
+            background:#fef9e7;
+            border-left:4px solid #f0ad4e;
+            border-radius:var(--radius);
+            font-size:0.85rem;
+            color:#856404;
+            max-width:800px;
+            position:relative;
+            z-index:1;
+        }
+        .tip-box code {
+            background:#f0f0f0;
+            padding:0.2rem 0.5rem;
+            border-radius:4px;
+            font-family:'Courier New',monospace;
+            font-size:0.75rem;
+        }
+        .tip-box .tip-icon { margin-right:0.5rem; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align:center;
+            padding:2.5rem 0;
+            color:var(--text-muted);
+            border-top:1px solid var(--border);
+            margin-top:2rem;
+            font-size:0.9rem;
+            position:relative;
+            z-index:1;
+        }
+        .footer a { color:var(--primary); transition:color var(--transition); }
+        .footer a:hover { color:var(--gold); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width:768px) {
+            .hero h1 { font-size:2.2rem; }
+            .nav a { font-size:0.8rem; }
+            .nav .cta { padding:0.3rem 1rem; font-size:0.75rem; }
+            .asset-grid { grid-template-columns:1fr; }
+            .payment-row { flex-direction:column; }
+            .container { padding:0 1rem; }
+        }
+        @media (max-width:480px) {
+            .hero h1 { font-size:1.8rem; }
+            .hero .subtitle { font-size:1rem; }
+            .asset-card { padding:1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== PARTICLES BACKGROUND ===== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#e8c86a"/></linearGradient></defs>
+                <path class="crown" d="M4 24 L6 14 L10 18 L16 8 L22 18 L26 14 L28 24 L4 24 Z" fill="url(#g)"/>
+                <path class="star" d="M16 2 L18 8 L24 8 L19 12 L21 18 L16 14 L11 18 L13 12 L8 8 L14 8 L16 2 Z" fill="#0a2e5c"/>
+                <rect x="6" y="24" width="20" height="2" rx="1" fill="#0a2e5c" opacity="0.2"/>
+                </svg>
+                Crown<span>Star</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html">案例</a>
+                <a href="security.html">安全</a>
+                <a href="download-free.html">免费下载</a>
+                <a href="downloads.html" class="active">下载中心</a>
+                <a href="swagger.html" target="_blank">API</a>
+                <a href="articles.html">文章库</a>
+                <a href="ai-groups.html" class="cta cta-gold">AI-Groups</a>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- ===== BACK LINK ===== -->
+        <div class="hero">
+            <a href="downloads.html" class="back-link">← 返回下载中心</a>
+            <h1>🏆 <span class="gold">专业版</span> <span class="version-badge">v7.1.1</span></h1>
+            <p class="subtitle">企业级主权AI平台 · 100% 私有化部署 · 终身免费升级</p>
+            <div class="price-badge">💰 价格: ¥389 · 一次购买，终身免费升级</div>
+        </div>
+
+        <!-- ===== PAYMENT SECTION (paid tiers only) ===== -->
+                <div class="payment-section">
+            <div class="lock-icon">🔒</div>
+            <h2>购买 专业版</h2>
+            <p class="upgrade-note">一次性购买 ¥389，终身免费升级。支付完成后您将通过邮件收到所有安装包和许可证密钥。</p>
+            <div class="payment-row">
+                <div class="stripe-container">
+                    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+                    <stripe-buy-button
+                        buy-button-id="buy_btn_1Tt7KWJ1ruuDi5YqpRUOlsMU"
+                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
+                    >
+                    </stripe-buy-button>
+                </div>
+                <div class="qr-container">
+                    <img src="images/qr_4gM14o4nf57hd7waGKefC0c_pro.png" alt="微信支付二维码" />
+                    <div class="caption">扫码支付 (微信)</div>
+                </div>
+            </div>
+            <p style="margin-top:0.5rem;">
+                <a href="https://buy.stripe.com/4gM14o4nf57hd7waGKefC0c" class="direct-link" target="_blank">
+                    或点击这里直接支付 <span class="arrow">→</span>
+                </a>
+            </p>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.3rem;">
+                💡 支付完成后，下载按钮将自动解锁。您也将收到邮件确认。
+            </p>
+        </div>
+
+        <!-- ===== ASSET GRID ===== -->
+        <div class="asset-grid">
+                    <div class="asset-card lock-overlay">
+            <div class="card-glow"></div>
+            <div class="asset-icon">⚡</div>
+            <div class="asset-filename">CrownStar-professional-Win64.exe</div>
+            <div class="asset-sha">SHA-256: 24287bb416dcac907ad6ca47988f32e8d96da74640e50311d0eb8ca849355a62</div>
+            <div class="asset-label">Windows x64 独立安装包</div>
+            <span class="badge badge-paid">🔒 需要购买</span>
+            <span class="btn-locked">🔒 购买后解锁</span>
+        </div>        <div class="asset-card lock-overlay">
+            <div class="card-glow"></div>
+            <div class="asset-icon">📦</div>
+            <div class="asset-filename">CrownStar-professional-Win64.zip</div>
+            <div class="asset-sha">SHA-256: c060fc8da634bea6a45cf4c5fd4539a4893213ff599e8139918a45abbf585161</div>
+            <div class="asset-label">Windows x64 压缩包</div>
+            <span class="badge badge-paid">🔒 需要购买</span>
+            <span class="btn-locked">🔒 购买后解锁</span>
+        </div>        <div class="asset-card lock-overlay">
+            <div class="card-glow"></div>
+            <div class="asset-icon">💼</div>
+            <div class="asset-filename">CrownStar-professional-Win64-Portable.zip</div>
+            <div class="asset-sha">SHA-256: 7928bfb394323a74f4720a5ff989bfd2b75c6d7fca85f70f6abadfd2b69c644a</div>
+            <div class="asset-label">便携版 (免安装)</div>
+            <span class="badge badge-paid">🔒 需要购买</span>
+            <span class="btn-locked">🔒 购买后解锁</span>
+        </div>        <div class="asset-card lock-overlay">
+            <div class="card-glow"></div>
+            <div class="asset-icon">⚡</div>
+            <div class="asset-filename">CrownStar-professional-Win64-CUDA.exe</div>
+            <div class="asset-sha">SHA-256: 5d7f10604602a2e05e404adf3ede95205d776a7e8c4ab9949819ae477153b6ec</div>
+            <div class="asset-label">CUDA 加速版 (NVIDIA GPU)</div>
+            <span class="badge badge-paid">🔒 需要购买</span>
+            <span class="btn-locked">🔒 购买后解锁</span>
+        </div>
+        </div>
+
+        <!-- ===== SMARTSCREEN TIP ===== -->
+        <div class="tip-box">
+            <span class="tip-icon">📌</span>
+            <strong>SHA-256 校验说明</strong><br>
+            每个下载文件旁边都提供了 SHA-256 校验和。下载后，您可以使用以下命令验证文件完整性：<br>
+            <code>certutil -hashfile 文件名.exe SHA256</code>
+            <span style="display:inline-block; margin:0 0.5rem;">或</span>
+            <code>Get-FileHash 文件名.exe -Algorithm SHA256</code>
+            <br><br>
+            <strong>⚠️ Windows SmartScreen 提示：</strong> 如果 .exe 被拦截，请右键点击文件 → 属性 → 勾选“解除锁定” → 应用 → 确定。
+        </div>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+        </div>
+    </footer>
+
+    <!-- ===== PARTICLES SCRIPT ===== -->
+    <script>
+    (function() {
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let w, h, particles = [];
+
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const count = Math.min(60, Math.floor((w * h) / 15000));
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                size: Math.random() * 3 + 1,
+                speedX: (Math.random() - 0.5) * 0.4,
+                speedY: (Math.random() - 0.5) * 0.4,
+                opacity: Math.random() * 0.2 + 0.05
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            for (let p of particles) {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0 || p.x > w) p.speedX *= -1;
+                if (p.y < 0 || p.y > h) p.speedY *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(10,46,92, ${p.opacity})`;
+                ctx.fill();
+            }
+            // Lines
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(10,46,92, ${0.03 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // ---- Header scroll shadow ----
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+    })();
+    </script>
+</body>
+</html>
+

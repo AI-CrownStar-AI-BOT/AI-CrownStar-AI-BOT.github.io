@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Groups 05 · 在线 API 与离线模型 · CrownStar</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:960px; margin:0 auto; padding:2rem; }
+        h1 { font-size:2.8rem; color:#0a2e5c; margin-bottom:0.5rem; }
+        h1 span { color:#c9a84c; }
+        h2 { font-size:1.8rem; color:#0a2e5c; margin-top:2rem; margin-bottom:0.5rem; }
+        p { font-size:1.05rem; color:#4a4a6a; margin-bottom:1rem; }
+        .gold { color:#c9a84c; }
+        .back-link { display:inline-block; margin-top:2rem; background:#0a2e5c; color:#fff; padding:0.6rem 1.8rem; border-radius:3rem; text-decoration:none; font-weight:600; }
+        .header { background:#fff; padding:1rem 0; border-bottom:1px solid #e8ecf0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; padding:0 2rem; max-width:1280px; margin:0 auto; }
+        .logo { font-size:1.6rem; font-weight:800; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav a { color:#4a4a6a; text-decoration:none; margin-left:1.2rem; font-weight:500; }
+        .nav a:hover { color:#0a2e5c; }
+        .footer { background:#f2f4f6; padding:2rem 0; margin-top:3rem; text-align:center; color:#7a7a9a; font-size:0.85rem; }
+        @media (max-width:768px) { h1 { font-size:2rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span> AI</a>
+            <nav class="nav"><a href="index.html">首页</a><a href="ai-groups.html">AI-Groups</a><a href="pricing.html">定价</a><a href="contact.html">联系我们</a></nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>在线 API <span>与离线模型</span></h1>
+        <p style="font-size:1.1rem; color:#5a5a7a;">同时支持 DeepSeek API 和本地下载模型，灵活切换，满足不同场景需求。</p>
+
+        <h2>两种模式，自由选择</h2>
+        <p><span class="gold">◆</span> <strong>在线 API 模式</strong>：使用 DeepSeek 官方 API（或任何 OpenAI 兼容 API）。适合需要最高性能、不想管理模型文件的用户。<br>
+        <span class="gold">◆</span> <strong>离线模型模式</strong>：从 Hugging Face 下载模型到本地，完全离线运行。适合对数据隐私有严格要求的客户。</p>
+
+        <h2>无缝切换</h2>
+        <p>AI-Groups 允许您在同一会话中混合使用在线和离线模型。例如，您可以让 DeepSeek API 处理通用问题，同时让本地模型处理敏感数据。所有切换对用户完全透明。</p>
+
+        <h2>数据隐私承诺</h2>
+        <p>无论您选择哪种模式，<strong>您的数据永远不会被 CrownStar 收集或上传</strong>。在线 API 模式下，您的 API 密钥和请求内容由您完全控制；离线模式下，数据根本不会离开您的硬件。</p>
+
+        <p style="background:#eef2f8; padding:1.5rem; border-radius:12px; border-left:4px solid #c9a84c;">
+            🔒 <strong>最佳实践：</strong> 对于涉及商业机密、个人隐私或政府数据的场景，强烈建议使用离线模式。对于日常通用问答，在线 API 模式更便捷。
+        </p>
+
+        <a href="ai-groups.html" class="back-link">← 返回 AI-Groups</a>
+    </div>
+    <footer class="footer"><p>© 2026 CrownStar AI. All rights reserved.</p></footer>
+</body>
+</html>

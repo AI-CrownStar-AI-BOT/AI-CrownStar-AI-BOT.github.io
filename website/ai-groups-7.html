@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Groups 07 · 轻量级模型策略 · CrownStar</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:960px; margin:0 auto; padding:2rem; }
+        h1 { font-size:2.8rem; color:#0a2e5c; margin-bottom:0.5rem; }
+        h1 span { color:#c9a84c; }
+        h2 { font-size:1.8rem; color:#0a2e5c; margin-top:2rem; margin-bottom:0.5rem; }
+        p { font-size:1.05rem; color:#4a4a6a; margin-bottom:1rem; }
+        .gold { color:#c9a84c; }
+        .back-link { display:inline-block; margin-top:2rem; background:#0a2e5c; color:#fff; padding:0.6rem 1.8rem; border-radius:3rem; text-decoration:none; font-weight:600; }
+        .header { background:#fff; padding:1rem 0; border-bottom:1px solid #e8ecf0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; padding:0 2rem; max-width:1280px; margin:0 auto; }
+        .logo { font-size:1.6rem; font-weight:800; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav a { color:#4a4a6a; text-decoration:none; margin-left:1.2rem; font-weight:500; }
+        .nav a:hover { color:#0a2e5c; }
+        .footer { background:#f2f4f6; padding:2rem 0; margin-top:3rem; text-align:center; color:#7a7a9a; font-size:0.85rem; }
+        @media (max-width:768px) { h1 { font-size:2rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span> AI</a>
+            <nav class="nav"><a href="index.html">首页</a><a href="ai-groups.html">AI-Groups</a><a href="pricing.html">定价</a><a href="contact.html">联系我们</a></nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>轻量级模型 <span>策略</span></h1>
+        <p style="font-size:1.1rem; color:#5a5a7a;">PC 和小型服务器如何高效运行 DeepSeek V1 Lite 等轻量模型。</p>
+
+        <h2>为什么需要轻量级模型？</h2>
+        <p>大型模型（如 DeepSeek V3、Llama 70B）需要强大的 GPU 和大量内存，不适合普通 PC 或小型服务器。而 <strong>轻量级模型</strong>（如 DeepSeek V1 Lite、Phi、MiniCPM 等）可以在普通硬件上运行，同时提供可接受的推理质量。</p>
+
+        <h2>CrownStar 的轻量级策略</h2>
+        <p><span class="gold">◆</span> <strong>推荐模型：</strong> DeepSeek V1 Lite（1.5B/7B 参数）、Phi-2、MiniCPM 等。<br>
+        <span class="gold">◆</span> <strong>量化支持：</strong> AI-Groups 支持 4-bit、8-bit 量化，进一步降低内存占用。<br>
+        <span class="gold">◆</span> <strong>CPU 推理：</strong> 即使没有 GPU，AI-Groups 也可以使用 CPU 推理，速度可接受。<br>
+        <span class="gold">◆</span> <strong>多模型轻量化：</strong> 您可以同时运行多个轻量模型，通过融合层获得接近大型模型的质量。</p>
+
+        <h2>推荐配置</h2>
+        <p><strong>最低配置：</strong> 8GB RAM，4 核 CPU（运行 DeepSeek V1 Lite 7B 量化版）<br>
+        <strong>推荐配置：</strong> 16GB RAM，6 核 CPU + 4GB VRAM GPU（运行多个轻量模型）<br>
+        <strong>理想配置：</strong> 32GB RAM，8 核 CPU + 8GB VRAM GPU（运行 DeepSeek V3 量化版 + 其他模型）</p>
+
+        <p style="background:#eef2f8; padding:1.5rem; border-radius:12px; border-left:4px solid #c9a84c;">
+            💻 <strong>对于 PC 用户：</strong> 我们推荐从 DeepSeek V1 Lite 开始，体验 AI-Groups 的全部功能，同时享受快速响应。
+        </p>
+
+        <a href="ai-groups.html" class="back-link">← 返回 AI-Groups</a>
+    </div>
+    <footer class="footer"><p>© 2026 CrownStar AI. All rights reserved.</p></footer>
+</body>
+</html>
