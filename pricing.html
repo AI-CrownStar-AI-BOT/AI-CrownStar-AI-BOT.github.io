@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>定价 · CrownStar AI · 主权级AI平台</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.85); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.4); padding:0.8rem 0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+        .logo { font-size:1.6rem; font-weight:700; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav { display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; align-items:center; }
+        .nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.95rem; transition:color 0.3s; }
+        .nav a:hover { color:#0a2e5c; }
+        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.8rem; border-radius:3rem; font-weight:600; }
+        .nav .cta:hover { background:#1a4a7a; }
+        .nav .active { color:#0a2e5c; font-weight:600; border-bottom:2px solid #c9a84c; }
+        .page-hero { text-align:center; padding:3rem 0 2rem; }
+        .page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+        .page-hero h1 .gold { color:#c9a84c; }
+        .page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
+        .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; margin:2rem 0; }
+        .pricing-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; text-align:center; transition:transform 0.3s; }
+        .pricing-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); }
+        .pricing-card .tier { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:#7a7a9a; }
+        .pricing-card .name { font-size:1.6rem; font-weight:700; color:#0a2e5c; }
+        .pricing-card .price { font-size:2.8rem; font-weight:800; color:#c9a84c; margin:0.2rem 0; }
+        .pricing-card .price .currency { font-size:1.4rem; }
+        .pricing-card ul { text-align:left; padding-left:0.5rem; list-style:none; margin:0.8rem 0; }
+        .pricing-card ul li { padding:0.2rem 0; font-size:0.9rem; color:#5a5a7a; display:flex; align-items:flex-start; gap:0.5rem; }
+        .pricing-card ul li::before { content:"◆"; color:#c9a84c; font-weight:700; font-size:0.5rem; margin-top:0.3rem; }
+        .pricing-card .btn-buy { display:inline-block; padding:0.6rem 2rem; border-radius:3rem; font-weight:600; text-decoration:none; background:#0a2e5c; color:#fff; transition:background 0.3s; }
+        .pricing-card .btn-buy:hover { background:#1a4a7a; }
+        .pricing-card .btn-buy.gold-bg { background:#c9a84c; color:#0a2e5c; }
+        .pricing-card .btn-buy.gold-bg:hover { background:#dbb95e; }
+        .popular { border:2px solid #c9a84c; background:rgba(255,255,255,0.9); }
+        .popular-badge { display:inline-block; background:#c9a84c; color:#0a2e5c; font-size:0.6rem; font-weight:700; padding:0.2rem 1rem; border-radius:2rem; text-transform:uppercase; margin-bottom:0.5rem; }
+        .footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
+        .footer a { color:#0a2e5c; text-decoration:none; }
+        @media (max-width:768px) { .page-hero h1 { font-size:2.2rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+<nav class="nav">
+    <a href="index.html">首页</a>
+    <a href="product.html">产品</a>
+    <a href="pricing.html">定价</a>
+    <a href="case-studies.html">案例</a>
+    <a href="security.html">安全</a>
+    <a href="download-free.html">免费下载</a>
+    <a href="downloads.html">下载中心</a>
+    <a href="swagger.html" target="_blank">API</a>
+    <a href="articles.html">文章库</a>
+    <a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a>
+    <a href="contact.html" class="cta">联系我们</a>
+</nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>定价 · <span class="gold">一次买断，终身升级</span></h1>
+            <p class="subtitle">所有付费版本均包含 <strong>永久免费升级</strong> 和 <strong>源码授权</strong>（组织版及以上）。选择适合您的层级，即刻拥有主权 AI。</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="pricing-grid">
+            <!-- Free -->
+            <div class="pricing-card">
+                <div class="tier">社区版</div>
+                <div class="name">免费版</div>
+                <div class="price" style="font-size:1.8rem; color:#5a5a7a;">¥0</div>
+                <ul>
+                    <li>40k 输入 / 140k 输出</li>
+                    <li>1 用户 · 只读 API</li>
+                    <li>永久免费</li>
+                </ul>
+                <a href="download-free.html" class="btn-buy" style="background:#4a4a6a;">免费下载</a>
+            </div>
+            <!-- Basic -->
+            <div class="pricing-card">
+                <div class="tier">入门</div>
+                <div class="name">基础版</div>
+                <div class="price"><span class="currency">¥</span>39</div>
+                <ul>
+                    <li>80k 输入 / 280k 输出</li>
+                    <li>1 用户 · 完整 API</li>
+                    <li>邮件支持</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-basic-link" class="btn-buy" target="_blank">立即购买</a>
+            </div>
+            <!-- Advanced -->
+            <div class="pricing-card">
+                <div class="tier">进阶</div>
+                <div class="name">进阶版</div>
+                <div class="price"><span class="currency">¥</span>248</div>
+                <ul>
+                    <li>200k 输入 / 500k 输出</li>
+                    <li>1 用户 · RLS 安全</li>
+                    <li>邮件+电话支持</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-advanced-link" class="btn-buy" target="_blank">立即购买</a>
+            </div>
+            <!-- Professional (Popular) -->
+            <div class="pricing-card popular">
+                <div class="popular-badge">最受欢迎</div>
+                <div class="tier">专业</div>
+                <div class="name">专业版</div>
+                <div class="price"><span class="currency">¥</span>389</div>
+                <ul>
+                    <li>500k 输入 / 1M 输出</li>
+                    <li>1 用户 · RLS + 审计</li>
+                    <li>邮件+电话支持</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-professional-link" class="btn-buy gold-bg" target="_blank">立即购买</a>
+            </div>
+            <!-- Org Small -->
+            <div class="pricing-card">
+                <div class="tier">组织</div>
+                <div class="name">组织版 – 小型企业及地方政府</div>
+                <div class="price"><span class="currency">¥</span>705</div>
+                <ul>
+                    <li>1M 输入 / 2M 输出</li>
+                    <li>5 用户 · 源代码</li>
+                    <li>优先电话支持</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-org-small-link" class="btn-buy" target="_blank">立即购买</a>
+            </div>
+            <!-- Org Medium -->
+            <div class="pricing-card">
+                <div class="tier">组织</div>
+                <div class="name">组织版 – 中型企业及区域政府</div>
+                <div class="price"><span class="currency">¥</span>61,775</div>
+                <ul>
+                    <li>2M 输入 / 4M 输出</li>
+                    <li>1,000 用户 · 源代码</li>
+                    <li>优先电话支持</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-org-medium-link" class="btn-buy" target="_blank">立即购买</a>
+            </div>
+            <!-- Org Large -->
+            <div class="pricing-card">
+                <div class="tier">组织</div>
+                <div class="name">组织版 – 大型企业及国家级机构</div>
+                <div class="price"><span class="currency">¥</span>476,000</div>
+                <ul>
+                    <li>4M 输入 / 8M 输出</li>
+                    <li>∞ 用户 · 源代码</li>
+                    <li>优先电话支持</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-org-large-link" class="btn-buy" target="_blank">立即购买</a>
+            </div>
+            <!-- Enterprise -->
+            <div class="pricing-card" style="border:2px solid #c9a84c; background:rgba(255,255,255,0.9);">
+                <div class="tier">旗舰</div>
+                <div class="name">企业旗舰版 – 超大型企业及联邦机构</div>
+                <div class="price"><span class="currency">¥</span>1,675,000</div>
+                <ul>
+                    <li>无限输入 / 输出</li>
+                    <li>∞ 用户 · 白标品牌</li>
+                    <li>专属技术经理 7×24</li>
+                </ul>
+                <a href="https://buy.stripe.com/your-enterprise-link" class="btn-buy gold-bg" target="_blank">立即咨询</a>
+            </div>
+        </div>
+        <p style="text-align:center; color:#7a7a9a; font-size:0.9rem;">所有付费版本包含终身免费升级。购买后通过邮件获取下载链接和授权密钥。</p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>

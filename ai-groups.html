@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Groups · CrownStar 多模型融合引擎</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.85); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.4); padding:0.8rem 0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+        .logo { font-size:1.6rem; font-weight:700; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav { display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; align-items:center; }
+        .nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.95rem; transition:color 0.3s; }
+        .nav a:hover { color:#0a2e5c; }
+        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.8rem; border-radius:3rem; font-weight:600; }
+        .nav .cta:hover { background:#1a4a7a; }
+        .nav .active { color:#0a2e5c; font-weight:600; border-bottom:2px solid #c9a84c; }
+
+        .page-hero { text-align:center; padding:3rem 0 2rem; }
+        .page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+        .page-hero h1 .gold { color:#c9a84c; }
+        .page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
+
+        .ai-groups-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; margin:2rem 0; }
+        .ai-groups-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:1.5rem; transition:transform 0.3s; }
+        .ai-groups-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); border-color:#c9a84c; }
+        .ai-groups-card .num { font-size:2rem; font-weight:800; color:#c9a84c; opacity:0.3; margin-bottom:0.2rem; }
+        .ai-groups-card h3 { font-size:1.1rem; font-weight:600; color:#0a2e5c; margin:0.3rem 0; }
+        .ai-groups-card p { color:#5a5a7a; font-size:0.9rem; }
+        .ai-groups-card .read-link { display:inline-block; margin-top:0.5rem; font-weight:600; color:#c9a84c; text-decoration:none; transition:0.2s; }
+        .ai-groups-card .read-link:hover { color:#0a2e5c; }
+
+        .footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
+        .footer a { color:#0a2e5c; text-decoration:none; }
+
+        @media (max-width:768px) { .page-hero h1 { font-size:2.2rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html">案例</a>
+                <a href="security.html">安全</a>
+                <a href="download-free.html">免费下载</a>
+                <a href="downloads.html">下载中心</a>
+                <a href="swagger.html" target="_blank">API</a>
+                <a href="articles.html">文章库</a>
+                <a href="ai-groups.html" class="active cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>🧠 <span class="gold">AI-Groups</span> 多模型融合引擎</h1>
+            <p class="subtitle">CrownStar 的 AI‑Groups 让您同时运行多个 Hugging Face 模型，通过 9 个数学模块融合输出，打造前所未有的智能体。</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="ai-groups-grid">
+            <div class="ai-groups-card">
+                <div class="num">01</div>
+                <h3>什么是 AI-Groups？</h3>
+                <p>CrownStar 的全新架构，将多个模型和数据集融合为统一智能体。</p>
+                <a href="ai-groups-1.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">02</div>
+                <h3>Hugging Face 深度整合</h3>
+                <p>如何无缝接入 Hugging Face 的模型库、数据集和存储桶。</p>
+                <a href="ai-groups-2.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">03</div>
+                <h3>多模型并发与融合</h3>
+                <p>同时运行多个 vLLM，通过 AI‑Groups 融合层生成更优输出。</p>
+                <a href="ai-groups-3.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">04</div>
+                <h3>数据集增强与检索</h3>
+                <p>利用 Hugging Face 数据集动态增强推理上下文。</p>
+                <a href="ai-groups-4.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">05</div>
+                <h3>在线 API 与离线模型</h3>
+                <p>同时支持 DeepSeek API 和本地下载模型，灵活切换。</p>
+                <a href="ai-groups-5.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">06</div>
+                <h3>Hugging Face Storage Buckets</h3>
+                <p>使用 hf://buckets/ 协议存储和共享模型与数据集。</p>
+                <a href="ai-groups-6.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">07</div>
+                <h3>轻量级模型策略</h3>
+                <p>PC 和小型服务器如何高效运行 DeepSeek V1 Lite 等轻量模型。</p>
+                <a href="ai-groups-7.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">08</div>
+                <h3>数据主权与隐私</h3>
+                <p>为什么 CrownStar 坚持 100% 本地化 —— 您的数据，您的资产。</p>
+                <a href="ai-groups-8.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">09</div>
+                <h3>源代码购买与自定义</h3>
+                <p>付费用户如何以合理价格获取源码，自由集成和修改。</p>
+                <a href="ai-groups-9.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">10</div>
+                <h3>终身免费升级</h3>
+                <p>一次购买，同层级所有未来版本永久免费下载。</p>
+                <a href="ai-groups-10.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">11</div>
+                <h3>面向中国市场的 AI 转型</h3>
+                <p>CrownStar 如何服务中国所有类型的用户 —— 个人、企业、政府。</p>
+                <a href="ai-groups-11.html" class="read-link">阅读全文 →</a>
+            </div>
+            <div class="ai-groups-card">
+                <div class="num">12</div>
+                <h3>未来路线图 & 稳定更新</h3>
+                <p>每 4‑5 个月发布 2‑3 个稳定版本，持续迭代。</p>
+                <a href="ai-groups-12.html" class="read-link">阅读全文 →</a>
+            </div>
+        </div>
+        <div style="text-align:center; margin:2rem 0;">
+            <a href="pricing.html" class="cta" style="display:inline-block; background:#0a2e5c; color:#fff; padding:0.8rem 3rem; border-radius:3rem; font-weight:600; text-decoration:none;">探索定价 →</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>

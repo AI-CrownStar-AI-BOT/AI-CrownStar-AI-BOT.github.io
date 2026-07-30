@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>站点导航 · CrownStar 企业级主权AI平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+            background: #f0f3f8;
+            color: #1a1a2e;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px) saturate(1.8);
+            -webkit-backdrop-filter: blur(20px) saturate(1.8);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding: 0.6rem 0;
+            transition: box-shadow 0.3s;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0a2e5c;
+            text-decoration: none;
+        }
+        .logo svg { width: 2.2rem; height: 2.2rem; flex-shrink: 0; }
+        .logo svg .crown { fill: #c9a84c; }
+        .logo svg .star { fill: #0a2e5c; }
+        .logo span { color: #c9a84c; }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem 1.2rem;
+            align-items: center;
+        }
+        .nav a {
+            color: #4a4a6a;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.92rem;
+            padding: 0.2rem 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #c9a84c, #0a2e5c);
+            transition: width 0.4s ease;
+        }
+        .nav a:hover { color: #0a2e5c; }
+        .nav a:hover::after { width: 100%; }
+        .nav .cta {
+            background: #0a2e5c;
+            color: #fff !important;
+            padding: 0.4rem 1.8rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .nav .cta::after { display: none; }
+        .nav .cta:hover {
+            background: #1a4a7a;
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(10,46,92,0.25);
+        }
+        .nav .active {
+            color: #c9a84c;
+            font-weight: 600;
+        }
+        .nav .active::after { width: 100%; }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            text-align: center;
+            padding: 3rem 0 2rem;
+        }
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #0a2e5c;
+        }
+        .page-hero h1 .gold { color: #c9a84c; }
+        .page-hero .subtitle {
+            font-size: 1.2rem;
+            color: #5a5a7a;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .page-hero .subtitle .highlight { color: #0a2e5c; font-weight: 600; }
+
+        /* ===== STATS ===== */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem 4rem;
+            flex-wrap: wrap;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(0,0,0,0.04);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            background: rgba(255,255,255,0.3);
+            margin: 0.5rem 0 2rem;
+        }
+        .stats .stat { text-align: center; }
+        .stats .stat .number { font-size: 2rem; font-weight: 700; color: #0a2e5c; }
+        .stats .stat .label { font-size: 0.85rem; color: #7a7a9a; }
+
+        /* ===== LINK GRID ===== */
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
+        }
+        .link-card {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .link-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.07);
+            border-color: #c9a84c;
+            background: rgba(255,255,255,0.8);
+        }
+        .link-card .header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.3rem;
+        }
+        .link-card .icon {
+            font-size: 2rem;
+            width: 2.8rem;
+            height: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10,46,92,0.06);
+            border-radius: 0.8rem;
+            flex-shrink: 0;
+        }
+        .link-card .category {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #c9a84c;
+            font-weight: 700;
+        }
+        .link-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0a2e5c;
+            margin: 0.1rem 0;
+        }
+        .link-card p {
+            color: #5a5a7a;
+            font-size: 0.9rem;
+            margin: 0.2rem 0 0.4rem;
+        }
+        .link-card .url {
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: 0.7rem;
+            color: #8a8aaa;
+            word-break: break-all;
+            background: rgba(0,0,0,0.03);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+        .link-card .badge {
+            display: inline-block;
+            font-size: 0.55rem;
+            font-weight: 600;
+            padding: 0.05rem 0.6rem;
+            border-radius: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-left: 0.5rem;
+        }
+        .link-card .badge.public { background: #e8f5e9; color: #2e7d32; }
+        .link-card .badge.external { background: #e3f2fd; color: #0d47a1; }
+        .link-card .badge.stripe { background: #fff3e0; color: #e65100; }
+
+        /* ===== CATEGORY HEADERS ===== */
+        .category-section {
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(201,168,76,0.3);
+        }
+        .category-section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0a2e5c;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .category-section h2 .emoji { font-size: 1.6rem; }
+
+        /* ===== OCTOCAT ===== */
+        .octocat-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+            z-index: 999;
+            transition: transform 0.1s ease-out;
+        }
+        .octocat-container svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 2.5rem 0 2rem;
+            color: #7a7a9a;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        .footer a { color: #0a2e5c; text-decoration: none; }
+        .footer a:hover { color: #c9a84c; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 2.2rem; }
+            .link-grid { grid-template-columns: 1fr 1fr; }
+            .stats { gap: 1rem 2rem; }
+            .octocat-container { width: 70px; height: 70px; bottom: 15px; right: 15px; }
+        }
+        @media (max-width: 480px) {
+            .link-grid { grid-template-columns: 1fr; }
+            .octocat-container { width: 50px; height: 50px; bottom: 10px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#e8c86a"/></linearGradient></defs>
+                <path class="crown" d="M4 24 L6 14 L10 18 L16 8 L22 18 L26 14 L28 24 L4 24 Z" fill="url(#g)"/>
+                <path class="star" d="M16 2 L18 8 L24 8 L19 12 L21 18 L16 14 L11 18 L13 12 L8 8 L14 8 L16 2 Z" fill="#0a2e5c"/>
+                <rect x="6" y="24" width="20" height="2" rx="1" fill="#0a2e5c" opacity="0.2"/>
+                </svg>
+                Crown<span>Star</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html">案例</a>
+                <a href="security.html">安全</a>
+                <a href="download-free.html">免费下载</a>
+                <a href="downloads.html">下载中心</a>
+                <a href="swagger.html" target="_blank">📖 API</a>
+                <a href="articles.html">文章库</a>
+                <a href="links.html" class="active">站点导航</a>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>🧭 站点导航</h1>
+            <p class="subtitle">CrownStar 所有公开页面的<span class="highlight">一站式入口</span> — 快速找到您需要的一切</p>
+        </div>
+    </section>
+
+    <!-- ===== STATS ===== -->
+    <div class="stats">
+        <div class="stat"><div class="number">15</div><div class="label">公开页面</div></div>
+        <div class="stat"><div class="number">5</div><div class="label">分类</div></div>
+        <div class="stat"><div class="number">🔓</div><div class="label">完全公开 · 无需登录</div></div>
+    </div>
+
+    <div class="container">
+
+        <!-- ============================================================
+        SECTION 1: 首页与导航
+        ============================================================ -->
+        <div class="category-section">
+            <h2><span class="emoji">🏠</span> 首页与导航</h2>
+        </div>
+        <div class="link-grid">
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/" target="_blank" class="link-card">
+                <div class="header"><span class="icon">🏠</span><div><span class="category">首页</span></div></div>
+                <h3>主页</h3>
+                <p>CrownStar 企业级主权AI平台首页</p>
+                <span class="url">/website/</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/" target="_blank" class="link-card">
+                <div class="header"><span class="icon">↗️</span><div><span class="category">重定向</span></div></div>
+                <h3>根地址</h3>
+                <p>自动重定向到 /website/</p>
+                <span class="url">/</span>
+                <span class="badge public">公开</span>
+            </a>
+        </div>
+
+        <!-- ============================================================
+        SECTION 2: 产品与营销
+        ============================================================ -->
+        <div class="category-section">
+            <h2><span class="emoji">📄</span> 产品与营销</h2>
+        </div>
+        <div class="link-grid">
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/product.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">🧠</span><div><span class="category">产品</span></div></div>
+                <h3>产品功能</h3>
+                <p>超级神经元模型 · Egg Apex · 无限记忆</p>
+                <span class="url">product.html</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/pricing.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">💰</span><div><span class="category">定价</span></div></div>
+                <h3>定价方案</h3>
+                <p>免费 · 基础版 · 专业版 · 企业版</p>
+                <span class="url">pricing.html</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/case-studies.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">📊</span><div><span class="category">案例</span></div></div>
+                <h3>客户案例</h3>
+                <p>政务 · 金融 · 制造 · 医疗 · 教育 · 安全</p>
+                <span class="url">case-studies.html</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/security.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">🛡️</span><div><span class="category">安全</span></div></div>
+                <h3>安全与合规</h3>
+                <p>等保 2.0 · 信创 · 国密 · 数据主权</p>
+                <span class="url">security.html</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/contact.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">📞</span><div><span class="category">联系</span></div></div>
+                <h3>联系我们</h3>
+                <p>邮箱 · 微信 · 响应时间 · 企业采购</p>
+                <span class="url">contact.html</span>
+                <span class="badge public">公开</span>
+            </a>
+        </div>
+
+        <!-- ============================================================
+        SECTION 3: 下载
+        ============================================================ -->
+        <div class="category-section">
+            <h2><span class="emoji">⬇️</span> 下载</h2>
+        </div>
+        <div class="link-grid">
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/download.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">⚡</span><div><span class="category">下载</span></div></div>
+                <h3>快速下载（免费版 (适用于所有个人消费者)）</h3>
+                <p>一键下载 CrownStar 免费版</p>
+                <span class="url">download.html</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/download-free.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">🆓</span><div><span class="category">免费版</span></div></div>
+                <h3>免费版 (适用于所有个人消费者)专属下载</h3>
+                <p>免费版所有平台安装包</p>
+                <span class="url">download-free.html</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/downloads.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">📦</span><div><span class="category">下载中心</span></div></div>
+                <h3>全层级下载中心</h3>
+                <p>所有层级 · 所有架构 · 安全下载</p>
+                <span class="url">downloads.html</span>
+                <span class="badge public">公开</span>
+            </a>
+        </div>
+
+        <!-- ============================================================
+        SECTION 4: 技术内容
+        ============================================================ -->
+        <div class="category-section">
+            <h2><span class="emoji">📚</span> 技术内容</h2>
+        </div>
+        <div class="link-grid">
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/articles.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">📝</span><div><span class="category">文章</span></div></div>
+                <h3>文章库</h3>
+                <p>11 篇掘金技术深度文章</p>
+                <span class="url">articles.html</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/swagger.html" target="_blank" class="link-card">
+                <div class="header"><span class="icon">📖</span><div><span class="category">API</span></div></div>
+                <h3>API 文档</h3>
+                <p>Swagger UI – 交互式 API 文档</p>
+                <span class="url">swagger.html</span>
+                <span class="badge public">公开</span>
+            </a>
+            <a href="https://crownstar-ai.github.io/crown-star-ai-bot/website/sitemap.xml" target="_blank" class="link-card">
+                <div class="header"><span class="icon">🗺️</span><div><span class="category">站点地图</span></div></div>
+                <h3>站点地图</h3>
+                <p>XML 格式的完整站点地图</p>
+                <span class="url">sitemap.xml</span>
+                <span class="badge public">公开</span>
+            </a>
+        </div>
+
+        <!-- ============================================================
+        SECTION 5: GitHub 资源
+        ============================================================ -->
+        <div class="category-section">
+            <h2><span class="emoji">📦</span> GitHub 资源</h2>
+        </div>
+        <div class="link-grid">
+            <a href="https://github.com/crownstar-ai/crown-star-ai-bot" target="_blank" class="link-card">
+                <div class="header"><span class="icon">🐙</span><div><span class="category">GitHub</span></div></div>
+                <h3>代码仓库</h3>
+                <p>源代码 · README · 开源子项目</p>
+                <span class="url">github.com/crownstar-ai/...</span>
+                <span class="badge external">外部</span>
+            </a>
+            <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases" target="_blank" class="link-card">
+                <div class="header"><span class="icon">📦</span><div><span class="category">Releases</span></div></div>
+                <h3>Releases</h3>
+                <p>所有安装包 · 发布说明 · 校验和</p>
+                <span class="url">releases</span>
+                <span class="badge external">外部</span>
+            </a>
+            <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/tag/v7.0.8" target="_blank" class="link-card">
+                <div class="header"><span class="icon">🏷️</span><div><span class="category">最新发布</span></div></div>
+                <h3>v7.0.8 最新版</h3>
+                <p>完整安装包 · 所有层级 · 所有架构</p>
+                <span class="url">v7.0.8</span>
+                <span class="badge external">外部</span>
+            </a>
+        </div>
+
+        <!-- ============================================================
+        SECTION 6: 支付链接 (Stripe)
+        ============================================================ -->
+        <div class="category-section">
+            <h2><span class="emoji">💳</span> 支付链接</h2>
+        </div>
+        <div class="link-grid">
+            <a href="https://buy.stripe.com/28E6oI7zr0R17NccOSefC03" target="_blank" class="link-card">
+                <div class="header"><span class="icon">💳</span><div><span class="category">支付</span></div></div>
+                <h3>基础版 (适用于中小企业和政府机构，非个人消费者)</h3>
+                <p>¥29,800 · 一次性买断</p>
+                <span class="url">Stripe</span>
+                <span class="badge stripe">支付</span>
+            </a>
+            <a href="https://buy.stripe.com/5kQbJ2bPHbvF5F44imefC05" target="_blank" class="link-card">
+                <div class="header"><span class="icon">💳</span><div><span class="category">支付</span></div></div>
+                <h3>专业版 (适用于大中型企业和政府机构，非个人消费者)</h3>
+                <p>¥149,800 · 最受欢迎</p>
+                <span class="url">Stripe</span>
+                <span class="badge stripe">支付</span>
+            </a>
+            <a href="https://buy.stripe.com/dRm5kE5rjgPZ2sScOSefC06" target="_blank" class="link-card">
+                <div class="header"><span class="icon">💳</span><div><span class="category">支付</span></div></div>
+                <h3>企业版 (适用于大型及超大型企业和政府机构，非个人消费者)</h3>
+                <p>¥598,000 · 旗舰版</p>
+                <span class="url">Stripe</span>
+                <span class="badge stripe">支付</span>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ===== OCTOCAT ===== -->
+    <div class="octocat-container" id="octocat">
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <path fill="#181717" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+    </div>
+
+    <script>
+        // ===== ANIMATED OCTOCAT =====
+        (function(){
+            const octo = document.getElementById('octocat');
+            let tx=0, ty=0, cx=0, cy=0;
+            document.addEventListener('mousemove', function(e){
+                const rect = octo.getBoundingClientRect();
+                const dx = e.clientX - (rect.left + rect.width/2);
+                const dy = e.clientY - (rect.top + rect.height/2);
+                const maxMove = 30;
+                tx = Math.max(-maxMove, Math.min(maxMove, dx * 0.15));
+                ty = Math.max(-maxMove, Math.min(maxMove, dy * 0.15));
+            });
+            function animate(){
+                cx += (tx - cx) * 0.1;
+                cy += (ty - cy) * 0.1;
+                octo.style.transform = `translate(${cx}px, ${cy}px)`;
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+    </script>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+

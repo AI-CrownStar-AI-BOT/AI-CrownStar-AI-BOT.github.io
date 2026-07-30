@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>产品 · CrownStar AI · 主权级AI平台</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.85); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.4); padding:0.8rem 0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+        .logo { font-size:1.6rem; font-weight:700; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav { display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; align-items:center; }
+        .nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.95rem; transition:color 0.3s; }
+        .nav a:hover { color:#0a2e5c; }
+        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.8rem; border-radius:3rem; font-weight:600; }
+        .nav .cta:hover { background:#1a4a7a; }
+        .nav .active { color:#0a2e5c; font-weight:600; border-bottom:2px solid #c9a84c; }
+        .page-hero { text-align:center; padding:3rem 0 2rem; }
+        .page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+        .page-hero h1 .gold { color:#c9a84c; }
+        .page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
+        .features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; margin:2rem 0; }
+        .feature-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; transition:transform 0.3s; }
+        .feature-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); }
+        .feature-card .icon { font-size:2.5rem; }
+        .feature-card h3 { font-size:1.3rem; font-weight:700; color:#0a2e5c; margin:0.5rem 0; }
+        .feature-card p { color:#5a5a7a; }
+        .footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
+        .footer a { color:#0a2e5c; text-decoration:none; }
+        @media (max-width:768px) { .page-hero h1 { font-size:2.2rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+<nav class="nav">
+    <a href="index.html">首页</a>
+    <a href="product.html">产品</a>
+    <a href="pricing.html">定价</a>
+    <a href="case-studies.html">案例</a>
+    <a href="security.html">安全</a>
+    <a href="download-free.html">免费下载</a>
+    <a href="downloads.html">下载中心</a>
+    <a href="swagger.html" target="_blank">API</a>
+    <a href="articles.html">文章库</a>
+    <a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a>
+    <a href="contact.html" class="cta">联系我们</a>
+</nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>产品功能 · <span class="gold">AI-Groups 引擎</span></h1>
+            <p class="subtitle">CrownStar 不仅是 DeepSeek 的增强层，更是 <strong>AI-Groups</strong> 多模型融合平台。您可以选择任意 Hugging Face 模型，组合成强大的智能体。</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">🧠</div>
+                <h3>AI-Groups 多模型融合</h3>
+                <p>同时运行多个 vLLM（如 DeepSeek、Qwen、Llama），通过 9 个数学模块融合输出，质量远超单一模型。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📚</div>
+                <h3>Hugging Face 深度整合</h3>
+                <p>直接加载 Hugging Face 模型库、数据集和存储桶（hf://buckets/），实现云端与本地协同。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔒</div>
+                <h3>数据主权 100% 私有化</h3>
+                <p>所有数据完全本地运行，满足等保 2.0 三级、信创合规、国密加密，数据永不离开您的网络。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">∞</div>
+                <h3>无限记忆 · 永不遗忘</h3>
+                <p>生物拟态记忆 + FAISS 向量检索，所有对话永久保存，跨会话智能召回。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🧮</div>
+                <h3>9 大数学模块</h3>
+                <p>Jacobian, Hessian, UAT, Gurney, Yegnanarayana, Haykin, Bishop, Zurada, Ultra – 可单独开关。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⚡</div>
+                <h3>开箱即用 · 全平台</h3>
+                <p>5 分钟部署，支持 Windows、Linux、macOS、ARM。桌面 UI + REST API + 12 种语言 SDK。</p>
+            </div>
+        </div>
+        <div style="text-align:center; margin:2rem 0;">
+            <a href="pricing.html" class="cta" style="display:inline-block; background:#0a2e5c; color:#fff; padding:0.8rem 3rem; border-radius:3rem; font-weight:600; text-decoration:none;">查看定价 →</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>

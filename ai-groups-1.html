@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Groups 01 · 什么是 AI-Groups？ · CrownStar</title>
+    <meta name="description" content="CrownStar AI-Groups 是全新的多模型融合引擎，将多个模型和数据集统一为一个智能体。" />
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:960px; margin:0 auto; padding:2rem; }
+        h1 { font-size:2.8rem; color:#0a2e5c; margin-bottom:0.5rem; }
+        h1 span { color:#c9a84c; }
+        h2 { font-size:1.8rem; color:#0a2e5c; margin-top:2rem; margin-bottom:0.5rem; }
+        p { font-size:1.05rem; color:#4a4a6a; margin-bottom:1rem; }
+        .gold { color:#c9a84c; }
+        .back-link { display:inline-block; margin-top:2rem; background:#0a2e5c; color:#fff; padding:0.6rem 1.8rem; border-radius:3rem; text-decoration:none; font-weight:600; }
+        .back-link:hover { background:#1a4a7a; }
+        .header { background:#fff; padding:1rem 0; border-bottom:1px solid #e8ecf0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; padding:0 2rem; max-width:1280px; margin:0 auto; }
+        .logo { font-size:1.6rem; font-weight:800; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav a { color:#4a4a6a; text-decoration:none; margin-left:1.2rem; font-weight:500; }
+        .nav a:hover { color:#0a2e5c; }
+        .footer { background:#f2f4f6; padding:2rem 0; margin-top:3rem; text-align:center; color:#7a7a9a; font-size:0.85rem; }
+        @media (max-width:768px) { h1 { font-size:2rem; } .header .container { flex-direction:column; gap:0.5rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span> AI</a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="ai-groups.html">AI-Groups</a>
+                <a href="pricing.html">定价</a>
+                <a href="contact.html">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>什么是 <span>AI-Groups</span>？</h1>
+        <p style="font-size:1.1rem; color:#5a5a7a;"><strong>AI-Groups 是 CrownStar 的全新架构</strong> —— 它将多个模型和数据集融合为一个统一的智能体，为您提供前所未有的输出质量和灵活性。</p>
+
+        <h2>从单一模型到多模型融合</h2>
+        <p>传统 AI 平台只允许您使用一个模型。如果模型质量不佳，您只能接受。而 <strong>AI-Groups 打破了这种限制</strong>。您可以同时加载多个模型（如 DeepSeek V3、Qwen、Llama 等），让它们共同参与推理，然后通过 CrownStar 的融合层生成最终答案。</p>
+
+        <h2>AI-Groups 的核心概念</h2>
+        <p><span class="gold">◆</span> <strong>多模型并发</strong>：同时运行多个 vLLM，每个模型独立生成回复。<br>
+        <span class="gold">◆</span> <strong>数据集增强</strong>：从 Hugging Face 加载数据集，动态增强推理上下文。<br>
+        <span class="gold">◆</span> <strong>融合层</strong>：9 大数学模块（Jacobian、Hessian 等）对多模型输出进行融合、优化和重构。<br>
+        <span class="gold">◆</span> <strong>统一接口</strong>：无论背后有多少模型，您只需像与一个人对话一样与 CrownStar 交互。</p>
+
+        <h2>为什么 AI-Groups 比单一模型更好？</h2>
+        <p><strong>1. 知识密度更高</strong> —— 多个模型的智慧叠加，远超单一模型。<br>
+        <strong>2. 更少幻觉</strong> —— 多模型交叉验证，减少错误输出。<br>
+        <strong>3. 可定制</strong> —— 您可以根据需求选择最适合的模型组合。<br>
+        <strong>4. 数据主权</strong> —— 所有模型完全本地运行，数据不离境。</p>
+
+        <p style="margin-top:2rem; background:#eef2f8; padding:1.5rem; border-radius:12px; border-left:4px solid #c9a84c;">
+            <strong>🎯 适用场景：</strong> 企业级知识库、科研分析、复杂决策支持、多语言翻译、创意生成等任何需要高质量 AI 输出的场景。
+        </p>
+
+        <a href="ai-groups.html" class="back-link">← 返回 AI-Groups</a>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 CrownStar AI. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrownStar 模型策略 – 双重增强，您来选择引擎</title>
+    <style>
+        /* 与 CrownStar 网站风格保持一致 */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
+            background: #f5f7fb;
+            color: #1a1a2e;
+            line-height: 1.8;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            border: 1px solid #e8ecf0;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #0a2e5c;
+            margin-bottom: 0.5rem;
+        }
+        h1 .gold { color: #c9a84c; }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #5a5a7a;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e8ecf0;
+            padding-bottom: 1rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0a2e5c;
+            margin: 2rem 0 0.8rem 0;
+            border-left: 4px solid #c9a84c;
+            padding-left: 0.8rem;
+        }
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0a2e5c;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+        p { color: #4a4a6a; margin-bottom: 1rem; }
+        ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.3rem; }
+
+        .highlight-box {
+            background: #f8faff;
+            border-left: 4px solid #c9a84c;
+            padding: 1.2rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .highlight-box strong { color: #0a2e5c; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th {
+            background: #0a2e5c;
+            color: #fff;
+            padding: 0.8rem 0.6rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 0.7rem 0.6rem;
+            border-bottom: 1px solid #e8ecf0;
+            color: #4a4a6a;
+        }
+        tr:last-child td { border-bottom: none; }
+        td a {
+            color: #c0392b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        td a:hover { text-decoration: underline; }
+
+        .badge {
+            display: inline-block;
+            background: #e8ecf0;
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #5a5a7a;
+        }
+        .badge.recommended {
+            background: #c9a84c;
+            color: #0a2e5c;
+        }
+        .badge.enterprise {
+            background: #c0392b;
+            color: #fff;
+        }
+
+        .footnote {
+            font-size: 0.85rem;
+            color: #7a7a9a;
+            border-top: 1px solid #e8ecf0;
+            padding-top: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1.5rem; }
+            h1 { font-size: 2rem; }
+            table { font-size: 0.75rem; }
+            th, td { padding: 0.4rem 0.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>CrownStar <span class="gold">模型策略</span></h1>
+    <div class="subtitle">双重增强 · 您来选择引擎 · 完全本地化</div>
+
+    <p>CrownStar 不是一个孤立的大语言模型。它是一套 <strong>认知增强系统</strong>，与 DeepSeek 家族模型深度融合，形成 <strong>“DeepSeek 原始智能 + CrownStar 结构化增强”</strong> 的双重架构。</p>
+
+    <div class="highlight-box">
+        <strong>💡 核心理念：</strong> CrownStar 本身不包含任何模型参数。它需要您选择一个 DeepSeek 模型作为“大脑”，然后 CrownStar 为其添加 <strong>9 大数学模块、无限记忆、互联网皮层和智能长度控制</strong> – 最终输出远超单独使用 DeepSeek 的质量和深度。
+    </div>
+
+    <h2>为什么 CrownStar 不是“套壳”，而是“双重增强”</h2>
+    <p>大多数 AI 工具只是调用模型 API 并显示结果。CrownStar 完全不同：</p>
+    <ul>
+        <li><strong>实时干预：</strong> CrownStar 拦截 DeepSeek 的原始输出，在毫秒级内应用 <strong>Jacobian、Hessian、通用近似定理</strong> 等 9 个数学模块，重构回答的逻辑结构、数据密度和清晰度。</li>
+        <li><strong>记忆共融：</strong> CrownStar 维护一个永久 SQLite 记忆库，使 DeepSeek 能够“回忆”整个对话历史，实现真正的无限上下文 – 这是单独使用 DeepSeek 无法做到的。</li>
+        <li><strong>动态长度适配：</strong> 您设定的最小/最大输出字符数，CrownStar 会智能调整 DeepSeek 的回答长度，既不会截断也不会注水 – 始终保持自然流畅。</li>
+        <li><strong>互联网皮层：</strong> CrownStar 可实时抓取 RSS、DNS、RDAP、WHOIS 等 200+ 网络协议数据，为 DeepSeek 提供实时上下文，大幅提升回答的时效性和准确性。</li>
+    </ul>
+    <p>简而言之：<strong>DeepSeek 负责“想”，CrownStar 负责“组织、增强、记忆、联网”</strong> – 两者结合，远超各自单独使用。</p>
+
+    <h2>您可以选择哪个 DeepSeek 模型？</h2>
+    <p>CrownStar 兼容所有基于 DeepSeek 架构的模型，包括 <strong>蒸馏版 Qwen（DeepSeek-R1-Distill-Qwen 系列）</strong>。您可以根据自己的硬件配置和需求选择最合适的模型。</p>
+
+    <h3>模型选择指南</h3>
+    <ul>
+        <li><strong>低配置（8GB RAM）：</strong> DeepSeek-R1-Distill-Qwen-1.5B – 极速响应，适合演示和个人学习。</li>
+        <li><strong>标准配置（16GB RAM）：</strong> DeepSeek-R1-Distill-Qwen-7B 或 Qwen2.5-7B – 平衡速度与质量，推荐给大多数用户。</li>
+        <li><strong>高性能（24GB+ RAM）：</strong> 14B 或 32B 模型 – 更强推理能力，适合专业用户和企业。</li>
+        <li><strong>极致质量（GPU 推荐）：</strong> DeepSeek-V3 或 DeepSeek-4.0 – 最大参数，最佳回答深度，但需要较高硬件资源。</li>
+    </ul>
+
+    <h2>📦 模型下载网格</h2>
+    <p>所有模型均为开源，可从 Hugging Face 或 ModelScope（中国镜像）免费下载。选择适合您硬件的模型，解压到 <code>models/deepseek/</code> 文件夹即可。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>模型名称</th>
+                <th>大小 (GGUF Q4)</th>
+                <th>最低 RAM</th>
+                <th>CPU 速度</th>
+                <th>推荐用途</th>
+                <th>Hugging Face</th>
+                <th>ModelScope</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>DeepSeek-R1-Distill-Qwen-1.5B</strong></td>
+                <td>~1.5 GB</td>
+                <td>8 GB</td>
+                <td>~50 t/s</td>
+                <td>快速演示, 低配PC</td>
+                <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B-GGUF">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B-GGUF">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>DeepSeek-R1-Distill-Qwen-7B</strong> <span class="badge recommended">推荐</span></td>
+                <td>~4.5 GB</td>
+                <td>16 GB</td>
+                <td>~17 t/s</td>
+                <td>日常使用, 平衡之选</td>
+                <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B-GGUF">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B-GGUF">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>DeepSeek-R1-Distill-Qwen-14B</strong></td>
+                <td>~8.5 GB</td>
+                <td>24 GB</td>
+                <td>~8 t/s</td>
+                <td>高级用户, 高质量</td>
+                <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B-GGUF">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B-GGUF">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>DeepSeek-R1-Distill-Qwen-32B</strong></td>
+                <td>~18 GB</td>
+                <td>32 GB</td>
+                <td>~4 t/s</td>
+                <td>企业级推理, 最佳质量</td>
+                <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B-GGUF">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B-GGUF">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>DeepSeek-V3 (Full)</strong> <span class="badge enterprise">企业级</span></td>
+                <td>~60 GB</td>
+                <td>64 GB (GPU 推荐)</td>
+                <td>–</td>
+                <td>最大能力, 需高性能 GPU</td>
+                <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V3">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/deepseek-ai/DeepSeek-V3">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>DeepSeek-4.0 (Latest)</strong> <span class="badge enterprise">企业级</span></td>
+                <td>~70 GB</td>
+                <td>64 GB (GPU 推荐)</td>
+                <td>–</td>
+                <td>最新 SOTA, 前沿能力</td>
+                <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-4.0">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/deepseek-ai/DeepSeek-4.0">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>DeepSeek-Coder-33B</strong></td>
+                <td>~18 GB</td>
+                <td>32 GB</td>
+                <td>~4 t/s</td>
+                <td>代码生成, 编程辅助</td>
+                <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-Coder-33B-GGUF">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/deepseek-ai/DeepSeek-Coder-33B-GGUF">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>DeepSeek-Coder-6.7B</strong></td>
+                <td>~4 GB</td>
+                <td>16 GB</td>
+                <td>~18 t/s</td>
+                <td>轻量级编码助手</td>
+                <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-Coder-6.7B-GGUF">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/deepseek-ai/DeepSeek-Coder-6.7B-GGUF">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>Qwen2.5-7B-Instruct</strong></td>
+                <td>~4.5 GB</td>
+                <td>16 GB</td>
+                <td>~17 t/s</td>
+                <td>阿里 Qwen, 中文优化</td>
+                <td><a href="https://huggingface.co/Qwen/Qwen2.5-7B-Instruct-GGUF">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/Qwen/Qwen2.5-7B-Instruct-GGUF">🔗 MS</a></td>
+            </tr>
+            <tr>
+                <td><strong>Qwen2.5-14B-Instruct</strong></td>
+                <td>~8.5 GB</td>
+                <td>24 GB</td>
+                <td>~8 t/s</td>
+                <td>高质量中文, 企业应用</td>
+                <td><a href="https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF">🔗 HF</a></td>
+                <td><a href="https://modelscope.cn/models/Qwen/Qwen2.5-14B-Instruct-GGUF">🔗 MS</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footnote">
+        <p><strong>📌 安装指引：</strong></p>
+        <ol>
+            <li>从上述链接下载所选模型的 GGUF 文件（通常为 <code>.gguf</code> 或包含 <code>config.json</code> 的文件夹）。</li>
+            <li>创建一个名为 <code>deepseek</code> 的文件夹，将所有模型文件放入其中。</li>
+            <li>将此文件夹放置在 CrownStar 安装目录的 <code>models/</code> 下（例如 <code>C:\Program Files\CrownStar\models\deepseek\</code>，或便携版 EXE 旁边的 <code>models\deepseek\</code>）。</li>
+            <li>启动 CrownStar，模型将自动加载。您也可以在设置菜单中（右上角汉堡图标 → 设置 → 模型选择）切换已安装的模型。</li>
+        </ol>
+        <p><strong>🔄 模型切换：</strong> CrownStar 支持在同一目录下放置多个模型，您随时可以在设置中切换 – 无需重启应用，即时生效。</p>
+        <p><strong>💡 性能提示：</strong> 更大的模型通常质量更高，但速度更慢。请根据您的硬件选择平衡点。对于大多数用户，<strong>7B 模型</strong> 是性价比最高的选择。</p>
+    </div>
+
+    <h2>相关文章</h2>
+    <ul>
+        <li><a href="#">如何选择适合您的 DeepSeek 模型</a></li>
+        <li><a href="#">理解 GGUF 量化 – 在 CPU 上运行大模型</a></li>
+        <li><a href="#">CrownStar 的 9 大数学模块详解</a></li>
+        <li><a href="#">无限记忆的工作原理 – 您的 AI 永不遗忘</a></li>
+    </ul>
+
+    <div style="text-align:center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e8ecf0; color:#7a7a9a; font-size:0.85rem;">
+        © 2026 CrownStar. All rights reserved.
+    </div>
+
+</div>
+</body>
+</html>
