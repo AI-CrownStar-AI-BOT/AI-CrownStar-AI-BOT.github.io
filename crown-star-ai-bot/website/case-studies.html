@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>客户案例 · CrownStar AI · AI-Groups 实战</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.85); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.4); padding:0.8rem 0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+        .logo { font-size:1.6rem; font-weight:700; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav { display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; align-items:center; }
+        .nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.95rem; transition:color 0.3s; }
+        .nav a:hover { color:#0a2e5c; }
+        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.8rem; border-radius:3rem; font-weight:600; }
+        .nav .cta:hover { background:#1a4a7a; }
+        .nav .active { color:#0a2e5c; font-weight:600; border-bottom:2px solid #c9a84c; }
+        .page-hero { text-align:center; padding:3rem 0 2rem; }
+        .page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+        .page-hero h1 .gold { color:#c9a84c; }
+        .page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
+        .case-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2rem; margin:2rem 0; }
+        .case-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; transition:transform 0.3s; }
+        .case-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); }
+        .case-card .industry { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; color:#c9a84c; font-weight:700; }
+        .case-card h3 { font-size:1.3rem; font-weight:700; color:#0a2e5c; margin:0.3rem 0; }
+        .case-card p { color:#5a5a7a; }
+        .case-card .badge { display:inline-block; background:rgba(10,46,92,0.08); padding:0.2rem 0.8rem; border-radius:2rem; font-size:0.75rem; color:#0a2e5c; margin-top:0.5rem; }
+        .footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
+        .footer a { color:#0a2e5c; text-decoration:none; }
+        @media (max-width:768px) { .page-hero h1 { font-size:2.2rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+<nav class="nav">
+    <a href="index.html">首页</a>
+    <a href="product.html">产品</a>
+    <a href="pricing.html">定价</a>
+    <a href="case-studies.html">案例</a>
+    <a href="security.html">安全</a>
+    <a href="download-free.html">免费下载</a>
+    <a href="downloads.html">下载中心</a>
+    <a href="swagger.html" target="_blank">API</a>
+    <a href="articles.html">文章库</a>
+    <a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a>
+    <a href="contact.html" class="cta">联系我们</a>
+</nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>客户案例 · <span class="gold">AI-Groups 实战</span></h1>
+            <p class="subtitle">来自不同行业的组织如何利用 CrownStar AI-Groups 实现数据主权和智能升级。</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="case-grid">
+            <div class="case-card">
+                <div class="industry">🏛️ 政府 · 大企业</div>
+                <h3>某省级政务大数据平台</h3>
+                <p>部署 CrownStar AI-Groups 作为内部 AI 助手，同时运行 DeepSeek 和 Qwen 模型，实现公文撰写、政策问答、数据分析的智能辅助，数据全程不出政务网。使用组织版（¥705），5 用户，源码授权。</p>
+                <span class="badge">✅ 已部署 · 50+ 用户</span>
+            </div>
+            <div class="case-card">
+                <div class="industry">🏦 金融 · 保险</div>
+                <h3>某头部保险公司</h3>
+                <p>使用 CrownStar AI-Groups 构建合规 AI 助手，融合 DeepSeek 和本地微调模型，处理客户咨询、理赔问答、合同解析，满足《个人信息保护法》要求。采用专业版（¥389）。</p>
+                <span class="badge">✅ 部署中 · 200+ 用户</span>
+            </div>
+            <div class="case-card">
+                <div class="industry">🏭 制造业</div>
+                <h3>某汽车制造集团</h3>
+                <p>利用 CrownStar AI-Groups 的本地化部署能力，在工厂内网构建 AI 知识库，同时运行多个轻量模型（DeepSeek V1 Lite + Qwen），实现设备故障诊断、工艺优化建议。使用组织版（¥705）。</p>
+                <span class="badge">✅ 已签约 · 100+ 用户</span>
+            </div>
+            <div class="case-card">
+                <div class="industry">🏥 医疗健康</div>
+                <h3>某三甲医院</h3>
+                <p>采用 CrownStar AI-Groups 构建科研 AI 助手，结合 Hugging Face 医学数据集，辅助医学文献检索、临床数据分析和研究方案设计。使用进阶版（¥248）。</p>
+                <span class="badge">🔍 评估中 · 20+ 用户</span>
+            </div>
+            <div class="case-card">
+                <div class="industry">📚 教育 · 科研</div>
+                <h3>某重点大学 AI 实验室</h3>
+                <p>使用 CrownStar AI-Groups 进行神经网络教学、数学建模和前沿 AI 研究，学生可以深入理解模型内部机制。采用免费版，搭配 DeepSeek 7B 模型。</p>
+                <span class="badge">✅ 已部署 · 30+ 用户</span>
+            </div>
+            <div class="case-card">
+                <div class="industry">🛡️ 数据安全</div>
+                <h3>某数据安全公司</h3>
+                <p>将 CrownStar AI-Groups 集成到其安全产品中，为客户提供本地化 AI 分析能力，无需上传数据到云端。使用企业旗舰版（¥1,675,000）获得白标和源码授权。</p>
+                <span class="badge">✅ 已集成 · 500+ 用户</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>

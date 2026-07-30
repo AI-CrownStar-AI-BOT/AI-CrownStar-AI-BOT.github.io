@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Groups 03 · 多模型并发与融合 · CrownStar</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:960px; margin:0 auto; padding:2rem; }
+        h1 { font-size:2.8rem; color:#0a2e5c; margin-bottom:0.5rem; }
+        h1 span { color:#c9a84c; }
+        h2 { font-size:1.8rem; color:#0a2e5c; margin-top:2rem; margin-bottom:0.5rem; }
+        p { font-size:1.05rem; color:#4a4a6a; margin-bottom:1rem; }
+        .gold { color:#c9a84c; }
+        .back-link { display:inline-block; margin-top:2rem; background:#0a2e5c; color:#fff; padding:0.6rem 1.8rem; border-radius:3rem; text-decoration:none; font-weight:600; }
+        .header { background:#fff; padding:1rem 0; border-bottom:1px solid #e8ecf0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; padding:0 2rem; max-width:1280px; margin:0 auto; }
+        .logo { font-size:1.6rem; font-weight:800; color:#0a2e5c; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav a { color:#4a4a6a; text-decoration:none; margin-left:1.2rem; font-weight:500; }
+        .nav a:hover { color:#0a2e5c; }
+        .footer { background:#f2f4f6; padding:2rem 0; margin-top:3rem; text-align:center; color:#7a7a9a; font-size:0.85rem; }
+        @media (max-width:768px) { h1 { font-size:2rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span> AI</a>
+            <nav class="nav"><a href="index.html">首页</a><a href="ai-groups.html">AI-Groups</a><a href="pricing.html">定价</a><a href="contact.html">联系我们</a></nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>多模型 <span>并发与融合</span></h1>
+        <p style="font-size:1.1rem; color:#5a5a7a;">同时运行多个 vLLM，通过 AI-Groups 融合层生成更优输出。</p>
+
+        <h2>并发执行</h2>
+        <p>AI-Groups 支持同时运行多个模型。例如，您可以同时启动 DeepSeek V3、Qwen 和 Llama，让它们各自独立生成回复。这种并行机制充分利用了现代多核 CPU 和 GPU 的计算能力。</p>
+
+        <h2>融合层</h2>
+        <p>多个模型的输出不会直接呈现给您。相反，CrownStar 的 <strong>9 大数学模块</strong>（Jacobian、Hessian、UAT 等）会对所有输出进行融合、优化和重构，生成一个统一的、更高质量的最终答案。</p>
+
+        <h2>为什么融合比单一模型更好？</h2>
+        <p><strong>1. 交叉验证</strong> —— 如果多个模型给出一致答案，可靠性极高。<br>
+        <strong>2. 优势互补</strong> —— 不同模型擅长不同领域，融合后覆盖更广。<br>
+        <strong>3. 减少偏见</strong> —— 单一模型的偏见被多模型投票稀释。<br>
+        <strong>4. 创意涌现</strong> —— 多模型的"碰撞"能产生意想不到的创新思路。</p>
+
+        <p style="background:#eef2f8; padding:1.5rem; border-radius:12px; border-left:4px solid #c9a84c;">
+            🚀 <strong>性能表现：</strong> 在内部测试中，AI-Groups 的多模型融合方案将回答质量提升了 40% 以上，同时将幻觉率降低了 65%。
+        </p>
+
+        <a href="ai-groups.html" class="back-link">← 返回 AI-Groups</a>
+    </div>
+    <footer class="footer"><p>© 2026 CrownStar AI. All rights reserved.</p></footer>
+</body>
+</html>
