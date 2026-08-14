@@ -1,0 +1,2610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrownStar AI · 企业级主权AI平台 · 中国首发</title>
+    <meta name="description" content="CrownStar AI 是中国首个企业级主权AI平台，100%私有化部署，满足等保2.0三级，信创全栈适配。深度集成 DeepSeek，世界最强中文AI。" />
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <style>
+        /* ============================================================
+           RESET & ROOT VARIABLES
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #0a2e5c;
+            --primary-light: #1a4a7a;
+            --primary-dark: #071e3a;
+            --gold: #c9a84c;
+            --gold-light: #e8c86a;
+            --gold-hover: #dbb95e;
+            --gold-glow: rgba(201, 168, 76, 0.15);
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --text-muted: #7a7a9a;
+            --border: #e8ecf0;
+            --bg: #f5f7fb;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --font-sans: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+            --navy-bg-gradient: linear-gradient(135deg, #0a2e5c 0%, #143e6e 50%, #1a4a7a 100%);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ============================================================
+           ANIMATED BACKGROUNDS
+           ============================================================ */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            background: linear-gradient(135deg, #eef2f8 0%, #ffffff 60%, #f5f8ff 100%);
+            transition: background 2s ease;
+        }
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.25;
+        }
+
+        /* ============================================================
+           TYPOGRAPHY
+           ============================================================ */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.01em;
+        }
+        h1 { font-size: 4.4rem; line-height: 1.1; }
+        h2 { font-size: 2.6rem; line-height: 1.2; margin-bottom: 0.5rem; }
+        h3 { font-size: 1.5rem; line-height: 1.3; }
+        h4 { font-size: 1.1rem; }
+        .gold { color: var(--gold); }
+        .text-light { color: var(--text-light); }
+        .text-muted { color: var(--text-muted); }
+        .text-center { text-align: center; }
+
+        /* ============================================================
+           HEADER & UNIQUE TOP-RIGHT QUICK ACCESS
+           ============================================================ */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(24px) saturate(1.6);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 0.6rem 0;
+            transition: box-shadow 0.3s;
+        }
+        .header.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            height: 48px;
+        }
+        .logo:hover { transform: scale(1.02); }
+        .logo svg {
+            height: 100%;
+            width: auto;
+            filter: drop-shadow(0 2px 8px rgba(201, 168, 76, 0.1));
+            transition: filter 0.3s;
+        }
+        .logo:hover svg {
+            filter: drop-shadow(0 4px 16px rgba(201, 168, 76, 0.2));
+        }
+        .logo .brand {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+        .logo .brand .highlight { color: var(--gold); }
+        .logo .ai-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gold);
+            background: rgba(201, 168, 76, 0.12);
+            padding: 0.1rem 0.6rem;
+            border-radius: 2rem;
+            letter-spacing: 0.04em;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            transition: all 0.2s;
+        }
+        .logo:hover .ai-label {
+            background: rgba(201, 168, 76, 0.2);
+            border-color: var(--gold);
+        }
+
+        /* ---- UNIQUE TOP-RIGHT QUICK ACCESS DROPDOWN ---- */
+        .quick-access-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .quick-access-btn {
+            background: rgba(10, 46, 92, 0.06);
+            border: 1px solid rgba(10, 46, 92, 0.1);
+            border-radius: 3rem;
+            padding: 0.4rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s;
+            font-family: var(--font-sans);
+        }
+        .quick-access-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: scale(1.03);
+        }
+        .quick-access-btn .icon {
+            font-size: 1rem;
+        }
+        .quick-access-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.8rem 0;
+            min-width: 220px;
+            box-shadow: var(--shadow-hover);
+            display: none;
+            z-index: 1001;
+        }
+        .quick-access-dropdown.show {
+            display: block;
+            animation: fadeSlide 0.25s ease;
+        }
+        .quick-access-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 1.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .quick-access-dropdown a:hover {
+            background: rgba(10, 46, 92, 0.04);
+            color: var(--primary);
+            padding-left: 2rem;
+        }
+        .quick-access-dropdown a .emoji {
+            font-size: 1.1rem;
+            width: 1.6rem;
+            text-align: center;
+        }
+        .quick-access-dropdown .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 0.3rem 1rem;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem 1.2rem;
+            align-items: center;
+        }
+        .nav a {
+            color: var(--text-light);
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.2rem 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--primary));
+            transition: width 0.4s;
+        }
+        .nav a:hover { color: var(--primary); }
+        .nav a:hover::after { width: 100%; }
+        .nav .cta {
+            background: var(--primary);
+            color: #fff !important;
+            padding: 0.4rem 1.6rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .nav .cta::after { display: none; }
+        .nav .cta:hover {
+            background: var(--primary-light);
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(10, 46, 92, 0.2);
+        }
+        .nav .active {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .nav .active::after { width: 100%; }
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+        .hero {
+            position: relative;
+            padding: 3rem 0 2rem;
+            overflow: hidden;
+        }
+        .hero-panel {
+            background: var(--navy-bg-gradient);
+            border-radius: var(--radius);
+            padding: 3.5rem 3rem 3rem;
+            box-shadow: 0 8px 40px rgba(10, 46, 92, 0.15);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .hero-panel .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.2rem;
+        }
+        .hero-panel .badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4ECFA0;
+            display: inline-block;
+        }
+        .hero-panel h1 {
+            color: #fff;
+            font-size: 3.6rem;
+            line-height: 1.1;
+            margin-bottom: 0.8rem;
+        }
+        .hero-panel h1 em {
+            font-style: italic;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .hero-panel .sub {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 1.8rem;
+        }
+        .hero-panel .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+        .btn-hero-primary {
+            background: #fff;
+            color: var(--primary);
+            padding: 0.8rem 2.4rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        .btn-hero-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        .btn-hero-ghost {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.8rem 2.4rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        .btn-hero-ghost:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .hero-stats .stat {
+            flex: 1;
+            min-width: 120px;
+        }
+        .hero-stats .stat .num {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.2;
+        }
+        .hero-stats .stat .label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2px;
+        }
+        .hero-stats .stat .sub {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .hero-stats .stat-border {
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            padding-left: 2rem;
+        }
+
+        .trust-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem 3rem;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .trust-bar span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .trust-bar .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: inline-block;
+        }
+
+        /* ============================================================
+           SECTION TITLES
+           ============================================================ */
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            background: rgba(201, 168, 76, 0.1);
+            padding: 0.2rem 1rem;
+            border-radius: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        .section-title em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+        .section-sub {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            max-width: 700px;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .section:last-of-type { border-bottom: none; }
+        .scroll-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .scroll-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================================
+           PATH SELECTOR
+           ============================================================ */
+        .path-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        .path-btn {
+            padding: 0.7rem 1.8rem;
+            border-radius: 3rem;
+            border: 2px solid var(--border);
+            background: transparent;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+        }
+        .path-btn:hover {
+            border-color: var(--gold);
+            color: var(--primary);
+        }
+        .path-btn.active {
+            border-color: var(--gold);
+            background: var(--gold);
+            color: #fff;
+        }
+        .path-btn .sub {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .path-btn.active .sub { color: rgba(255, 255, 255, 0.7); }
+
+        .path-panel {
+            display: none;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            animation: fadeSlide 0.4s ease;
+        }
+        .path-panel.active { display: block; }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .path-panel .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .path-panel .grid-2 .col {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .path-panel .pill {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.2rem 1rem;
+            border-radius: 2rem;
+            background: rgba(201, 168, 76, 0.12);
+            color: var(--gold);
+            align-self: flex-start;
+        }
+        .path-panel .pill.teal {
+            background: rgba(78, 207, 160, 0.15);
+            color: #2d9b7a;
+        }
+        .path-panel .pill.navy {
+            background: rgba(10, 46, 92, 0.1);
+            color: var(--primary);
+        }
+        .path-panel h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+        .path-panel .body {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .path-panel ul {
+            list-style: none;
+            padding: 0;
+        }
+        .path-panel ul li {
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .path-panel ul li::before {
+            content: "◆";
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.6rem;
+            margin-top: 0.35rem;
+        }
+        .path-panel .cta-link {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 0.7rem 2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 280px;
+        }
+        .path-panel .cta-link:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+        .path-panel .cta-link.gold {
+            background: var(--gold);
+            color: var(--primary);
+        }
+        .path-panel .cta-link.gold:hover {
+            background: var(--gold-hover);
+        }
+        .path-panel .disclaimer {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .testimonial-mini {
+            background: rgba(10, 46, 92, 0.03);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border-left: 3px solid var(--gold);
+        }
+        .testimonial-mini .q {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        .testimonial-mini .author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .testimonial-mini .author .av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .testimonial-mini .author .name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        .testimonial-mini .author .since {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+           CONVERSATION COMPARISON
+           ============================================================ */
+        .conv-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .conv-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s;
+        }
+        .conv-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+        .conv-card .label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .conv-card .label .badge {
+            font-size: 0.7rem;
+            background: var(--gold);
+            color: #fff;
+            padding: 0.1rem 0.8rem;
+            border-radius: 20px;
+        }
+        .conv-card .content {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        .conv-card .content strong { color: var(--primary); }
+
+        /* ============================================================
+           INDUSTRY COMPARISON TABLE
+           ============================================================ */
+        .industry-comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .industry-comp-table th {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.8rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .industry-comp-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        .industry-comp-table tr:last-child td { border-bottom: none; }
+        .industry-comp-table .check { color: #22c55e; font-weight:700; }
+        .industry-comp-table .cross { color: #ef4444; }
+        .industry-comp-table .highlight { background: rgba(201, 168, 76, 0.08); }
+
+        /* ============================================================
+           TIER FEATURE GRID
+           ============================================================ */
+        .tier-grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 2rem 0;
+            font-size: 0.85rem;
+        }
+        .tier-grid-table th {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.8rem 0.4rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+        .tier-grid-table td {
+            padding: 0.5rem 0.4rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+        .tier-grid-table tr:last-child td { border-bottom: none; }
+        .tier-grid-table .check { color: #22c55e; font-weight:700; font-size:1.1rem; }
+        .tier-grid-table .cross { color: #ef4444; font-size:1.1rem; }
+        .tier-grid-table .feature-label {
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+            padding-left: 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        /* ============================================================
+           VALUE CARDS
+           ============================================================ */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1.5rem;
+        }
+        .value-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2rem 1.8rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .value-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-hover);
+        }
+        .value-card .icon-svg {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto 0.8rem;
+            display: block;
+        }
+        .value-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* ============================================================
+           ARCHITECTURE DIAGRAM
+           ============================================================ */
+        .arch-wrap {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .arch-wrap svg {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+        }
+
+        /* ============================================================
+           FEATURES GRID (EXPANDED)
+           ============================================================ */
+        .features-grid-full {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+        .feature-item-full {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            transition: all 0.3s;
+        }
+        .feature-item-full:hover { border-color: var(--gold); }
+        .feature-item-full .num {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gold);
+            opacity: 0.4;
+            line-height: 1;
+            min-width: 2.4rem;
+        }
+        .feature-item-full h4 {
+            font-size: 1rem;
+            margin-bottom: 0.1rem;
+            color: var(--primary);
+        }
+        .feature-item-full p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* ============================================================
+           MATH MODULES
+           ============================================================ */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 0.8rem;
+        }
+        .module-tag {
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            padding: 0.7rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            font-family: var(--font-mono);
+            color: var(--primary);
+        }
+        .module-tag:hover {
+            border-color: var(--gold);
+            transform: scale(1.04);
+        }
+        .module-tag .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           PRICING
+           ============================================================ */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.8rem;
+        }
+        .pricing-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2rem 1.8rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+        .pricing-card.popular {
+            border: 2px solid var(--gold);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .pricing-card .popular-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--primary);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.2rem 1rem;
+            border-radius: 2rem;
+            text-transform: uppercase;
+        }
+        .pricing-card .tier {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+        .pricing-card .name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .pricing-card .audience {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 0.3rem;
+        }
+        .pricing-card .price {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin: 0.2rem 0;
+        }
+        .pricing-card .price .currency {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        .pricing-card ul {
+            text-align: left;
+            padding-left: 0.5rem;
+            margin: 0.8rem 0;
+            list-style: none;
+        }
+        .pricing-card ul li {
+            padding: 0.2rem 0;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .pricing-card ul li::before {
+            content: "◆";
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.5rem;
+            margin-top: 0.3rem;
+        }
+        .pricing-card .btn-buy {
+            display: block;
+            padding: 0.6rem 1.5rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            background: var(--primary);
+            color: #fff;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+        .pricing-card .btn-buy:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+        .pricing-card .btn-buy.gold-bg {
+            background: var(--gold);
+            color: var(--primary);
+        }
+        .pricing-card .btn-buy.gold-bg:hover {
+            background: var(--gold-hover);
+        }
+        .pricing-card .post-note {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+        }
+
+        /* ============================================================
+           DOCS GRID
+           ============================================================ */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .docs-group {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .docs-group:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--gold);
+        }
+        .docs-group h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--gold);
+        }
+        .docs-group ul {
+            list-style: none;
+            padding: 0;
+        }
+        .docs-group ul li {
+            padding: 0.2rem 0;
+        }
+        .docs-group ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .docs-group ul li a:hover {
+            color: var(--primary);
+            transform: translateX(4px);
+            font-weight: 500;
+        }
+        .docs-group ul li a::before {
+            content: "◆";
+            color: var(--gold);
+            font-size: 0.5rem;
+            opacity: 0.6;
+        }
+
+        /* ============================================================
+           FAQ (EXPANDED)
+           ============================================================ */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .faq-item {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .faq-item:hover { border-color: var(--gold); }
+        .faq-item h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+        .faq-item p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* ============================================================
+           CHATBOT
+           ============================================================ */
+        .chat-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e8ecf0;
+            position: relative;
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .chat-header h4 { color: #0a2e5c; margin: 0; }
+        .chat-header .panda-icon { font-size: 2rem; cursor: pointer; }
+        .chat-messages {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 0.8rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        .chat-messages .bot-msg .name { color: #c9a84c; font-weight: 600; }
+        .chat-messages .user-msg { text-align: right; color: #0a2e5c; margin: 0.3rem 0; }
+        .chat-input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .chat-input-row input {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            border: 1px solid #e8ecf0;
+            border-radius: 40px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .chat-input-row button {
+            background: #0a2e5c;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .chat-input-row button:hover { background: #1a4a7a; }
+
+        #panda-mascot {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            width: 60px;
+            height: 60px;
+            font-size: 2.8rem;
+            line-height: 1;
+            transform: translate(-30px, -30px);
+            transition: left 0.15s ease-out, top 0.15s ease-out;
+            opacity: 0.85;
+            display: none;
+        }
+        .chat-container:hover #panda-mascot { display: block; }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            background: #f2f4f6;
+            padding: 2.5rem 0 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            margin-top: 2rem;
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        .footer h4 {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: block;
+            padding: 0.2rem 0;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .footer a:hover { color: var(--primary); }
+        .footer .bottom {
+            grid-column: 1/-1;
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .footer .bottom a { display: inline; color: var(--text-muted); }
+        .footer .bottom a:hover { color: var(--primary); }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1024px) {
+            h1 { font-size: 3.2rem; }
+            .hero-panel h1 { font-size: 2.8rem; }
+            .path-panel .grid-2 { grid-template-columns: 1fr; }
+            .conv-comparison { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.4rem; }
+            h2 { font-size: 2rem; }
+            .hero-panel { padding: 2rem 1.5rem; }
+            .hero-panel h1 { font-size: 2.2rem; }
+            .hero-stats { flex-direction: column; gap: 0.8rem; }
+            .hero-stats .stat-border {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+                padding-top: 0.8rem;
+            }
+            .path-btn { min-width: 120px; font-size: 0.85rem; padding: 0.5rem 1.2rem; }
+            .path-panel { padding: 1.5rem; }
+            .footer .container { grid-template-columns: 1fr; gap: 1.5rem; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .section { padding: 2.5rem 0; }
+            .conv-comparison { grid-template-columns: 1fr; }
+            .tier-grid-table { font-size: 0.7rem; }
+            .tier-grid-table th, .tier-grid-table td { padding: 0.3rem 0.2rem; }
+            .industry-comp-table { font-size: 0.75rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-panel h1 { font-size: 1.8rem; }
+            .btn-hero-primary, .btn-hero-ghost { padding: 0.6rem 1.5rem; font-size: 0.85rem; width: 100%; text-align: center; }
+            .path-btn { min-width: 100%; }
+            .value-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ANIMATED BACKGROUNDS ===== -->
+    <div id="bg-canvas"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ============================================================
+    HEADER with UNIQUE TOP-RIGHT QUICK ACCESS
+    ============================================================ -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#c9a84c" />
+                            <stop offset="100%" stop-color="#e8c86a" />
+                        </linearGradient>
+                    </defs>
+                    <path class="crown" d="M4 32 L6 18 L12 22 L22 10 L32 22 L38 18 L40 32 L4 32 Z" fill="url(#cg)" />
+                    <path class="star" d="M22 4 L24 12 L32 12 L26 18 L28 26 L22 20 L16 26 L18 18 L12 12 L20 12 L22 4 Z" fill="#0a2e5c" />
+                    <rect x="6" y="32" width="32" height="3" rx="1.5" fill="#0a2e5c" opacity="0.12" />
+                    <polygon points="22,14 26,22 34,22 28,28 30,36 22,30 14,36 16,28 10,22 18,22" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.2" />
+                </svg>
+                <span class="brand">Crown<span class="highlight">Star</span></span>
+                <span class="ai-label">AI</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="active">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html">案例</a>
+                <a href="security.html">安全</a>
+                <a href="download-free.html">免费下载</a>
+                <a href="downloads.html">下载中心</a>
+                <a href="swagger.html" target="_blank">API</a>
+                <a href="articles.html">文章库</a>
+                <a href="ai-groups.html" class="cta" style="background:var(--gold); color:var(--primary) !important;">AI-Groups</a>
+                <div class="quick-access-wrapper">
+                    <button class="quick-access-btn" id="quickAccessBtn">
+                        <span class="icon">⚡</span> 快速跳转
+                    </button>
+                    <div class="quick-access-dropdown" id="quickAccessDropdown">
+                        <a href="#paths"><span class="emoji">🧭</span> 选择路径</a>
+                        <a href="#comparison-conv"><span class="emoji">💬</span> 对话对比</a>
+                        <a href="#tier-grid"><span class="emoji">📊</span> 功能全景</a>
+                        <a href="#features"><span class="emoji">⚙️</span> 核心优势</a>
+                        <a href="#pricing"><span class="emoji">💰</span> 定价方案</a>
+                        <div class="divider"></div>
+                        <a href="product.html"><span class="emoji">🧠</span> 产品详解</a>
+                        <a href="security.html"><span class="emoji">🛡️</span> 安全合规</a>
+                        <a href="downloads.html"><span class="emoji">📦</span> 下载中心</a>
+                        <a href="contact.html"><span class="emoji">📞</span> 联系我们</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-panel scroll-fade">
+                <div class="badge">
+                    <span class="dot"></span> 中国首发 · 深度集成 DeepSeek · v7.12
+                </div>
+                <h1>
+                    企业级<span style="color:var(--gold);">主权AI</span>平台<br />
+                    <em>三条路径，一个目标：您的数据，您做主</em>
+                </h1>
+                <p class="sub">
+                    无论您是个人开发者、企业管理者还是政府机构决策者，CrownStar AI 都为您准备了一条清晰的主权AI之路。<br>
+                    一次15分钟的对话，就能帮您找到最适合的路径。立即探索，开启您的私有化AI之旅。
+                </p>
+                <div class="btn-group">
+                    <a href="#paths" class="btn-hero-primary">立即探索 →</a>
+                    <a href="contact.html" class="btn-hero-ghost">预约演示</a>
+                    <a href="download-free.html" class="btn-hero-ghost">免费下载</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="num">9</div>
+                        <div class="label">自研数学模块</div>
+                        <div class="sub">Jacobian · Hessian · UAT</div>
+                    </div>
+                    <div class="stat stat-border">
+                        <div class="num">200+</div>
+                        <div class="label">网络协议</div>
+                        <div class="sub">互联网皮层 · 实时采集</div>
+                    </div>
+                    <div class="stat stat-border">
+                        <div class="num">∞</div>
+                        <div class="label">无限记忆</div>
+                        <div class="sub">永不截断 · 跨会话召回</div>
+                    </div>
+                    <div class="stat stat-border">
+                        <div class="num">100%</div>
+                        <div class="label">私有化部署</div>
+                        <div class="sub">数据主权 · 信创合规</div>
+                    </div>
+                    <div class="stat stat-border">
+                        <div class="num">1M+</div>
+                        <div class="label">上下文窗口</div>
+                        <div class="sub">业界最长 · 超长文档处理</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TRUST BAR
+    ============================================================ -->
+    <div class="trust-bar">
+        <span><span class="dot"></span> 数据主权</span>
+        <span><span class="dot"></span> 信创合规</span>
+        <span><span class="dot"></span> 等保 2.0 三级</span>
+        <span><span class="dot"></span> 国密加密</span>
+        <span><span class="dot"></span> 私有化部署</span>
+        <span><span class="dot"></span> 一次买断</span>
+        <span><span class="dot"></span> 终身免费升级</span>
+    </div>
+
+    <!-- ============================================================
+    PATH SELECTOR
+    ============================================================ -->
+    <section class="section" id="paths">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">选择您的路径</span>
+                <h2 class="section-title">哪种描述 <em>最符合您？</em></h2>
+                <p class="section-sub" style="margin:0 auto 1.5rem;">
+                    点击下方最符合您身份的选项。每条路径都会带您进入一场15分钟的深入对话 ——<br />
+                    我们将共同确认最适合您的部署方案，并为您开启专属的主权AI体验。
+                </p>
+            </div>
+
+            <div class="path-selector scroll-fade">
+                <button class="path-btn active" data-path="personal">
+                    👤 个人用户
+                    <span class="sub">学习 · 创作 · 生活决策</span>
+                </button>
+                <button class="path-btn" data-path="business">
+                    🏢 企业用户
+                    <span class="sub">中小企业 · 大型集团</span>
+                </button>
+                <button class="path-btn" data-path="government">
+                    🏛️ 政府机构
+                    <span class="sub">政务 · 公共服务 · 信创</span>
+                </button>
+            </div>
+
+            <!-- Panel: Personal -->
+            <div class="path-panel active" id="panel-personal">
+                <div class="grid-2">
+                    <div class="col">
+                        <span class="pill">个人用户 · 永久免费</span>
+                        <h3>为个人打造的主权AI助手</h3>
+                        <p class="body">无论您是学生、创作者、自由职业者还是职场人士，CrownStar AI 的免费版都能为您提供无限对话、9个数学模块和永不遗忘的记忆。所有数据完全私有，永不离开您的设备。您甚至可以在离线环境中使用，彻底告别数据泄露的担忧。</p>
+                        <ul>
+                            <li>无限对话 · 9个数学模块</li>
+                            <li>单用户 · 本地SQLite存储</li>
+                            <li>Web UI + REST API (只读)</li>
+                            <li>支持 Windows / Linux / macOS / ARM</li>
+                            <li>永久免费使用，无任何时间限制</li>
+                        </ul>
+                        <a href="download-free.html" class="cta-link">免费下载 →</a>
+                        <p class="disclaimer">包含完整安装包 · 5分钟快速部署</p>
+                    </div>
+                    <div class="col">
+                        <div class="testimonial-mini">
+                            <p class="q">“CrownStar AI 让我在学习编程时有了一个永远不会忘记任何细节的助手。所有的对话都保存在本地，我可以随时回溯，这彻底改变了我的学习效率。”</p>
+                            <div class="author">
+                                <div class="av">张</div>
+                                <div>
+                                    <div class="name">张明</div>
+                                    <div class="since">个人用户 · 使用6个月</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:1rem; background:var(--bg); border-radius:var(--radius); padding:1.2rem; border:1px solid var(--border);">
+                            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:0.3rem; font-weight:600;">适合您如果：</p>
+                            <ul style="list-style:none; padding:0; font-size:0.85rem; color:var(--text-light);">
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您希望拥有一个完全私人的AI助手</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您不想为AI支付订阅费用</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您重视数据隐私和主权</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您希望在一个工具中处理学习、创作和日常任务</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: Business -->
+            <div class="path-panel" id="panel-business">
+                <div class="grid-2">
+                    <div class="col">
+                        <span class="pill teal">企业用户 · 一次买断</span>
+                        <h3>企业级主权AI基础设施</h3>
+                        <p class="body">为中小企业和大型集团提供开箱即用的企业级AI能力。5分钟完成内网部署，全平台支持，包含多租户RLS、企业级审计日志和专属技术支持。无需依赖任何外部云端服务，所有数据完全保留在企业内部网络，满足最严苛的安全合规要求。</p>
+                        <ul>
+                            <li>5分钟部署 · 全平台支持</li>
+                            <li>多租户 · 行级安全 (RLS)</li>
+                            <li>全链路审计日志 · Prometheus监控</li>
+                            <li>一次性买断 · 终身免费升级</li>
+                            <li>源代码授权 (组织版及以上)</li>
+                        </ul>
+                        <a href="pricing.html" class="cta-link gold">查看定价 →</a>
+                        <p class="disclaimer">基础版 ¥39 · 进阶版 ¥248 · 专业版 ¥389 · 组织版 ¥705 起</p>
+                    </div>
+                    <div class="col">
+                        <div class="testimonial-mini">
+                            <p class="q">“CrownStar AI 是我们见过的部署最快的企业级 AI 平台，5 分钟完成内网部署，数据安全完全可控。我们的团队现在可以放心地将核心业务数据交给 AI 处理。”</p>
+                            <div class="author">
+                                <div class="av">李</div>
+                                <div>
+                                    <div class="name">李总</div>
+                                    <div class="since">某制造企业 · CTO</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:1rem; background:var(--bg); border-radius:var(--radius); padding:1.2rem; border:1px solid var(--border);">
+                            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:0.3rem; font-weight:600;">适合您如果：</p>
+                            <ul style="list-style:none; padding:0; font-size:0.85rem; color:var(--text-light);">
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您希望AI能力完全部署在企业内部</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您需要满足等保2.0和信创合规要求</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您想要一次买断，而非持续订阅</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您需要多租户隔离和完整的审计能力</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: Government -->
+            <div class="path-panel" id="panel-government">
+                <div class="grid-2">
+                    <div class="col">
+                        <span class="pill navy">政府机构 · 最高安全</span>
+                        <h3>国家级主权AI基础设施</h3>
+                        <p class="body">为政府机构和公共服务提供最高安全标准的AI能力。满足等保2.0三级、信创全栈适配、国密加密（SM2/SM3/SM4），数据主权100%可控。支持华为昇腾NPU、鲲鹏CPU、麒麟OS、统信UOS等国产化软硬件，助力数字政府建设和智慧政务转型。</p>
+                        <ul>
+                            <li>等保2.0三级 · 信创全栈</li>
+                            <li>SM2/SM3/SM4 国密加密</li>
+                            <li>华为昇腾NPU · 鲲鹏CPU · 麒麟OS</li>
+                            <li>无限用户 · 完整源码授权</li>
+                            <li>专属技术经理 · 7×24支持</li>
+                        </ul>
+                        <a href="contact.html" class="cta-link">联系我们 →</a>
+                        <p class="disclaimer">企业旗舰版 · 源码授权 · 专属部署</p>
+                    </div>
+                    <div class="col">
+                        <div class="testimonial-mini">
+                            <p class="q">“我们评估了多个 AI 平台，只有 CrownStar AI 真正满足了信创合规和私有化部署的所有要求。从芯片到操作系统，再到数据加密，完全自主可控。”</p>
+                            <div class="author">
+                                <div class="av">王</div>
+                                <div>
+                                    <div class="name">王主任</div>
+                                    <div class="since">某省级政务平台 · CIO</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:1rem; background:var(--bg); border-radius:var(--radius); padding:1.2rem; border:1px solid var(--border);">
+                            <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:0.3rem; font-weight:600;">适合您如果：</p>
+                            <ul style="list-style:none; padding:0; font-size:0.85rem; color:var(--text-light);">
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您需要满足最严格的政府安全标准</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您需要信创全栈适配和国密合规</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您需要源码授权和完全自主可控</li>
+                                <li style="padding:0.15rem 0; display:flex; gap:0.5rem;"><span style="color:var(--gold);">◆</span> 您希望将AI能力无缝集成到现有政务系统中</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CONVERSATION COMPARISON (3 columns)
+    ============================================================ -->
+    <section class="section" id="comparison-conv">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">对比</span>
+                <h2 class="section-title">真实对话对比 · DeepSeek vs Others vs CrownStar</h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">同样的问题，三种不同的回答质量。CrownStar 用 9 个数学模块实时增强，输出结构清晰、数据丰富、洞察深刻。</p>
+            </div>
+            <div class="conv-comparison">
+                <div class="conv-card scroll-fade">
+                    <div class="label">DeepSeek 单独使用 <span class="badge">基础版</span></div>
+                    <div class="content">
+                        <p><strong>用户：</strong>什么是鱼？</p>
+                        <p><strong>DeepSeek：</strong>鱼是一种水生脊椎动物，通常有鳃、鳍和鳞片。它们生活在水中，用鳃呼吸。鱼是地球上最古老的脊椎动物之一，种类繁多，从热带到极地都有分布。它们对生态系统很重要，也是人类重要的食物来源。常见的鱼包括鲤鱼、金鱼、鲨鱼和鲑鱼。鱼类的繁殖方式多样，有卵生、卵胎生和胎生等。</p>
+                        <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">✅ 回答正确，但结构松散，信息密度低，缺少分析深度。</p>
+                    </div>
+                </div>
+                <div class="conv-card scroll-fade">
+                    <div class="label">ChatGPT 4o <span class="badge">标准版</span></div>
+                    <div class="content">
+                        <p><strong>用户：</strong>什么是鱼？</p>
+                        <p><strong>ChatGPT：</strong>鱼是水生脊椎动物，具有鳃、鳍和鳞片，适应在水中生活。它们种类繁多，从淡水到咸水均有分布。鱼类在生态系统中扮演重要角色，同时是人类的蛋白质来源。它们有各种繁殖策略，包括卵生和胎生。</p>
+                        <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">✅ 流畅但泛泛而谈，缺乏专业深度和数据支撑。</p>
+                    </div>
+                </div>
+                <div class="conv-card scroll-fade" style="border:2px solid var(--gold);">
+                    <div class="label">CrownStar (基于 DeepSeek 增强) <span class="badge" style="background:var(--gold); color:var(--primary);">增强版</span></div>
+                    <div class="content">
+                        <p><strong>用户：</strong>什么是鱼？</p>
+                        <p><strong>CrownStar：</strong>鱼是地球上最古老且最多样化的水生脊椎动物之一，属于脊索动物门、脊椎动物亚门。核心特征：用鳃呼吸（适应水中溶解氧）、拥有鳍（用于运动）以及全身覆盖鳞片（保护并减少摩擦）。演化历史超过5亿年，现存约3万种，从深海热液喷口到高山溪流均有分布。从生态系统角度，鱼类是食物网的关键环节——控制浮游生物数量，同时为鸟类、哺乳动物和人类提供蛋白质。从人类文明视角，鱼类是全球约15%人口的日常蛋白质来源，承载了深厚的文化象征（如中国的“年年有鱼”）。从进化生物学看，鱼类是研究脊椎动物登陆和四足动物起源的重要模型。CrownStar 的数学模块（如 Jacobian 梯度分析和 Hessian 矩阵优化）进一步解析了鱼类适应环境的动态神经网络机制，将原始信息重组为“分类学—生态学—人类关系—进化意义”四维结构，使回答更系统、更深刻。</p>
+                        <p style="color:var(--gold); font-size:0.85rem; margin-top:0.5rem;">⭐ 结构化输出，数据密度提升 50%，洞察深刻，记忆增强。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    INDUSTRY COMPARISON TABLE
+    ============================================================ -->
+    <section class="section" id="industry-comp">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">行业对比</span>
+                <h2 class="section-title">CrownStar <span style="color:var(--gold);">行业竞争力</span>全面对比</h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">与全球顶级 AI 平台全面比较 — CrownStar 在数据主权、私有化部署、源码交付、总拥有成本等方面遥遥领先。</p>
+            </div>
+            <div class="compare-wrap scroll-fade">
+                <table class="industry-comp-table">
+                    <thead>
+                        <tr>
+                            <th>维度</th>
+                            <th>CrownStar (on DeepSeek)</th>
+                            <th>OpenAI</th>
+                            <th>Anthropic</th>
+                            <th>Google (Gemini)</th>
+                            <th>DeepSeek 单独</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight">
+                            <td style="font-weight:600; color:var(--primary);">数据主权 (100% 私有化)</td>
+                            <td class="check">✅ 完全本地部署</td>
+                            <td class="cross">❌ 云端依赖</td>
+                            <td class="cross">❌ 云端依赖</td>
+                            <td class="cross">❌ 云端依赖</td>
+                            <td class="cross">❌ 云端依赖</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:600; color:var(--primary);">信创合规 (国产化适配)</td>
+                            <td class="check">✅ 华为·昇腾/鲲鹏/麒麟/统信</td>
+                            <td class="cross">❌ 不支持</td>
+                            <td class="cross">❌ 不支持</td>
+                            <td class="cross">❌ 不支持</td>
+                            <td class="cross">❌ 不支持</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td style="font-weight:600; color:var(--primary);">源代码交付</td>
+                            <td class="check">✅ 付费版包含完整源码</td>
+                            <td class="cross">❌ 仅 API</td>
+                            <td class="cross">❌ 仅 API</td>
+                            <td class="cross">❌ 仅 API</td>
+                            <td class="cross">❌ 仅 API</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:600; color:var(--primary);">白标品牌</td>
+                            <td class="check">✅ 企业版支持</td>
+                            <td class="cross">❌ 不可</td>
+                            <td class="cross">❌ 不可</td>
+                            <td class="cross">❌ 不可</td>
+                            <td class="cross">❌ 不可</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td style="font-weight:600; color:var(--primary);">全链路审计 + RLS</td>
+                            <td class="check">✅ 行级安全 + 审计日志</td>
+                            <td class="cross">❌ 仅租户隔离</td>
+                            <td class="cross">❌ 基础审计</td>
+                            <td class="cross">❌ 基础审计</td>
+                            <td class="cross">❌ 无</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:600; color:var(--primary);">计费模式</td>
+                            <td class="check">✅ 一次性买断，终身升级</td>
+                            <td class="cross">❌ 按 token 付费</td>
+                            <td class="cross">❌ 按 token 付费</td>
+                            <td class="cross">❌ 按 token 付费</td>
+                            <td class="cross">❌ 按 token 付费</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td style="font-weight:600; color:var(--primary);">数学可解释性</td>
+                            <td class="check">✅ 9 大模块，可追溯</td>
+                            <td class="cross">❌ 黑盒</td>
+                            <td class="cross">❌ 部分可解释</td>
+                            <td class="cross">❌ 黑盒</td>
+                            <td class="cross">❌ 黑盒</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:600; color:var(--primary);">记忆与上下文</td>
+                            <td class="check">✅ 无限记忆，跨会话召回</td>
+                            <td class="cross">❌ 有限上下文</td>
+                            <td class="cross">❌ 有限上下文</td>
+                            <td class="cross">❌ 有限上下文</td>
+                            <td class="cross">❌ 有限上下文</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td style="font-weight:600; color:var(--primary);">总拥有成本 (TCO)</td>
+                            <td class="check">✅ 极低 · 一次投入</td>
+                            <td class="cross">❌ 持续高额费用</td>
+                            <td class="cross">❌ 持续高额费用</td>
+                            <td class="cross">❌ 持续高额费用</td>
+                            <td class="cross">❌ 持续高额费用</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align:center; color:var(--text-muted); margin-top:1rem;">✅ CrownStar 在关键企业维度上全面领先，是唯一 100% 主权可控的 AI 平台。</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TIER FEATURE GRID
+    ============================================================ -->
+    <section class="section" id="tier-grid">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">功能全景</span>
+                <h2 class="section-title">各层级 <span style="color:var(--gold);">功能全景</span>对比</h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">从免费版到企业旗舰版，所有功能一目了然。选择最适合您的层级，开启主权AI之旅。</p>
+            </div>
+            <div class="compare-wrap scroll-fade">
+                <table class="tier-grid-table">
+                    <thead>
+                        <tr>
+                            <th>功能</th>
+                            <th>免费版</th>
+                            <th>基础版</th>
+                            <th>进阶版</th>
+                            <th>专业版</th>
+                            <th>组织版<br><small>小型</small></th>
+                            <th>组织版<br><small>中型</small></th>
+                            <th>组织版<br><small>大型</small></th>
+                            <th>企业旗舰版</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="feature-label">无限对话记忆</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">9 大数学模块</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">私有化部署</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">用户数</td>
+                            <td>1</td><td>5</td><td>50</td><td>10</td>
+                            <td>100</td><td>100</td><td>100</td><td>∞</td>
+                        </tr>
+                        <tr><td class="feature-label">API 访问</td>
+                            <td>只读</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">RLS 行级安全</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">源代码交付</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">白标品牌</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">技术支持响应</td>
+                            <td>社区</td><td>邮件</td><td>邮件+电话</td><td>邮件+电话</td>
+                            <td>优先电话</td><td>优先电话</td><td>优先电话</td><td>专属 7×24</td>
+                        </tr>
+                        <tr><td class="feature-label">审计日志 / 合规</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">一次买断，终身升级</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">价格 (CNY)</td>
+                            <td>0</td><td>39</td><td>248</td><td>389</td>
+                            <td>705</td><td>61,775</td><td>476,000</td><td>1,675,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align:center; color:var(--text-muted); margin-top:1rem;">✔ = 包含 &nbsp;&nbsp; — = 不包含 &nbsp;&nbsp; 所有付费版本均包含终身免费升级。</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    ADDITIONAL SMART EXAMPLES
+    ============================================================ -->
+    <section class="section" id="more-examples">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">示例</span>
+                <h2 class="section-title">更多 CrownStar <span style="color:var(--gold);">智能示例</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">让 AI 不仅回答问题，更提供深度见解和实用建议，覆盖日常、旅行、专业学习等多个场景。</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem;">
+                <div style="background:rgba(255,255,255,0.7); backdrop-filter:blur(12px); border-radius:var(--radius); padding:1.8rem; border:1px solid rgba(255,255,255,0.4);" class="scroll-fade">
+                    <h3 style="color:var(--primary); font-size:1.2rem;">🌤️ 北京今天的天气怎么样？</h3>
+                    <p style="color:var(--text-light); margin-top:0.5rem;">CrownStar：根据中国气象局数据，今天北京天气晴朗，气温 22°C–31°C，空气质量指数（AQI）为 85（良好）。紫外线较强，建议上午10点至下午3点避免长时间暴晒。当前风向为南风，风速 15km/h，傍晚将转为西北风，体感温度会下降 3°C。穿衣指南：短袖搭薄外套，早晚温差较大。此外，今天日照时长约 13.5 小时，适合户外活动，但需注意补充水分。我们使用了 Haykin 递归模块结合实时气象数据源，生成了这份综合天气报告。</p>
+                </div>
+                <div style="background:rgba(255,255,255,0.7); backdrop-filter:blur(12px); border-radius:var(--radius); padding:1.8rem; border:1px solid rgba(255,255,255,0.4);" class="scroll-fade">
+                    <h3 style="color:var(--primary); font-size:1.2rem;">🏰 去上海迪士尼还是香港迪士尼？有什么好玩的？</h3>
+                    <p style="color:var(--text-light); margin-top:0.5rem;">CrownStar：上海迪士尼拥有全球最大的奇幻童话城堡和“创极速光轮”过山车，适合追求科技感和大型娱乐项目的游客；香港迪士尼则更紧凑，带有经典童话氛围，且拥有“迷离庄园”和“灰熊山谷”等独家园区。两园均包含花车巡游、烟花秀和丰富的主题餐厅。从预算看，上海迪士尼门票（约 ¥600）和住宿比香港（约 ¥800 HKD）略贵，但交通便利，地铁直达。若时间充裕，建议上海（3天）玩全，若短途且喜欢经典，香港（2天）更合适。CrownStar 综合了游客评价、价格、项目丰富度和交通因素，给出了分层建议。</p>
+                </div>
+                <div style="background:rgba(255,255,255,0.7); backdrop-filter:blur(12px); border-radius:var(--radius); padding:1.8rem; border:1px solid rgba(255,255,255,0.4);" class="scroll-fade">
+                    <h3 style="color:var(--primary); font-size:1.2rem;">🧮 什么是雅可比矩阵（Jacobian）？</h3>
+                    <p style="color:var(--text-light); margin-top:0.5rem;">CrownStar：雅可比矩阵是多变量微积分中的核心工具，用于描述向量值函数在某一点的局部线性变换。设 \(f: \mathbb{R}^n \to \mathbb{R}^m\)，则其雅可比矩阵为一个 \(m \times n\) 矩阵，包含所有一阶偏导数。它在 AI 中的应用极为关键：在神经网络反向传播中，雅可比用于计算误差梯度，从而优化参数；在机器人学中，雅可比将关节速度映射为末端执行器速度。CrownStar 的超级神经元模型深度利用了雅可比矩阵，使推理过程可数学证明。我们同时还提供了其与海森矩阵（Hessian）的对比分析，帮助用户理解二阶优化。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    VALUE CARDS
+    ============================================================ -->
+    <section class="section" id="why">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">核心价值</span>
+                <h2 class="section-title">为什么选择 <span style="color:var(--gold);">CrownStar AI</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">这不是另一个AI封装 —— 这是 <strong>世界首个</strong> 专为DeepSeek打造的增强层，<br />为每个行业、每个角色提供不可替代的决策优势。</p>
+            </div>
+            <div class="value-grid">
+                <div class="value-card scroll-fade">
+                    <svg class="icon-svg" viewBox="0 0 80 80">
+                        <polygon points="40,8 68,20 68,44 68,60 40,72 12,60 12,44 12,20 40,8" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <polygon points="40,16 56,24 56,44 56,54 40,62 24,54 24,44 24,24 40,16" fill="none" stroke="#0a2e5c" stroke-width="1.5" opacity="0.2" />
+                        <rect x="34" y="34" width="12" height="12" rx="2" fill="none" stroke="#c9a84c" stroke-width="2" />
+                        <line x1="38" y1="40" x2="42" y2="40" stroke="#0a2e5c" stroke-width="2" />
+                        <line x1="40" y1="36" x2="40" y2="44" stroke="#0a2e5c" stroke-width="2" />
+                    </svg>
+                    <h3>主权可控</h3>
+                    <p>100%私有化部署，满足《数据安全法》及等保2.0三级。您的数据，您做主。</p>
+                </div>
+                <div class="value-card scroll-fade">
+                    <svg class="icon-svg" viewBox="0 0 80 80">
+                        <polygon points="40,8 60,18 60,42 60,62 40,72 20,62 20,42 20,18 40,8" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <polygon points="40,16 54,24 54,44 54,58 40,64 26,58 26,44 26,24 40,16" fill="none" stroke="#0a2e5c" stroke-width="1.5" opacity="0.2" />
+                        <path d="M34 36 L46 36 M34 44 L42 44" stroke="#c9a84c" stroke-width="2" />
+                        <circle cx="40" cy="40" r="3" fill="none" stroke="#c9a84c" stroke-width="2" />
+                    </svg>
+                    <h3>DeepSeek 增强</h3>
+                    <p>9大数学模块实时增强DeepSeek输出，知识密度提升50%，输出质量无与伦比。</p>
+                </div>
+                <div class="value-card scroll-fade">
+                    <svg class="icon-svg" viewBox="0 0 80 80">
+                        <polygon points="40,8 68,40 40,72 12,40 40,8" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <polygon points="40,20 56,40 40,60 24,40 40,20" fill="none" stroke="#0a2e5c" stroke-width="1.5" opacity="0.15" />
+                        <rect x="30" y="30" width="20" height="20" rx="2" fill="none" stroke="#c9a84c" stroke-width="2" />
+                        <line x1="34" y1="36" x2="46" y2="36" stroke="#0a2e5c" stroke-width="1.5" />
+                        <line x1="34" y1="40" x2="42" y2="40" stroke="#0a2e5c" stroke-width="1.5" />
+                    </svg>
+                    <h3>无限记忆</h3>
+                    <p>所有对话永久保存，跨会话召回，永不截断。您永远不会失去任何上下文。</p>
+                </div>
+                <div class="value-card scroll-fade">
+                    <svg class="icon-svg" viewBox="0 0 80 80">
+                        <rect x="10" y="10" width="28" height="28" rx="4" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <rect x="42" y="10" width="28" height="28" rx="4" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <rect x="10" y="42" width="28" height="28" rx="4" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <rect x="42" y="42" width="28" height="28" rx="4" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <circle cx="24" cy="24" r="3" fill="none" stroke="#0a2e5c" stroke-width="1.5" />
+                        <circle cx="56" cy="24" r="3" fill="none" stroke="#0a2e5c" stroke-width="1.5" />
+                        <circle cx="24" cy="56" r="3" fill="none" stroke="#0a2e5c" stroke-width="1.5" />
+                        <circle cx="56" cy="56" r="3" fill="none" stroke="#0a2e5c" stroke-width="1.5" />
+                    </svg>
+                    <h3>全平台 · 开箱即用</h3>
+                    <p>5分钟部署，支持Windows、Linux、macOS、ARM。桌面UI + REST API + 12种语言SDK。</p>
+                </div>
+                <div class="value-card scroll-fade">
+                    <svg class="icon-svg" viewBox="0 0 80 80">
+                        <polygon points="40,6 60,18 60,42 60,60 40,72 20,60 20,42 20,18 40,6" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <rect x="28" y="28" width="24" height="24" rx="2" fill="none" stroke="#0a2e5c" stroke-width="2" />
+                        <line x1="36" y1="40" x2="44" y2="40" stroke="#c9a84c" stroke-width="2" />
+                        <line x1="40" y1="34" x2="40" y2="46" stroke="#c9a84c" stroke-width="2" />
+                    </svg>
+                    <h3>信创 · 国密合规</h3>
+                    <p>适配华为昇腾NPU、鲲鹏CPU、麒麟OS，SM2/SM3/SM4国密加密，完全自主可控。</p>
+                </div>
+                <div class="value-card scroll-fade">
+                    <svg class="icon-svg" viewBox="0 0 80 80">
+                        <path d="M20 40 Q20 20 40 20 Q60 20 60 40 Q60 60 40 60 Q20 60 20 40" fill="none" stroke="#c9a84c" stroke-width="2.5" />
+                        <path d="M28 40 Q28 28 40 28 Q52 28 52 40 Q52 52 40 52 Q28 52 28 40" fill="none" stroke="#0a2e5c" stroke-width="1.5" opacity="0.2" />
+                        <rect x="34" y="34" width="12" height="12" rx="2" fill="none" stroke="#c9a84c" stroke-width="2" />
+                        <line x1="38" y1="40" x2="42" y2="40" stroke="#0a2e5c" stroke-width="2" />
+                    </svg>
+                    <h3>一次买断 · 终身升级</h3>
+                    <p>无订阅陷阱。所有付费版本包含永久免费更新，一次投入，终身受益。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    SYSTEM ARCHITECTURE DIAGRAM
+    ============================================================ -->
+    <section class="section" id="architecture">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">技术架构</span>
+                <h2 class="section-title">系统 <span style="color:var(--gold);">架构</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">CrownStar AI 由四个核心层构成，协同工作，提供无与伦比的智能体验。</p>
+            </div>
+            <div class="arch-wrap scroll-fade">
+                <svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="900" height="480" rx="16" fill="#f8faff" />
+                    <text x="450" y="36" text-anchor="middle" font-size="15" font-weight="700" fill="#0a2e5c">CrownStar AI 核心架构</text>
+                    <rect x="50" y="52" width="800" height="72" rx="8" fill="#e8edf5" stroke="#c9a84c" stroke-width="1.5" />
+                    <text x="450" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#0a2e5c">用户界面层</text>
+                    <text x="450" y="98" text-anchor="middle" font-size="10" fill="#4a4a6a">桌面 UI · Web UI · CLI · API · SDKs (12种语言)</text>
+                    <text x="450" y="114" text-anchor="middle" font-size="9" fill="#7a7a9a">Windows · Linux · macOS · ARM</text>
+                    <line x1="450" y1="124" x2="450" y2="144" stroke="#c9a84c" stroke-width="2" marker-end="url(#arrow)" />
+                    <rect x="50" y="148" width="800" height="82" rx="8" fill="#f0f4fa" stroke="#0a2e5c" stroke-width="1.5" />
+                    <text x="450" y="174" text-anchor="middle" font-size="13" font-weight="700" fill="#0a2e5c">CrownStar 增强引擎</text>
+                    <text x="450" y="194" text-anchor="middle" font-size="10" fill="#4a4a6a">9大数学模块 · Dreamcatcher 处理器 · 控制论外壳</text>
+                    <text x="450" y="210" text-anchor="middle" font-size="9" fill="#7a7a9a">Jacobian · Hessian · UAT · Gurney · Yegnanarayana · Haykin · Bishop · Zurada · Ultra</text>
+                    <text x="450" y="224" text-anchor="middle" font-size="9" fill="#7a7a9a">结构化输出 · 知识密度提升 · 数学可证明推理</text>
+                    <line x1="450" y1="230" x2="450" y2="250" stroke="#c9a84c" stroke-width="2" marker-end="url(#arrow)" />
+                    <rect x="50" y="254" width="800" height="72" rx="8" fill="#eef2f8" stroke="#c9a84c" stroke-width="1.5" />
+                    <text x="450" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="#0a2e5c">DeepSeek 核心引擎</text>
+                    <text x="450" y="300" text-anchor="middle" font-size="10" fill="#4a4a6a">V2-Lite · V3 · R1 · 4.0 原生集成</text>
+                    <text x="450" y="316" text-anchor="middle" font-size="9" fill="#7a7a9a">全球最强中文AI · 完全本地运行 · 无云端依赖</text>
+                    <line x1="450" y1="326" x2="450" y2="346" stroke="#c9a84c" stroke-width="2" marker-end="url(#arrow)" />
+                    <rect x="50" y="350" width="800" height="72" rx="8" fill="#dce4f0" stroke="#0a2e5c" stroke-width="1.5" />
+                    <text x="450" y="376" text-anchor="middle" font-size="13" font-weight="700" fill="#0a2e5c">基础设施层</text>
+                    <text x="450" y="396" text-anchor="middle" font-size="10" fill="#4a4a6a">无限记忆 · 互联网皮层 · 混合检索</text>
+                    <text x="450" y="412" text-anchor="middle" font-size="9" fill="#7a7a9a">FAISS · BM25 · RRF · 200+ 网络协议 · 多模态记忆 · 时序索引</text>
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M0,0 L10,5 L0,10 Z" fill="#c9a84c" />
+                        </marker>
+                    </defs>
+                    <text x="100" y="470" font-size="8" fill="#7a7a9a">← 完全私有化部署 · 信创合规 · 国密加密 →</text>
+                    <text x="700" y="470" font-size="8" fill="#7a7a9a">一次购买 · 终身免费升级</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    MARKET SEGMENTS
+    ============================================================ -->
+    <section class="section" id="segments">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">适配</span>
+                <h2 class="section-title">为每一类组织 <span style="color:var(--gold);">量身定制</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">CrownStar AI 适配中国各级政府部门、各类企业、工业园区及特殊经济区，真正做到全覆盖。</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.8rem;">
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); text-align:center;" class="scroll-fade"><span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;">🏛️</span><h3 style="font-size:1.2rem;">国家级政府</h3><p style="font-size:0.9rem; color:var(--text-light);">满足最高安全标准，支撑国家关键信息基础设施，数据主权100%可控。</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); text-align:center;" class="scroll-fade"><span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;">🏢</span><h3 style="font-size:1.2rem;">省级 / 市级政府</h3><p style="font-size:0.9rem; color:var(--text-light);">助力数字政府建设，提升公共服务效率，保障公民数据隐私。</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); text-align:center;" class="scroll-fade"><span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;">🏘️</span><h3 style="font-size:1.2rem;">区县 / 乡镇 / 村</h3><p style="font-size:0.9rem; color:var(--text-light);">轻量部署，低成本运维，为基层治理和乡村振兴提供智能支撑。</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); text-align:center;" class="scroll-fade"><span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;">🏭</span><h3 style="font-size:1.2rem;">工业企业 & 工厂</h3><p style="font-size:0.9rem; color:var(--text-light);">工业质检、设备预测性维护、生产优化，AI赋能智能制造。</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); text-align:center;" class="scroll-fade"><span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;">🏗️</span><h3 style="font-size:1.2rem;">工业园区 & 经济开发区</h3><p style="font-size:0.9rem; color:var(--text-light);">园区大脑、智慧招商、企业服务一体化，提升园区竞争力。</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); text-align:center;" class="scroll-fade"><span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;">🌾</span><h3 style="font-size:1.2rem;">农业 & 农场</h3><p style="font-size:0.9rem; color:var(--text-light);">智慧农业决策、作物监测、市场分析，助力乡村振兴。</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); text-align:center;" class="scroll-fade"><span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;">💼</span><h3 style="font-size:1.2rem;">中小企业</h3><p style="font-size:0.9rem; color:var(--text-light);">开箱即用，低成本获得企业级AI能力，提升运营效率。</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); text-align:center;" class="scroll-fade"><span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;">🌐</span><h3 style="font-size:1.2rem;">大型集团 & 跨国企业</h3><p style="font-size:0.9rem; color:var(--text-light);">多租户、高可用、全源码交付，满足最严苛的企业治理要求。</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    INDUSTRY SOLUTIONS
+    ============================================================ -->
+    <section class="section" id="industries">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">行业</span>
+                <h2 class="section-title">行业 <span style="color:var(--gold);">解决方案</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">CrownStar AI 为不同行业提供针对性的 AI 能力，覆盖金融、政务、医疗、制造、能源、科研等核心领域。</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem;">
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:2.2rem; display:block; margin-bottom:0.3rem;">💰</span><h4 style="font-size:1.1rem; color:var(--primary);">金融行业</h4><p style="font-size:0.85rem; color:var(--text-light);">智能风控、客户画像、合规审查、实时数据分析、反欺诈</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:2.2rem; display:block; margin-bottom:0.3rem;">🏛️</span><h4 style="font-size:1.1rem; color:var(--primary);">政务与公共服务</h4><p style="font-size:0.85rem; color:var(--text-light);">政务问答、政策解读、办事指南、舆情分析、智慧城市</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:2.2rem; display:block; margin-bottom:0.3rem;">🏥</span><h4 style="font-size:1.1rem; color:var(--primary);">医疗健康</h4><p style="font-size:0.85rem; color:var(--text-light);">病历分析、辅助诊断、药物研发、健康管理、医学影像</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:2.2rem; display:block; margin-bottom:0.3rem;">🏭</span><h4 style="font-size:1.1rem; color:var(--primary);">制造业</h4><p style="font-size:0.85rem; color:var(--text-light);">智能质检、设备预测维护、供应链优化、质量控制、精益生产</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:2.2rem; display:block; margin-bottom:0.3rem;">⚡</span><h4 style="font-size:1.1rem; color:var(--primary);">能源与电力</h4><p style="font-size:0.85rem; color:var(--text-light);">电网调度、设备监测、能耗优化、安全管理、新能源预测</p></div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:2.2rem; display:block; margin-bottom:0.3rem;">🔬</span><h4 style="font-size:1.1rem; color:var(--primary);">科研与教育</h4><p style="font-size:0.85rem; color:var(--text-light);">论文检索、实验分析、教学辅助、学术研究、知识图谱</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FEATURES – Full list (expanded to 16)
+    ============================================================ -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">优势</span>
+                <h2 class="section-title">核心 <span style="color:var(--gold);">优势</span> (16项独家特性)</h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">超过 50 项独家特性，让 CrownStar AI 成为世界第一的主权AI平台。以下是其中 16 项核心优势。</p>
+            </div>
+            <div class="features-grid-full">
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">01</span>
+                    <div><h4>数学可证明的推理</h4><p>基于 L 层张量网络，每个输出可追溯。无黑盒风险，完全透明。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">02</span>
+                    <div><h4>9大自研数学模块</h4><p>Jacobian, Hessian, UAT, Gurney, Yegnanarayana, Haykin, Bishop, Zurada, Ultra — 可单独开关。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">03</span>
+                    <div><h4>无限记忆窗口</h4><p>所有对话永久保存，跨会话召回，永不截断。支持多模态记忆和时序索引。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">04</span>
+                    <div><h4>互联网皮层</h4><p>200+ 网络协议（RSS, DNS, RDAP, WHOIS, HTTP），实时数据采集，动态增强推理上下文。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">05</span>
+                    <div><h4>混合检索 (BM25+FAISS+RRF)</h4><p>稀疏 + 稠密 + 倒数排名融合，召回率提升 40%，响应速度毫秒级。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">06</span>
+                    <div><h4>企业级安全</h4><p>JWT/RBAC/AES-256-GCM/零知识证明(ZK-SNARKs)/后量子密码(PQC) — 全栈加密。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">07</span>
+                    <div><h4>全链路审计日志</h4><p>每次请求、每个输出、每次数据访问均记录，满足等保2.0三级审计要求。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">08</span>
+                    <div><h4>多租户 + 行级安全 (RLS)</h4><p>租户间数据严格隔离，支持 RBAC、SSO 集成（OIDC/SAML）。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">09</span>
+                    <div><h4>12种语言 SDK</h4><p>Python · Java · C# · Go · Rust · JavaScript · TypeScript · Swift · Kotlin · C++ · Ruby · PHP</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">10</span>
+                    <div><h4>硬件感知</h4><p>自动检测 NVIDIA / AMD / Intel / 华为昇腾 NPU，动态优化计算图。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">11</span>
+                    <div><h4>跨平台桌面 UI</h4><p>Windows / Linux / macOS 原生体验，华丽玻璃态设计，左对齐专业风格。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">12</span>
+                    <div><h4>实时监控仪表板</h4><p>Prometheus 指标导出，自定义告警规则，Jaeger 分布式追踪。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">13</span>
+                    <div><h4>国密加密 (SM2/SM3/SM4)</h4><p>满足中国密码法要求，适配信创环境，数据加密自主可控。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">14</span>
+                    <div><h4>信创全栈适配</h4><p>华为昇腾NPU · 鲲鹏CPU · 麒麟OS · 统信UOS · 达梦数据库等。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">15</span>
+                    <div><h4>源码交付 (企业版)</h4><p>完整 Python/JS/Go 源码，自由定制、白标品牌、深度集成。</p></div>
+                </div>
+                <div class="feature-item-full scroll-fade">
+                    <span class="num">16</span>
+                    <div><h4>一次买断 · 终身升级</h4><p>无订阅陷阱。所有付费版本包含永久免费更新，保障长期投资回报。</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    MATHEMATICAL MODULES
+    ============================================================ -->
+    <section class="section" id="modules">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">数学</span>
+                <h2 class="section-title">9大 <span style="color:var(--gold);">数学模块</span> 详解</h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">基于经典神经网络理论，构建可解释、可验证的 AI 核心。每个模块都可单独启用或禁用，让您精确控制推理风格。</p>
+            </div>
+            <div class="modules-grid">
+                <div class="module-tag scroll-fade"><span class="math">D<sup>(L)</sup> W<sup>(L)</sup></span> 3层 Jacobian</div>
+                <div class="module-tag scroll-fade"><span class="math">H = ∇²L</span> Hessian 反向传播</div>
+                <div class="module-tag scroll-fade"><span class="math">f ∈ C(K)</span> 通用近似定理</div>
+                <div class="module-tag scroll-fade"><span class="math">G<sup>(3)</sup></span> Gurney 三阶段</div>
+                <div class="module-tag scroll-fade"><span class="math">Θ</span> Yegnanarayana 张量</div>
+                <div class="module-tag scroll-fade"><span class="math">R</span> Haykin 递归</div>
+                <div class="module-tag scroll-fade"><span class="math">P(y|x)</span> Bishop 概率</div>
+                <div class="module-tag scroll-fade"><span class="math">Z</span> Zurada 索引</div>
+                <div class="module-tag scroll-fade"><span class="math">Ψ</span> Ultra 超级模型</div>
+            </div>
+            <p style="text-align:center;color:var(--text-light);font-size:0.8rem;margin-top:1rem;">每个模块可单独启用 / 禁用，组合效果实时可见。您可以通过 CrownStar 的 UI 或 API 动态调整模块组合。</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PRICING – with exact numbers (39, 248, 389, 705, 61,775, 476,000, 1,675,000)
+    ============================================================ -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">定价</span>
+                <h2 class="section-title">选择适合您的 <span style="color:var(--gold);">层级</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">免费版 · 基础版 · 进阶版 · 专业版 · 组织版 · 企业旗舰版 — 按需选择，<strong>一次买断，终身升级</strong>。</p>
+            </div>
+            <div class="pricing-grid">
+                <!-- FREE -->
+                <div class="pricing-card scroll-fade">
+                    <div class="tier">社区版</div>
+                    <div class="name">免费</div>
+                    <div class="audience">个人探索 & 学习</div>
+                    <div class="price" style="font-size:1.8rem; color:var(--text-light);">¥0</div>
+                    <ul>
+                        <li>无限对话 · 9个数学模块</li>
+                        <li>1 用户 · 只读 API</li>
+                        <li>本地 SQLite 存储</li>
+                        <li>永久免费</li>
+                    </ul>
+                    <a href="download-free.html" class="btn-buy" style="background:#4a4a6a;">免费下载</a>
+                    <div class="post-note">无需支付 · 即刻使用</div>
+                </div>
+                <!-- BASIC -->
+                <div class="pricing-card scroll-fade">
+                    <div class="tier">入门</div>
+                    <div class="name">基础版</div>
+                    <div class="audience">个人专业用户</div>
+                    <div class="price"><span class="currency">¥</span>39</div>
+                    <ul>
+                        <li>免费版全部功能</li>
+                        <li>5 用户 · 完整 API</li>
+                        <li>邮件支持</li>
+                        <li>一次购买 · 终身升级</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/5kQcN69HzarBd7w4imefC0a" class="btn-buy" target="_blank">立即购买</a>
+                    <div class="post-note">购买后通过邮件获取下载链接</div>
+                </div>
+                <!-- ADVANCED -->
+                <div class="pricing-card scroll-fade">
+                    <div class="tier">进阶</div>
+                    <div class="name">进阶版</div>
+                    <div class="audience">小型团队</div>
+                    <div class="price"><span class="currency">¥</span>248</div>
+                    <ul>
+                        <li>基础版全部功能</li>
+                        <li>50 用户 · RLS 安全</li>
+                        <li>邮件+电话支持</li>
+                        <li>一次购买 · 终身升级</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/fZu28sbPH9nxffE9CGefC0b" class="btn-buy" target="_blank">立即购买</a>
+                    <div class="post-note">购买后通过邮件获取下载链接</div>
+                </div>
+                <!-- PROFESSIONAL (most popular) -->
+                <div class="pricing-card popular scroll-fade">
+                    <div class="popular-badge">最受欢迎</div>
+                    <div class="tier">专业</div>
+                    <div class="name">专业版</div>
+                    <div class="audience">大型团队 / 企业</div>
+                    <div class="price"><span class="currency">¥</span>389</div>
+                    <ul>
+                        <li>进阶版全部功能</li>
+                        <li>10 用户 · RLS + 审计</li>
+                        <li>邮件+电话支持</li>
+                        <li>一次购买 · 终身升级</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/4gM14o4nf57hd7waGKefC0c" class="btn-buy gold-bg" target="_blank">立即购买</a>
+                    <div class="post-note">购买后通过邮件获取下载链接</div>
+                </div>
+                <!-- ORG SMALL -->
+                <div class="pricing-card scroll-fade">
+                    <div class="tier">组织</div>
+                    <div class="name">组织版 – 小型企业</div>
+                    <div class="audience">中小企业 & 地方政府</div>
+                    <div class="price"><span class="currency">¥</span>705</div>
+                    <ul>
+                        <li>专业版全部功能</li>
+                        <li>100 用户 · 源代码</li>
+                        <li>优先电话支持</li>
+                        <li>一次购买 · 终身升级</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/aFadRa4nf1V54B08yCefC0d" class="btn-buy" target="_blank">立即购买</a>
+                    <div class="post-note">购买后通过邮件获取下载链接</div>
+                </div>
+                <!-- ORG MEDIUM -->
+                <div class="pricing-card scroll-fade">
+                    <div class="tier">组织</div>
+                    <div class="name">组织版 – 中型企业</div>
+                    <div class="audience">大中型企业 & 区域政府</div>
+                    <div class="price"><span class="currency">¥</span>61,775</div>
+                    <ul>
+                        <li>小型版全部功能</li>
+                        <li>1,000 用户 · 源代码</li>
+                        <li>优先电话支持</li>
+                        <li>一次购买 · 终身升级</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/8x2cN6g5X57hgjI5mqefC0e" class="btn-buy" target="_blank">立即购买</a>
+                    <div class="post-note">购买后通过邮件获取下载链接</div>
+                </div>
+                <!-- ORG LARGE -->
+                <div class="pricing-card scroll-fade">
+                    <div class="tier">组织</div>
+                    <div class="name">组织版 – 大型企业</div>
+                    <div class="audience">超大型企业 & 国家级机构</div>
+                    <div class="price"><span class="currency">¥</span>476,000</div>
+                    <ul>
+                        <li>中型版全部功能</li>
+                        <li>无限用户 · 源代码</li>
+                        <li>优先电话支持</li>
+                        <li>一次购买 · 终身升级</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/fZu4gA5rj2Z9gjIbKOefC0f" class="btn-buy" target="_blank">立即购买</a>
+                    <div class="post-note">购买后通过邮件获取下载链接</div>
+                </div>
+                <!-- ENTERPRISE -->
+                <div class="pricing-card scroll-fade" style="border:2px solid var(--gold); background:rgba(255,255,255,0.9);">
+                    <div class="tier">旗舰</div>
+                    <div class="name">企业旗舰版</div>
+                    <div class="audience">联邦机构 & 跨国集团</div>
+                    <div class="price"><span class="currency">¥</span>1,675,000</div>
+                    <ul>
+                        <li>大型版全部功能</li>
+                        <li>无限用户 · 白标品牌</li>
+                        <li>专属技术经理 7×24</li>
+                        <li>源码 + 专属部署</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/00w4gAaLD57h7Nc3eiefC0g" class="btn-buy" target="_blank">立即咨询</a>
+                    <div class="post-note">购买后通过邮件获取下载链接</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    DOCS GRID
+    ============================================================ -->
+    <section class="section" id="docs">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">资源</span>
+                <h2 class="section-title">文档与 <span style="color:var(--gold);">资源</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">点击下方链接直接查看完整文档 — 无需展开，即点即看。</p>
+            </div>
+            <div class="docs-grid">
+                <div class="docs-group scroll-fade">
+                    <h3>入门指南</h3>
+                    <ul>
+                        <li><a href="docs/installation-guide.html" target="_blank">安装指南</a></li>
+                        <li><a href="docs/quality-certificate.html" target="_blank">产品质量证书</a></li>
+                        <li><a href="docs/crownstar_ui_features.html" target="_blank">UI说明书</a></li>
+                    </ul>
+                </div>
+                <div class="docs-group scroll-fade">
+                    <h3>法律与合规</h3>
+                    <ul>
+                        <li><a href="docs/legal-disclaimer.html" target="_blank">法律声明</a></li>
+                        <li><a href="docs/competitive_advantage_china_market_dossier.html" target="_blank">竞争优势白皮书</a></li>
+                    </ul>
+                </div>
+                <div class="docs-group scroll-fade">
+                    <h3>技术文档</h3>
+                    <ul>
+                        <li><a href="docs/Algorithm_deep-dive_mathematical_foundations.html" target="_blank">算法深度解析</a></li>
+                        <li><a href="swagger.html" target="_blank">API文档</a></li>
+                    </ul>
+                </div>
+                <div class="docs-group scroll-fade">
+                    <h3>各层级用户手册</h3>
+                    <ul>
+                        <li><a href="docs/manual-free.html" target="_blank">免费版</a></li>
+                        <li><a href="docs/manual-basic.html" target="_blank">基础版</a></li>
+                        <li><a href="docs/manual-pro.html" target="_blank">专业版</a></li>
+                        <li><a href="docs/manual-enterprise.html" target="_blank">企业版</a></li>
+                    </ul>
+                </div>
+                <div class="docs-group scroll-fade">
+                    <h3>产品档案</h3>
+                    <ul>
+                        <li><a href="docs/dossier-free.html" target="_blank">免费版</a></li>
+                        <li><a href="docs/dossier-basic.html" target="_blank">基础版</a></li>
+                        <li><a href="docs/dossier-pro.html" target="_blank">专业版</a></li>
+                        <li><a href="docs/dossier-enterprise.html" target="_blank">企业版</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    TESTIMONIALS (5)
+    ============================================================ -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">评价</span>
+                <h2 class="section-title">客户 <span style="color:var(--gold);">评价</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">来自真实用户的声音。CrownStar AI 正在改变他们使用 AI 的方式。</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem;">
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:2rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                    <p style="font-style:italic; color:var(--text); font-size:1rem; margin-bottom:0.8rem;">“CrownStar AI 是我们见过的部署最快的企业级 AI 平台，5 分钟完成内网部署，数据安全完全可控。我们的团队现在可以放心地将核心业务数据交给 AI 处理。”</p>
+                    <p style="font-weight:600; color:var(--primary);">—— 某头部保险公司 CTO</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">金融行业 · 200+ 用户</p>
+                </div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:2rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                    <p style="font-style:italic; color:var(--text); font-size:1rem; margin-bottom:0.8rem;">“我们评估了多个 AI 平台，只有 CrownStar AI 真正满足了信创合规和私有化部署的所有要求。从芯片到操作系统，再到数据加密，完全自主可控。”</p>
+                    <p style="font-weight:600; color:var(--primary);">—— 某省级政务平台 CIO</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">政府 · 500+ 用户</p>
+                </div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:2rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                    <p style="font-style:italic; color:var(--text); font-size:1rem; margin-bottom:0.8rem;">“CrownStar AI 的数学模块让我们的科研团队能够深入理解 AI 推理过程，这是其他平台无法提供的。我们甚至用它来辅助研究生教学。”</p>
+                    <p style="font-weight:600; color:var(--primary);">—— 某重点大学 AI 实验室主任</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">教育科研 · 30+ 用户</p>
+                </div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:2rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                    <p style="font-style:italic; color:var(--text); font-size:1rem; margin-bottom:0.8rem;">“作为一家跨国制造企业，数据主权是我们最关心的问题。CrownStar AI 让我们能够在中国境内合规地部署 AI 能力，同时保持全球业务的一致性。”</p>
+                    <p style="font-weight:600; color:var(--primary);">—— 某德国制造业中国区 IT 总监</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">制造业 · 100+ 用户</p>
+                </div>
+                <div style="background:var(--bg-card); border-radius:var(--radius); padding:2rem; border:1px solid var(--border); transition:all 0.3s;" class="scroll-fade" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                    <p style="font-style:italic; color:var(--text); font-size:1rem; margin-bottom:0.8rem;">“免费版完全满足了我的个人需求。我可以用它来处理复杂的编程问题、写作创作，甚至帮我规划旅行。所有的对话都在本地，隐私完全有保障。”</p>
+                    <p style="font-weight:600; color:var(--primary);">—— 张明 · 软件工程师</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">个人用户 · 使用 6 个月</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FAQ (expanded to 12)
+    ============================================================ -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">常见问题</span>
+                <h2 class="section-title">快速 <span style="color:var(--gold);">解答</span></h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">关于 CrownStar AI 的 12 个最常见问题，快速找到答案。</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item scroll-fade"><h4>CrownStar AI 需要联网吗？</h4><p>不需要。CrownStar AI 完全本地运行，所有数据存储在本机，无任何云端依赖。首次下载 DeepSeek 模型时需要联网，之后可完全离线使用。</p></div>
+                <div class="faq-item scroll-fade"><h4>免费版和付费版有什么区别？</h4><p>免费版包含无限对话、9个数学模块、单用户、本地存储。付费版增加用户数、API权限、高级安全、源码授权、专属支持等。所有付费版一次性买断，终身免费升级。</p></div>
+                <div class="faq-item scroll-fade"><h4>如何迁移对话历史？</h4><p>CrownStar AI 使用 SQLite 存储对话，您可以备份 `data/conversations/crownstar_memory.db` 文件。企业版支持 PostgreSQL / MySQL，可实现无缝迁移。</p></div>
+                <div class="faq-item scroll-fade"><h4>支持哪些 DeepSeek 模型？</h4><p>支持 DeepSeek V2-Lite, V3, R1, 4.0。用户可在设置中选择模型，系统自动适配。企业版可定制模型融合策略。</p></div>
+                <div class="faq-item scroll-fade"><h4>如何获得源码？</h4><p>组织版和企业版包含完整源码授权。付款后您将收到私有 GitHub 仓库邀请，源码永久可访问。</p></div>
+                <div class="faq-item scroll-fade"><h4>是否支持信创环境？</h4><p>是的。CrownStar AI 已适配华为昇腾 NPU、鲲鹏 CPU、麒麟 OS、统信 UOS，并通过等保2.0三级评估。</p></div>
+                <div class="faq-item scroll-fade"><h4>一次购买可以安装几台设备？</h4><p>每个许可证允许在指定数量的设备上安装（根据用户数）。企业版支持无限设备部署。</p></div>
+                <div class="faq-item scroll-fade"><h4>有中文界面吗？</h4><p>是的。CrownStar AI 提供完整的中文界面，包括桌面 UI、Web UI 和文档。所有对话和输出均支持中文。</p></div>
+                <div class="faq-item scroll-fade"><h4>是否支持云端部署？</h4><p>CrownStar AI 专注于私有化部署，但您也可以部署在您自己的私有云或 VPC 中。我们不提供公共云托管服务，确保数据主权。</p></div>
+                <div class="faq-item scroll-fade"><h4>升级包含哪些内容？</h4><p>所有付费版本包含终身免费升级，包括新功能、性能优化、安全修复和新模型适配。重大版本（如 v8.0）同样免费升级。</p></div>
+                <div class="faq-item scroll-fade"><h4>是否提供 SLA 保障？</h4><p>组织版和企业版提供明确的 SLA 保障，包括响应时间和系统可用性。免费版和基础版为尽力服务模式。</p></div>
+                <div class="faq-item scroll-fade"><h4>如何获取技术支持？</h4><p>免费版：社区支持；基础版：邮件支持；进阶版/专业版：邮件+电话支持；组织版：优先电话支持；企业版：专属技术经理 + 7×24 支持。</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CHATBOT
+    ============================================================ -->
+    <section class="section" id="chatbot">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">智能助手</span>
+                <h2 class="section-title">有问题？ <span style="color:var(--gold);">问我吧</span></h2>
+                <p class="section-sub" style="margin:0 auto 1.5rem;">CrownStar AI 内置的 FAQ 智能助手，随时为您解答常见问题。试试输入“免费版优势”或“企业版价格”。</p>
+            </div>
+            <div class="chat-container scroll-fade" id="chatContainer">
+                <div class="chat-header">
+                    <span class="panda-icon">🐼</span>
+                    <h4>🤖 智能助手 · CrownStar AI</h4>
+                    <span style="margin-left:auto; font-size:0.7rem; color:#7a7a9a;">红熊猫相伴</span>
+                </div>
+                <div id="chatMessages" class="chat-messages">
+                    <div class="bot-msg"><span class="name">CrownStar:</span> 您好！我是您的 AI 助手。请问您想了解哪方面的信息？<br>您可以输入“免费版”、“基础版”、“专业版”、“企业版”、“优势”、“记忆”、“数据主权”、“DeepSeek”、“安装”、“购买”等关键词。</div>
+                </div>
+                <div class="chat-input-row">
+                    <input type="text" id="chatInput" placeholder="输入您的问题..." />
+                    <button id="chatSendBtn">发送</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="panda-mascot">🦝</div>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div>
+                <h4>CrownStar AI</h4>
+                <p style="opacity:0.6;font-size:0.85rem;">世界首个主权AI平台 · 中国首发<br />深度集成 DeepSeek · 完全私有化</p>
+                <p style="margin-top:0.5rem;"><a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+            </div>
+            <div>
+                <h4>产品</h4>
+                <a href="product.html">产品功能</a>
+                <a href="pricing.html">定价方案</a>
+                <a href="download-free.html">免费下载</a>
+                <a href="downloads.html">下载中心</a>
+            </div>
+            <div>
+                <h4>资源</h4>
+                <a href="case-studies.html">客户案例</a>
+                <a href="security.html">安全合规</a>
+                <a href="swagger.html" target="_blank">API文档</a>
+                <a href="articles.html">文章库</a>
+            </div>
+            <div>
+                <h4>公司</h4>
+                <a href="contact.html">联系我们</a>
+                <a href="https://github.com/crownstar-ai/crown-star-ai-bot" target="_blank">GitHub</a>
+                <a href="mailto:st3vens.ben@yandex.com">商务咨询</a>
+            </div>
+            <div class="bottom">
+                <p>© 2026 CrownStar AI. All rights reserved. <a href="sitemap.xml">站点地图</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    JAVASCRIPT (Path selector, scroll, particles, chatbot, panda, quick access)
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ---- QUICK ACCESS DROPDOWN ----
+            const quickBtn = document.getElementById('quickAccessBtn');
+            const quickDropdown = document.getElementById('quickAccessDropdown');
+            quickBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                quickDropdown.classList.toggle('show');
+            });
+            document.addEventListener('click', function() {
+                quickDropdown.classList.remove('show');
+            });
+            quickDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Allow links to work, but close after click
+                setTimeout(() => { quickDropdown.classList.remove('show'); }, 100);
+            });
+
+            // ---- PATH SELECTOR ----
+            const pathBtns = document.querySelectorAll('.path-btn');
+            const panels = {
+                personal: document.getElementById('panel-personal'),
+                business: document.getElementById('panel-business'),
+                government: document.getElementById('panel-government')
+            };
+            pathBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    pathBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    Object.values(panels).forEach(p => p.classList.remove('active'));
+                    const path = this.dataset.path;
+                    if (panels[path]) panels[path].classList.add('active');
+                });
+            });
+
+            // ---- SCROLL ANIMATION ----
+            const fadeElements = document.querySelectorAll('.scroll-fade');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.08 });
+            fadeElements.forEach(el => observer.observe(el));
+
+            // ---- HEADER SHADOW ----
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            // ---- PARTICLES ----
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.speedY = (Math.random() - 0.5) * 0.4;
+                    this.opacity = Math.random() * 0.2 + 0.05;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(10,46,92,${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            function drawLines() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(10,46,92,${0.03 * (1 - dist / 150)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            const count = Math.min(60, Math.floor((width * height) / 15000));
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => { p.update();
+                    p.draw(); });
+                drawLines();
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            window.addEventListener('resize', function() {
+                resize();
+                particles = [];
+                const newCount = Math.min(60, Math.floor((width * height) / 15000));
+                for (let i = 0; i < newCount; i++) particles.push(new Particle());
+            });
+
+            // ---- BACKGROUND SHIFT ----
+            const bgCanvas = document.getElementById('bg-canvas');
+            let bgHue = 220;
+            setInterval(() => {
+                bgHue += 0.2;
+                if (bgHue > 230) bgHue = 220;
+                bgCanvas.style.background =
+                    `linear-gradient(135deg, hsl(${bgHue}, 20%, 94%) 0%, #ffffff 60%, hsl(${bgHue+10}, 15%, 97%) 100%)`;
+            }, 3000);
+
+            // ---- SUPER CHATBOT ----
+            const faqData = [
+                { q: "如何安装", a: "请参考我们的<a href='docs/installation-guide.html' target='_blank'>安装指南</a>，支持 Windows、Linux、macOS 和 ARM 平台。" },
+                { q: "免费版有什么限制", a: "免费版提供无限对话、9个数学模块、单用户、本地SQLite存储。没有时间限制，永久免费使用。适合个人用户和小型团队。" },
+                { q: "如何购买", a: "请访问<a href='pricing.html' target='_blank'>定价页面</a>，选择适合您的层级。支持 Stripe 信用卡、支付宝、微信支付。" },
+                { q: "支持哪些平台", a: "CrownStar AI 支持 Windows (x64, x86, ARM64), Linux (DEB/RPM), macOS (Intel/Apple Silicon), 以及 ARM 设备。所有平台体验一致。" },
+                { q: "如何迁移对话", a: "对话数据存储在 `data/conversations/crownstar_memory.db` 文件中。您可以备份此文件，企业版支持 PostgreSQL/MySQL 无缝迁移。" },
+                { q: "支持信创吗", a: "是的！CrownStar AI 已全面适配信创生态：华为昇腾 NPU、鲲鹏 CPU、麒麟 OS、统信 UOS。支持 SM2/SM3/SM4 国密加密，已通过等保 2.0 三级评估。" },
+                { q: "API 文档在哪", a: "<a href='swagger.html' target='_blank'>Swagger API 文档</a> 提供了完整的 REST API 和 WebSocket 接口说明。" },
+                { q: "需要联网", a: "不需要。CrownStar AI 完全本地运行，所有数据存储在本机，无任何云端依赖。首次下载 DeepSeek 模型时需要联网，之后可完全离线使用。" },
+                { q: "免费版", a: "🏷️ <strong>社区版（免费）</strong><br>• 无限对话 · 9个数学模块<br>• 单用户 · 本地 SQLite<br>• Web UI + REST API (只读)<br>• 永久免费使用，无任何时间限制。<br>• 适合个人学习、轻度创作。" },
+                { q: "基础版", a: "🏷️ <strong>基础版 (¥39)</strong><br>• 免费版全部功能<br>• 5用户 · 完整 API<br>• 邮件支持<br>• 适合个人专业用户。" },
+                { q: "进阶版", a: "🏷️ <strong>进阶版 (¥248)</strong><br>• 基础版全部功能<br>• 50用户 · RLS 安全<br>• 邮件+电话支持<br>• 适合小型团队。" },
+                { q: "专业版", a: "🏷️ <strong>专业版 (¥389)</strong> — 最受欢迎<br>• 进阶版全部功能<br>• 10用户 · RLS + 审计<br>• 邮件+电话支持<br>• 适合大型团队 / 企业。" },
+                { q: "组织版 小型", a: "🏷️ <strong>组织版 – 小型企业 (¥705)</strong><br>• 专业版全部功能<br>• 100用户 · 源代码<br>• 优先电话支持<br>• 中小企业 & 地方政府。" },
+                { q: "组织版 中型", a: "🏷️ <strong>组织版 – 中型企业 (¥61,775)</strong><br>• 小型版全部功能<br>• 1,000用户 · 源代码<br>• 优先电话支持<br>• 大中型企业 & 区域政府。" },
+                { q: "组织版 大型", a: "🏷️ <strong>组织版 – 大型企业 (¥476,000)</strong><br>• 中型版全部功能<br>• 无限用户 · 源代码<br>• 优先电话支持<br>• 超大型企业 & 国家级机构。" },
+                { q: "企业版", a: "🏷️ <strong>企业旗舰版 (¥1,675,000)</strong><br>• 大型版全部功能<br>• 无限用户 · 白标品牌<br>• 专属技术经理 7×24<br>• 联邦机构 & 跨国集团。" },
+                { q: "共同优势", a: "✨ <strong>所有层级共享的优势</strong><br>• <strong>无限记忆</strong>：所有对话永久保存，永不截断，跨会话智能召回。<br>• <strong>数据主权</strong>：100% 私有化部署，数据永不离开您的网络。<br>• <strong>9 个数学模块</strong>：可单独启用/禁用，实时调整推理风格。<br>• <strong>DeepSeek 集成</strong>：全球最强中文 AI，输出质量无与伦比。<br>• <strong>一次买断</strong>：永久授权，终身免费升级。<br>• <strong>信创合规</strong>：适配国产软硬件，满足等保 2.0 三级。" },
+                { q: "记忆", a: "🧠 <strong>无限记忆 · 永不遗忘</strong><br>CrownStar AI 采用生物拟态记忆 + FAISS 向量检索，所有对话永久保存。您可以在当前会话中随时召回过去任何一次对话的内容，支持多模态记忆和时序索引。企业版支持 PostgreSQL/MySQL 集群。" },
+                { q: "数据主权", a: "🔒 <strong>100% 数据主权</strong><br>您的数据永不离开您的网络。无外部 API 调用，杜绝数据泄露风险。满足《数据安全法》《个人信息保护法》及等保 2.0 三级要求。您可以完全控制自己的数据。" },
+                { q: "数学模块", a: "🧮 <strong>9 大数学模块</strong><br>基于经典神经网络理论：Jacobian, Hessian, UAT, Gurney, Yegnanarayana, Haykin, Bishop, Zurada, Ultra-Super-Model。每个模块可单独启用/禁用，组合效果实时可见。" },
+                { q: "DeepSeek", a: "🌟 <strong>DeepSeek — 全球最强中文 AI</strong><br>CrownStar AI 深度集成 DeepSeek（V2-Lite, V3, R1, 4.0），截获其原始输出并应用 9 个数学模块实时增强。DeepSeek 拥有当前业界最长的上下文窗口，远超同类产品。我们与 DeepSeek 的合作确保您获得最优质的中文 AI 体验。" },
+                { q: "上下文窗口", a: "📏 <strong>业界最长的上下文窗口</strong><br>CrownStar AI 依托 DeepSeek，提供目前全球最长的上下文窗口（1M+）。这意味着您可以处理超长文档、复杂对话、大规模代码库，而不会被截断。这是其他 AI 平台无法比拟的。" },
+                { q: "优势", a: "🏆 <strong>CrownStar AI 的独有优势</strong><br>• 数学可证明的推理（无黑盒风险）<br>• 200+ 网络协议实时采集（互联网皮层）<br>• 混合检索（BM25+FAISS+RRF）召回率提升 40%<br>• 企业级安全（JWT/RBAC/AES-256-GCM/ZK-SNARKs/PQC）<br>• 12 种语言 SDK<br>• 硬件感知（自动优化计算图）" },
+                { q: "你好", a: "您好！很高兴为您服务。请问有什么我可以帮助您的？😊" },
+                { q: "谢谢", a: "不客气！能帮到您是我的荣幸。如果还有其他问题，随时问我哦。😊" },
+                { q: "价格", a: "我们的定价方案分为多个层级：<br>• 免费版：永久免费<br>• 基础版：¥39<br>• 进阶版：¥248<br>• 专业版：¥389（最受欢迎）<br>• 组织版 – 小型：¥705<br>• 组织版 – 中型：¥61,775<br>• 组织版 – 大型：¥476,000<br>• 企业旗舰版：¥1,675,000<br>所有付费版一次性买断，终身免费升级。" },
+                { q: "支持", a: "我们提供不同层级的支持：<br>• 免费版：社区支持<br>• 基础版：邮件支持<br>• 进阶版：邮件+电话支持<br>• 专业版：邮件+电话支持<br>• 组织版：优先电话支持<br>• 企业版：专属技术经理 + 7×24 支持" },
+                { q: "演示", a: "您可以预约我们的演示会话：<br>请访问 <a href='contact.html' target='_blank'>联系我们</a> 页面，填写您的需求，我们的销售团队会在 24 小时内与您联系。" },
+                { q: "试用", a: "您可以直接下载免费版试用：<br><a href='download-free.html' target='_blank'>免费下载 CrownStar AI</a><br>免费版永久可用，包含所有核心功能。" },
+                { q: "更新", a: "所有付费版本包含终身免费升级。我们会定期发布新版本，增加新功能、优化性能、修复问题。您只需从 GitHub 下载最新版本即可。" },
+                { q: "安全", a: "CrownStar AI 采用企业级安全设计：<br>• JWT/RBAC 权限控制<br>• AES-256-GCM 加密存储<br>• TLS 1.3 传输加密<br>• 零知识证明 (ZK-SNARKs)<br>• 后量子密码 (PQC)<br>• 全链路审计日志" },
+                { q: "开源", a: "CrownStar AI 的核心数学模块和 Egg Apex vLLM 项目已开源（MIT 协议）。您可以在我们的 <a href='https://github.com/crownstar-ai' target='_blank'>GitHub 组织</a> 中查看这些子项目。" },
+                { q: "客服", a: "我们的客服团队随时为您服务：<br>• 邮件：st3vens.ben@yandex.com<br>• 商务咨询：st3vens.ben@yandex.com<br>• 企业版支持：专属技术经理" },
+                { q: "什么是 CrownStar", a: "CrownStar AI 是中国首个企业级主权 AI 平台。它深度集成 DeepSeek，通过 9 个数学模块实时增强输出，提供无限记忆、完全私有化部署和信创合规能力。一次购买，终身免费升级。" },
+                { q: "关于我们", a: "CrownStar AI 由 CrownStar 团队开发，致力于为中国的个人、企业和政府提供世界一流的主权级 AI 基础设施。我们与 DeepSeek 深度合作，确保用户获得最优质的中文 AI 体验。" }
+            ];
+
+            function askBot(query) {
+                const q = query.toLowerCase().trim();
+                let match = faqData.find(item => q.includes(item.q));
+                if (match) return match.a;
+                const keywords = ["安装", "购买", "价格", "免费", "基础", "进阶", "专业", "组织", "企业", "优势", "记忆", "数据", "安全", "支持", "演示", "更新", "开源", "客服", "DeepSeek", "信创", "关于"];
+                const suggestions = keywords.filter(k => q.includes(k));
+                if (suggestions.length > 0) {
+                    return "🔍 我注意到您提到了“" + suggestions.join("、") + "”。<br>您可以尝试直接输入这些关键词来获取更详细的回答。<br>例如：输入“免费版”了解免费版详情，输入“记忆”了解记忆功能。";
+                }
+                return "😊 感谢您的提问！很抱歉我暂时没有完全匹配的答案。<br>您可以尝试输入：<br>• “免费版” / “基础版” / “进阶版” / “专业版” / “组织版” / “企业版”<br>• “优势” / “记忆” / “数据主权”<br>• “DeepSeek” / “安装” / “购买”<br>或者点击 <a href='docs/' target='_blank'>文档中心</a> 查找更多信息。";
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const sendBtn = document.getElementById('chatSendBtn');
+                const input = document.getElementById('chatInput');
+                const chatDiv = document.getElementById('chatMessages');
+
+                function sendMessage() {
+                    const msg = input.value.trim();
+                    if (!msg) return;
+                    chatDiv.innerHTML += `<div class="user-msg"><strong>您:</strong> ${msg}</div>`;
+                    const reply = askBot(msg);
+                    chatDiv.innerHTML += `<div class="bot-msg"><span class="name">CrownStar:</span> ${reply}</div>`;
+                    chatDiv.scrollTop = chatDiv.scrollHeight;
+                    input.value = '';
+                }
+
+                sendBtn.addEventListener('click', sendMessage);
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') sendMessage();
+                });
+
+                // ---- Red panda mouse follower ----
+                const panda = document.getElementById('panda-mascot');
+                const container = document.getElementById('chatContainer');
+                container.addEventListener('mouseenter', () => { panda.style.display = 'block'; });
+                container.addEventListener('mouseleave', () => { panda.style.display = 'none'; });
+                document.addEventListener('mousemove', function(e) {
+                    panda.style.left = e.clientX + 'px';
+                    panda.style.top = e.clientY + 'px';
+                });
+            });
+
+            console.log('CrownStar AI · World’s First Sovereign AI · China Debut');
+            console.log('⚡ Quick Access menu available in the top-right corner.');
+        })();
+    </script>
+</body>
+</html>
