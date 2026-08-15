@@ -1,65 +1,159 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>下载中心 · CrownStar AI · 所有层级</title>
     <style>
+        /* ===== SAME BASE STYLES AS PREVIOUS PAGES (abbreviated) ===== */
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; }
-        .container { max-width:1200px; margin:0 auto; padding:2rem; }
-        h1 { font-size:2.5rem; color:#0a2e5c; margin-bottom:0.5rem; }
-        h1 span { color:#c9a84c; }
-        .sub { color:#5a5a7a; font-size:1.1rem; margin-bottom:2rem; }
-        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; }
-        .card { background:white; border-radius:16px; padding:1.5rem; text-align:center; border:1px solid #e8ecf0; transition:0.2s; }
-        .card:hover { transform:translateY(-4px); box-shadow:0 8px 30px rgba(0,0,0,0.06); border-color:#c9a84c; }
-        .card .tier-icon { font-size:2.5rem; display:block; margin-bottom:0.3rem; }
-        .card .tier-name { font-weight:700; font-size:1.1rem; color:#0a2e5c; }
-        .card .tier-price { font-size:0.8rem; color:#7a7a9a; }
-        .card .btn { display:inline-block; margin-top:0.6rem; padding:0.4rem 1.5rem; border-radius:30px; font-weight:600; text-decoration:none; transition:0.2s; background:#0a2e5c; color:white; }
-        .card .btn:hover { background:#1a4a7a; }
-        .card .btn-gold { background:#c9a84c; color:#0a2e5c; }
-        .card .btn-gold:hover { background:#dbb95e; }
-        .nav { margin-bottom:2rem; }
-        .nav a { color:#4a4a6a; margin-right:1.5rem; text-decoration:none; font-weight:500; }
-        .nav a:hover { color:#0a2e5c; }
-        .footer { margin-top:3rem; padding-top:1.5rem; border-top:1px solid #e8ecf0; text-align:center; color:#7a7a9a; font-size:0.9rem; }
-        .release-badge { display:inline-block; background:#22c55e; color:#fff; padding:0.2rem 1rem; border-radius:2rem; font-size:0.7rem; font-weight:600; margin-bottom:1rem; }
-        .price-tag { display:inline-block; background:#c9a84c; color:#0a2e5c; padding:0.1rem 1rem; border-radius:2rem; font-weight:600; font-size:0.7rem; }
+        :root { --primary: #0a2e5c; --primary-light: #1a4a7a; --gold: #c9a84c; --gold-hover: #dbb95e; --bg: #f5f7fb; --text: #1a1a2e; --text-light: #4a4a6a; --text-muted: #7a7a9a; --border: #e8ecf0; --radius: 16px; --shadow: 0 4px 20px rgba(0,0,0,0.04); --shadow-hover: 0 12px 40px rgba(0,0,0,0.08); --bg-card: rgba(255,255,255,0.85); --font-sans: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif; }
+        html { scroll-behavior:smooth; }
+        body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        #bg-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; pointer-events:none; background:linear-gradient(135deg,#eef2f8 0%,#ffffff 60%,#f5f8ff 100%); }
+        #particles-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; opacity:0.25; }
+        h1, h2, h3 { font-weight:700; color:var(--primary); letter-spacing:-0.01em; }
+        h1 { font-size:3.6rem; line-height:1.1; } h2 { font-size:2.6rem; line-height:1.2; } h3 { font-size:1.5rem; }
+        .gold { color:var(--gold); } .text-light { color:var(--text-light); } .text-muted { color:var(--text-muted); }
+        .section-label { display:inline-block; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold); background:rgba(201,168,76,0.1); padding:0.2rem 1rem; border-radius:2rem; margin-bottom:0.5rem; }
+        .section-title { font-size:2.4rem; font-weight:700; color:var(--primary); margin-bottom:0.5rem; line-height:1.2; }
+        .section-sub { font-size:1.05rem; color:var(--text-light); max-width:700px; line-height:1.8; margin-bottom:2rem; }
+        .section { padding:4rem 0; border-bottom:1px solid rgba(0,0,0,0.03); }
+        .scroll-fade { opacity:0; transform:translateY(30px); transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .scroll-fade.visible { opacity:1; transform:translateY(0); }
+
+        /* HEADER (same) */
+        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px) saturate(1.6); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; transition:box-shadow 0.3s; }
+        .header.scrolled { box-shadow:0 4px 30px rgba(0,0,0,0.06); }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+        .logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; height:48px; transition:transform 0.2s; }
+        .logo:hover { transform:scale(1.02); }
+        .logo svg { height:100%; width:auto; }
+        .logo .brand { font-size:1.6rem; font-weight:800; color:var(--primary); letter-spacing:-0.02em; }
+        .logo .brand .highlight { color:var(--gold); }
+        .logo .ai-label { font-size:0.85rem; font-weight:700; color:var(--gold); background:rgba(201,168,76,0.12); padding:0.1rem 0.6rem; border-radius:2rem; border:1px solid rgba(201,168,76,0.2); }
+        .nav { display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; align-items:center; }
+        .nav a { color:var(--text-light); font-weight:500; text-decoration:none; font-size:0.9rem; padding:0.2rem 0; position:relative; transition:color 0.2s; }
+        .nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,var(--gold),var(--primary)); transition:width 0.4s; }
+        .nav a:hover { color:var(--primary); }
+        .nav a:hover::after { width:100%; }
+        .nav .cta { background:var(--primary); color:#fff !important; padding:0.4rem 1.6rem; border-radius:3rem; font-weight:600; transition:all 0.2s; }
+        .nav .cta::after { display:none; }
+        .nav .cta:hover { background:var(--primary-light); transform:scale(1.03); box-shadow:0 8px 24px rgba(10,46,92,0.2); }
+        .nav .active { color:var(--gold); font-weight:600; }
+        .quick-access-wrapper { position:relative; display:inline-block; }
+        .quick-access-btn { background:rgba(10,46,92,0.06); border:1px solid rgba(10,46,92,0.1); border-radius:3rem; padding:0.4rem 1.2rem; font-weight:600; font-size:0.85rem; color:var(--primary); cursor:pointer; display:flex; align-items:center; gap:0.4rem; transition:all 0.3s; font-family:var(--font-sans); }
+        .quick-access-btn:hover { background:var(--primary); color:#fff; border-color:var(--primary); transform:scale(1.03); }
+        .quick-access-btn .icon { font-size:1rem; }
+        .quick-access-dropdown { position:absolute; top:calc(100% + 10px); right:0; background:rgba(255,255,255,0.96); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:var(--radius); padding:0.8rem 0; min-width:220px; box-shadow:var(--shadow-hover); display:none; z-index:1001; }
+        .quick-access-dropdown.show { display:block; animation:fadeSlide 0.25s ease; }
+        .quick-access-dropdown a { display:flex; align-items:center; gap:0.8rem; padding:0.5rem 1.5rem; color:var(--text-light); text-decoration:none; font-size:0.9rem; font-weight:500; transition:all 0.2s; }
+        .quick-access-dropdown a:hover { background:rgba(10,46,92,0.04); color:var(--primary); padding-left:2rem; }
+        .quick-access-dropdown a .emoji { font-size:1.1rem; width:1.6rem; text-align:center; }
+        .quick-access-dropdown .divider { height:1px; background:var(--border); margin:0.3rem 1rem; }
+        @keyframes fadeSlide { 0%{opacity:0;transform:translateY(12px);}100%{opacity:1;transform:translateY(0);} }
+
+        .download-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+        .download-card { background:var(--bg-card); border-radius:var(--radius); padding:1.8rem; border:1px solid var(--border); transition:all 0.3s; display:flex; flex-direction:column; }
+        .download-card:hover { transform:translateY(-6px); border-color:var(--gold); box-shadow:var(--shadow-hover); }
+        .download-card .tier-name { font-size:1.4rem; font-weight:700; color:var(--primary); }
+        .download-card .tier-price { font-size:2rem; font-weight:800; color:var(--gold); margin:0.2rem 0; }
+        .download-card .tier-desc { color:var(--text-light); font-size:0.95rem; flex:1; }
+        .download-card .badge { display:inline-block; font-size:0.6rem; font-weight:600; text-transform:uppercase; padding:0.1rem 0.8rem; border-radius:12px; margin:0.3rem 0; }
+        .badge-free { background:#e8f5e9; color:#2e7d32; }
+        .badge-paid { background:#fff3e0; color:#e65100; }
+        .download-card .btn { display:inline-block; text-align:center; margin-top:0.8rem; padding:0.6rem 2rem; border-radius:3rem; font-weight:600; transition:all 0.3s; background:var(--primary); color:#fff; text-decoration:none; }
+        .download-card .btn:hover { background:var(--primary-light); transform:scale(1.04); }
+        .download-card .btn-gold { background:var(--gold); color:var(--primary); }
+        .download-card .btn-gold:hover { background:var(--gold-hover); }
+
+        .footer { background:#f2f4f6; padding:2.5rem 0 2rem; border-top:1px solid rgba(0,0,0,0.06); margin-top:2rem; }
+        .footer .container { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2rem; }
+        .footer h4 { font-size:0.95rem; color:var(--primary); margin-bottom:0.5rem; }
+        .footer a { color:var(--text-muted); text-decoration:none; display:block; padding:0.2rem 0; font-size:0.85rem; transition:color 0.2s; }
+        .footer a:hover { color:var(--primary); }
+        .footer .bottom { grid-column:1/-1; text-align:center; padding-top:1.5rem; border-top:1px solid rgba(0,0,0,0.06); margin-top:1rem; font-size:0.75rem; color:var(--text-muted); }
+        .footer .bottom a { display:inline; }
+        @media (max-width:768px){ h1{font-size:2.4rem;} .footer .container{grid-template-columns:1fr;} }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="nav">
-            <a href="index.html">首页</a>
-            <a href="pricing.html">定价</a>
-            <a href="downloads.html">下载中心</a>
-        </div>
-        <h1>📦 <span>CrownStar</span> 下载中心</h1>
-        <p class="sub">选择您的层级，下载对应安装包 — <span class="release-badge">v7.12 最新发布</span></p>
+    <div id="bg-canvas"></div>
+    <canvas id="particles-canvas"></canvas>
 
-        <div style="margin-bottom:1.5rem; padding:0.8rem; background:#e8f0fe; border-radius:8px; font-size:0.85rem; color:#0a2e5c; text-align:center;">
-            🔗 所有安装包均来自 <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/tag/v7.12" target="_blank" style="color:#0a2e5c; font-weight:600;">GitHub Release v7.12</a>
-            · SHA256 校验和可验证
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo"><svg viewBox="0 0 44 44"><defs><linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#e8c86a"/></linearGradient></defs><path class="crown" d="M4 32 L6 18 L12 22 L22 10 L32 22 L38 18 L40 32 L4 32 Z" fill="url(#cg)"/><path class="star" d="M22 4 L24 12 L32 12 L26 18 L28 26 L22 20 L16 26 L18 18 L12 12 L20 12 L22 4 Z" fill="#0a2e5c"/><rect x="6" y="32" width="32" height="3" rx="1.5" fill="#0a2e5c" opacity="0.12"/><polygon points="22,14 26,22 34,22 28,28 30,36 22,30 14,36 16,28 10,22 18,22" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.2"/></svg><span class="brand">Crown<span class="highlight">Star</span></span><span class="ai-label">AI</span></a>
+            <nav class="nav">
+                <a href="index.html">首页</a><a href="product.html">产品</a><a href="pricing.html">定价</a><a href="case-studies.html">案例</a><a href="security.html">安全</a><a href="download-free.html">免费下载</a><a href="downloads.html" class="active">下载中心</a><a href="swagger.html" target="_blank">API</a><a href="articles.html">文章库</a><a href="ai-groups.html" class="cta" style="background:var(--gold);color:var(--primary) !important;">AI-Groups</a>
+                <div class="quick-access-wrapper"><button class="quick-access-btn" id="quickAccessBtn"><span class="icon">⚡</span> 快速跳转</button><div class="quick-access-dropdown" id="quickAccessDropdown"><a href="#free"><span class="emoji">🆓</span> 免费版</a><a href="#basic"><span class="emoji">💎</span> 基础版</a><a href="#advanced"><span class="emoji">⚙️</span> 进阶版</a><a href="#pro"><span class="emoji">🏆</span> 专业版</a><div class="divider"></div><a href="download-free.html"><span class="emoji">⬇️</span> 直接下载免费版</a><a href="pricing.html"><span class="emoji">💰</span> 查看定价</a></div></div>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
         </div>
+    </header>
 
-        <div class="grid">
-            <div class="card"><span class="tier-icon">🆓</span><div class="tier-name">免费版</div><div class="tier-price">¥0 永久免费</div><a href="download-free.html" class="btn">下载</a></div>
-            <div class="card"><span class="tier-icon">📘</span><div class="tier-name">基础版</div><div class="tier-price"><span class="price-tag">¥39</span></div><a href="download-basic.html" class="btn">下载</a></div>
-            <div class="card" style="border:2px solid #c9a84c;"><span class="tier-icon">📙</span><div class="tier-name">进阶版</div><div class="tier-price"><span class="price-tag">¥248</span> 最受欢迎</div><a href="download-advanced.html" class="btn btn-gold">下载</a></div>
-            <div class="card"><span class="tier-icon">📗</span><div class="tier-name">专业版</div><div class="tier-price"><span class="price-tag">¥389</span></div><a href="download-professional.html" class="btn">下载</a></div>
-            <div class="card"><span class="tier-icon">🏢</span><div class="tier-name">组织版 – 小型</div><div class="tier-price"><span class="price-tag">¥705</span></div><a href="download-org_small.html" class="btn">下载</a></div>
-            <div class="card"><span class="tier-icon">🏢</span><div class="tier-name">组织版 – 中型</div><div class="tier-price"><span class="price-tag">¥61,775</span></div><a href="download-org_medium.html" class="btn">下载</a></div>
-            <div class="card"><span class="tier-icon">🏢</span><div class="tier-name">组织版 – 大型</div><div class="tier-price"><span class="price-tag">¥476,000</span></div><a href="download-org_large.html" class="btn">下载</a></div>
-            <div class="card" style="border:2px solid #c9a84c; background:rgba(255,255,255,0.9);"><span class="tier-icon">👑</span><div class="tier-name">企业旗舰版</div><div class="tier-price"><span class="price-tag">¥999,999</span></div><a href="download-enterprise.html" class="btn btn-gold">下载</a></div>
+    <!-- ===== HERO ===== -->
+    <section class="section" style="padding:2rem 0 1rem;">
+        <div class="container"><div style="text-align:center;" class="scroll-fade"><span class="section-label">下载</span><h1 class="section-title">📦 下载 <span class="gold">中心</span></h1><p class="section-sub" style="margin:0 auto 2rem;">选择您的层级，进入专属下载页面。所有付费版本包含 <strong>终身免费升级</strong>。</p></div></div>
+    </section>
+
+    <!-- ===== DOWNLOAD GRID ===== -->
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="download-grid">
+                <div class="download-card scroll-fade" id="free"><div class="tier-name">免费版</div><div class="tier-price">¥0</div><div class="tier-desc">个人使用，永久免费</div><div><span class="badge badge-free">🆓 永久免费</span></div><a href="download-free.html" class="btn">查看下载 →</a></div>
+                <div class="download-card scroll-fade" id="basic"><div class="tier-name">基础版</div><div class="tier-price">¥39</div><div class="tier-desc">个人专业用户</div><div><span class="badge badge-paid">🔒 需要购买</span></div><a href="download-basic.html" class="btn">查看下载 →</a></div>
+                <div class="download-card scroll-fade" id="advanced"><div class="tier-name">进阶版</div><div class="tier-price">¥248</div><div class="tier-desc">小型团队</div><div><span class="badge badge-paid">🔒 需要购买</span></div><a href="download-advanced.html" class="btn">查看下载 →</a></div>
+                <div class="download-card scroll-fade" id="pro" style="border:2px solid var(--gold);"><div class="tier-name">专业版</div><div class="tier-price">¥389</div><div class="tier-desc">大型团队（最受欢迎）</div><div><span class="badge badge-paid">🔒 需要购买</span></div><a href="download-professional.html" class="btn btn-gold">查看下载 →</a></div>
+                <div class="download-card scroll-fade"><div class="tier-name">组织版 – 小型</div><div class="tier-price">¥705</div><div class="tier-desc">中小企业及地方政府</div><div><span class="badge badge-paid">🔒 需要购买</span></div><a href="download-org_small.html" class="btn">查看下载 →</a></div>
+                <div class="download-card scroll-fade"><div class="tier-name">组织版 – 中型</div><div class="tier-price">¥61,775</div><div class="tier-desc">大中型企业及区域政府</div><div><span class="badge badge-paid">🔒 需要购买</span></div><a href="download-org_medium.html" class="btn">查看下载 →</a></div>
+                <div class="download-card scroll-fade"><div class="tier-name">组织版 – 大型</div><div class="tier-price">¥476,000</div><div class="tier-desc">超大型企业及国家级机构</div><div><span class="badge badge-paid">🔒 需要购买</span></div><a href="download-org_large.html" class="btn">查看下载 →</a></div>
+                <div class="download-card scroll-fade" style="border:2px solid var(--gold);"><div class="tier-name">企业旗舰版</div><div class="tier-price">¥1,675,000</div><div class="tier-desc">超大型企业及联邦机构</div><div><span class="badge badge-paid">🔒 需要购买</span></div><a href="download-enterprise.html" class="btn btn-gold">查看下载 →</a></div>
+            </div>
+            <p style="text-align:center;color:var(--text-muted);margin-top:2rem;">💡 购买后您将获得该层级所有安装包和未来版本的永久访问权限。</p>
         </div>
+    </section>
 
-        <div style="margin-top:2rem; padding:1rem; background:#f8f9fa; border-radius:12px; text-align:center; color:#7a7a9a; font-size:0.9rem;">
-            💡 所有付费版本包含 <strong>永久免费升级</strong> 和 <strong>源代码授权</strong>（组织版及以上）。
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div><h4>CrownStar AI</h4><p style="opacity:0.6;font-size:0.85rem;">世界首个主权AI平台 · 中国首发<br />深度集成 DeepSeek · 完全私有化</p><p style="margin-top:0.5rem;"><a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div>
+            <div><h4>产品</h4><a href="product.html">产品功能</a><a href="pricing.html">定价方案</a><a href="download-free.html">免费下载</a><a href="downloads.html">下载中心</a></div>
+            <div><h4>资源</h4><a href="case-studies.html">客户案例</a><a href="security.html">安全合规</a><a href="swagger.html" target="_blank">API文档</a><a href="articles.html">文章库</a></div>
+            <div><h4>公司</h4><a href="contact.html">联系我们</a><a href="https://github.com/crownstar-ai/crown-star-ai-bot" target="_blank">GitHub</a><a href="mailto:st3vens.ben@yandex.com">商务咨询</a></div>
+            <div class="bottom"><p>© 2026 CrownStar AI. All rights reserved. <a href="sitemap.xml">站点地图</a></p></div>
         </div>
+    </footer>
 
-        <div class="footer">© 2026 CrownStar. All rights reserved. <a href="https://github.com/crownstar-ai/crown-star-ai-bot" target="_blank">GitHub</a></div>
-    </div>
+    <script>
+        // Same standard JS
+        (function() {
+            const quickBtn = document.getElementById('quickAccessBtn');
+            const quickDropdown = document.getElementById('quickAccessDropdown');
+            quickBtn.addEventListener('click', function(e) { e.stopPropagation(); quickDropdown.classList.toggle('show'); });
+            document.addEventListener('click', function() { quickDropdown.classList.remove('show'); });
+            const fadeElements = document.querySelectorAll('.scroll-fade');
+            const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.08 });
+            fadeElements.forEach(el => observer.observe(el));
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; }
+            window.addEventListener('resize', resize); resize();
+            class Particle { constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.size = Math.random() * 3 + 1; this.speedX = (Math.random() - 0.5) * 0.4; this.speedY = (Math.random() - 0.5) * 0.4; this.opacity = Math.random() * 0.2 + 0.05; } update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > width) this.speedX *= -1; if (this.y < 0 || this.y > height) this.speedY *= -1; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(10,46,92,${this.opacity})`; ctx.fill(); } }
+            function drawLines() { for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const dist = Math.sqrt(dx * dx + dy * dy); if (dist < 150) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(10,46,92,${0.03 * (1 - dist / 150)})`; ctx.lineWidth = 0.5; ctx.stroke(); } } } }
+            const count = Math.min(60, Math.floor((width * height) / 15000));
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+            function animateParticles() { ctx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw(); }); drawLines(); requestAnimationFrame(animateParticles); }
+            animateParticles();
+            const bgCanvas = document.getElementById('bg-canvas');
+            let bgHue = 220;
+            setInterval(() => { bgHue += 0.2; if (bgHue > 230) bgHue = 220; bgCanvas.style.background = `linear-gradient(135deg, hsl(${bgHue},20%,94%) 0%, #ffffff 60%, hsl(${bgHue+10},15%,97%) 100%)`; }, 3000);
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() { header.classList.toggle('scrolled', window.scrollY > 50); });
+        })();
+    </script>
 </body>
 </html>

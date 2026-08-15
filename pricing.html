@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>定价 · CrownStar AI · 一次买断，终身升级</title>
-    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <style>
+        /* ===== SAME BASE STYLES AS PRODUCT.HTML (abbreviated for brevity) ===== */
         * { margin:0; padding:0; box-sizing:border-box; }
         :root { --primary: #0a2e5c; --primary-light: #1a4a7a; --gold: #c9a84c; --gold-hover: #dbb95e; --bg: #f5f7fb; --text: #1a1a2e; --text-light: #4a4a6a; --text-muted: #7a7a9a; --border: #e8ecf0; --radius: 16px; --shadow: 0 4px 20px rgba(0,0,0,0.04); --shadow-hover: 0 12px 40px rgba(0,0,0,0.08); --bg-card: rgba(255,255,255,0.85); --font-sans: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif; }
         html { scroll-behavior:smooth; }
@@ -23,6 +23,7 @@
         .scroll-fade { opacity:0; transform:translateY(30px); transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
         .scroll-fade.visible { opacity:1; transform:translateY(0); }
 
+        /* HEADER (same as before) – abbreviated here for space, but include full in production */
         .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px) saturate(1.6); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; transition:box-shadow 0.3s; }
         .header.scrolled { box-shadow:0 4px 30px rgba(0,0,0,0.06); }
         .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
@@ -41,6 +42,7 @@
         .nav .cta::after { display:none; }
         .nav .cta:hover { background:var(--primary-light); transform:scale(1.03); box-shadow:0 8px 24px rgba(10,46,92,0.2); }
         .nav .active { color:var(--gold); font-weight:600; }
+        .nav .active::after { width:100%; }
         .quick-access-wrapper { position:relative; display:inline-block; }
         .quick-access-btn { background:rgba(10,46,92,0.06); border:1px solid rgba(10,46,92,0.1); border-radius:3rem; padding:0.4rem 1.2rem; font-weight:600; font-size:0.85rem; color:var(--primary); cursor:pointer; display:flex; align-items:center; gap:0.4rem; transition:all 0.3s; font-family:var(--font-sans); }
         .quick-access-btn:hover { background:var(--primary); color:#fff; border-color:var(--primary); transform:scale(1.03); }
@@ -53,6 +55,7 @@
         .quick-access-dropdown .divider { height:1px; background:var(--border); margin:0.3rem 1rem; }
         @keyframes fadeSlide { 0%{opacity:0;transform:translateY(12px);}100%{opacity:1;transform:translateY(0);} }
 
+        /* PRICING GRID */
         .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.8rem; }
         .pricing-card { background:var(--bg-card); border-radius:var(--radius); padding:2rem 1.8rem; text-align:center; border:1px solid var(--border); transition:all 0.3s; box-shadow:var(--shadow); position:relative; }
         .pricing-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-hover); }
@@ -66,8 +69,13 @@
         .pricing-card ul { text-align:left; padding-left:0.5rem; margin:0.8rem 0; list-style:none; }
         .pricing-card ul li { padding:0.2rem 0; font-size:0.85rem; color:var(--text-light); display:flex; align-items:flex-start; gap:0.5rem; }
         .pricing-card ul li::before { content:"◆"; color:var(--gold); font-weight:700; font-size:0.5rem; margin-top:0.3rem; }
+        .pricing-card .btn-buy { display:block; padding:0.6rem 1.5rem; border-radius:3rem; font-weight:600; font-size:0.9rem; text-decoration:none; background:var(--primary); color:#fff; transition:all 0.3s; border:none; cursor:pointer; width:100%; text-align:center; }
+        .pricing-card .btn-buy:hover { background:var(--primary-light); transform:scale(1.02); }
+        .pricing-card .btn-buy.gold-bg { background:var(--gold); color:var(--primary); }
+        .pricing-card .btn-buy.gold-bg:hover { background:var(--gold-hover); }
         .pricing-card .post-note { font-size:0.6rem; color:var(--text-muted); margin-top:0.4rem; }
 
+        /* FEATURE MATRIX */
         .tier-grid-table { width:100%; border-collapse:collapse; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); border-radius:var(--radius); overflow:hidden; margin:2rem 0; font-size:0.85rem; }
         .tier-grid-table th { background:var(--primary); color:#fff; padding:0.8rem 0.4rem; text-align:center; font-weight:600; font-size:0.75rem; }
         .tier-grid-table td { padding:0.5rem 0.4rem; text-align:center; border-bottom:1px solid var(--border); color:var(--text-light); font-size:0.8rem; }
@@ -90,6 +98,7 @@
     <div id="bg-canvas"></div>
     <canvas id="particles-canvas"></canvas>
 
+    <!-- ===== HEADER ===== -->
     <header class="header" id="header">
         <div class="container">
             <a href="index.html" class="logo"><svg viewBox="0 0 44 44"><defs><linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#e8c86a"/></linearGradient></defs><path class="crown" d="M4 32 L6 18 L12 22 L22 10 L32 22 L38 18 L40 32 L4 32 Z" fill="url(#cg)"/><path class="star" d="M22 4 L24 12 L32 12 L26 18 L28 26 L22 20 L16 26 L18 18 L12 12 L20 12 L22 4 Z" fill="#0a2e5c"/><rect x="6" y="32" width="32" height="3" rx="1.5" fill="#0a2e5c" opacity="0.12"/><polygon points="22,14 26,22 34,22 28,28 30,36 22,30 14,36 16,28 10,22 18,22" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.2"/></svg><span class="brand">Crown<span class="highlight">Star</span></span><span class="ai-label">AI</span></a>
@@ -101,89 +110,36 @@
         </div>
     </header>
 
+    <!-- ===== HERO ===== -->
     <section class="section" style="padding:2rem 0 1rem;">
         <div class="container"><div style="text-align:center;" class="scroll-fade"><span class="section-label">透明定价</span><h1 class="section-title">选择适合您的 <span class="gold">层级</span></h1><p class="section-sub" style="margin:0 auto 2rem;">免费版 · 基础版 · 进阶版 · 专业版 · 组织版 · 企业旗舰版 — 按需选择，<strong>一次买断，终身升级</strong>。</p></div></div>
     </section>
 
+    <!-- ===== PRICING GRID ===== -->
     <section class="section" id="tiers" style="padding-top:0;">
         <div class="container">
             <div class="pricing-grid">
                 <!-- FREE -->
-                <div class="pricing-card scroll-fade"><div class="tier">社区版</div><div class="name">免费版</div><div class="audience">个人探索 & 学习</div><div class="price" style="font-size:1.8rem;color:var(--text-light);">¥0</div><ul><li>无限对话 · 9个数学模块</li><li>1 用户 · 只读 API</li><li>本地 SQLite 存储</li><li>永久免费</li></ul><a href="download-free.html" class="btn-buy" style="background:#4a4a6a;">免费下载</a><div class="post-note">无需支付 · 即刻使用</div></div>
-
+                <div class="pricing-card scroll-fade"><div class="tier">社区版</div><div class="name">免费</div><div class="audience">个人探索 & 学习</div><div class="price" style="font-size:1.8rem;color:var(--text-light);">¥0</div><ul><li>无限对话 · 9个数学模块</li><li>1 用户 · 只读 API</li><li>本地 SQLite 存储</li><li>永久免费</li></ul><a href="download-free.html" class="btn-buy" style="background:#4a4a6a;">免费下载</a><div class="post-note">无需支付 · 即刻使用</div></div>
                 <!-- BASIC -->
-                <div class="pricing-card scroll-fade"><div class="tier">入门</div><div class="name">基础版</div><div class="audience">个人专业用户</div><div class="price"><span class="currency">¥</span>39</div><ul><li>免费版全部功能</li><li>5 用户 · 完整 API</li><li>邮件支持</li><li>终身免费升级</li></ul>
-                                    <stripe-buy-button
-                    buy-button-id="buy_btn_1Tv0GpJ1ruuDi5YqZiWJR6mF"
-                    publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                >
-                </stripe-buy-button>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
+                <div class="pricing-card scroll-fade"><div class="tier">入门</div><div class="name">基础版</div><div class="audience">个人专业用户</div><div class="price"><span class="currency">¥</span>39</div><ul><li>免费版全部功能</li><li>5 用户 · 完整 API</li><li>邮件支持</li><li>终身免费升级</li></ul><a href="https://buy.stripe.com/5kQcN69HzarBd7w4imefC0a" class="btn-buy" target="_blank">立即购买</a><div class="post-note">购买后邮件获取下载链接</div></div>
                 <!-- ADVANCED -->
-                <div class="pricing-card scroll-fade"><div class="tier">进阶</div><div class="name">进阶版</div><div class="audience">小型团队</div><div class="price"><span class="currency">¥</span>248</div><ul><li>基础版全部功能</li><li>50 用户 · RLS 安全</li><li>邮件+电话支持</li><li>终身免费升级</li></ul>
-                                    <stripe-buy-button
-                    buy-button-id="buy_btn_1Tt7GIJ1ruuDi5YqArBtgvxH"
-                    publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                >
-                </stripe-buy-button>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
+                <div class="pricing-card scroll-fade"><div class="tier">进阶</div><div class="name">进阶版</div><div class="audience">小型团队</div><div class="price"><span class="currency">¥</span>248</div><ul><li>基础版全部功能</li><li>50 用户 · RLS 安全</li><li>邮件+电话支持</li><li>终身免费升级</li></ul><a href="https://buy.stripe.com/fZu28sbPH9nxffE9CGefC0b" class="btn-buy" target="_blank">立即购买</a><div class="post-note">购买后邮件获取下载链接</div></div>
                 <!-- PROFESSIONAL -->
-                <div class="pricing-card popular scroll-fade"><div class="popular-badge">最受欢迎</div><div class="tier">专业</div><div class="name">专业版</div><div class="audience">大型团队 / 企业</div><div class="price"><span class="currency">¥</span>389</div><ul><li>进阶版全部功能</li><li>10 用户 · RLS + 审计</li><li>邮件+电话支持</li><li>终身免费升级</li></ul>
-                                    <stripe-buy-button
-                    buy-button-id="buy_btn_1Tt7KWJ1ruuDi5YqpRUOlsMU"
-                    publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                >
-                </stripe-buy-button>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
+                <div class="pricing-card popular scroll-fade"><div class="popular-badge">最受欢迎</div><div class="tier">专业</div><div class="name">专业版</div><div class="audience">大型团队 / 企业</div><div class="price"><span class="currency">¥</span>389</div><ul><li>进阶版全部功能</li><li>10 用户 · RLS + 审计</li><li>邮件+电话支持</li><li>终身免费升级</li></ul><a href="https://buy.stripe.com/4gM14o4nf57hd7waGKefC0c" class="btn-buy gold-bg" target="_blank">立即购买</a><div class="post-note">购买后邮件获取下载链接</div></div>
                 <!-- ORG SMALL -->
-                <div class="pricing-card scroll-fade"><div class="tier">组织</div><div class="name">组织版 – 小型</div><div class="audience">中小企业 & 地方政府</div><div class="price"><span class="currency">¥</span>705</div><ul><li>专业版全部功能</li><li>100 用户 · 源代码</li><li>优先电话支持</li><li>终身免费升级</li></ul>
-                                    <stripe-buy-button
-                    buy-button-id="buy_btn_1Tt7PqJ1ruuDi5YqoL9o4AJz"
-                    publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                >
-                </stripe-buy-button>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
+                <div class="pricing-card scroll-fade"><div class="tier">组织</div><div class="name">组织版 – 小型</div><div class="audience">中小企业 & 地方政府</div><div class="price"><span class="currency">¥</span>705</div><ul><li>专业版全部功能</li><li>100 用户 · 源代码</li><li>优先电话支持</li><li>终身免费升级</li></ul><a href="https://buy.stripe.com/aFadRa4nf1V54B08yCefC0d" class="btn-buy" target="_blank">立即购买</a><div class="post-note">购买后邮件获取下载链接</div></div>
                 <!-- ORG MEDIUM -->
-                <div class="pricing-card scroll-fade"><div class="tier">组织</div><div class="name">组织版 – 中型</div><div class="audience">大中型企业 & 区域政府</div><div class="price"><span class="currency">¥</span>61,775</div><ul><li>小型版全部功能</li><li>1,000 用户 · 源代码</li><li>优先电话支持</li><li>终身免费升级</li></ul>
-                                    <stripe-buy-button
-                    buy-button-id="buy_btn_1Tt7StJ1ruuDi5YqNibrAQG9"
-                    publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                >
-                </stripe-buy-button>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
+                <div class="pricing-card scroll-fade"><div class="tier">组织</div><div class="name">组织版 – 中型</div><div class="audience">大中型企业 & 区域政府</div><div class="price"><span class="currency">¥</span>61,775</div><ul><li>小型版全部功能</li><li>1,000 用户 · 源代码</li><li>优先电话支持</li><li>终身免费升级</li></ul><a href="https://buy.stripe.com/8x2cN6g5X57hgjI5mqefC0e" class="btn-buy" target="_blank">立即购买</a><div class="post-note">购买后邮件获取下载链接</div></div>
                 <!-- ORG LARGE -->
-                <div class="pricing-card scroll-fade"><div class="tier">组织</div><div class="name">组织版 – 大型</div><div class="audience">超大型企业 & 国家级机构</div><div class="price"><span class="currency">¥</span>476,000</div><ul><li>中型版全部功能</li><li>无限用户 · 源代码</li><li>优先电话支持</li><li>终身免费升级</li></ul>
-                                    <stripe-buy-button
-                    buy-button-id="buy_btn_1Tt7VXJ1ruuDi5YqkUijyCHE"
-                    publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                >
-                </stripe-buy-button>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
+                <div class="pricing-card scroll-fade"><div class="tier">组织</div><div class="name">组织版 – 大型</div><div class="audience">超大型企业 & 国家级机构</div><div class="price"><span class="currency">¥</span>476,000</div><ul><li>中型版全部功能</li><li>无限用户 · 源代码</li><li>优先电话支持</li><li>终身免费升级</li></ul><a href="https://buy.stripe.com/fZu4gA5rj2Z9gjIbKOefC0f" class="btn-buy" target="_blank">立即购买</a><div class="post-note">购买后邮件获取下载链接</div></div>
                 <!-- ENTERPRISE -->
-                <div class="pricing-card scroll-fade" style="border:2px solid var(--gold);background:rgba(255,255,255,0.9);"><div class="tier">旗舰</div><div class="name">企业旗舰版</div><div class="audience">联邦机构 & 跨国集团</div><div class="price"><span class="currency">¥</span>999,999</div><ul><li>大型版全部功能</li><li>无限用户 · 白标品牌</li><li>专属技术经理 7×24</li><li>源码 + 专属部署</li></ul>
-                                    <stripe-buy-button
-                    buy-button-id="buy_btn_1Tt7nyJ1ruuDi5YqMez5yz5A"
-                    publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                >
-                </stripe-buy-button>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
+                <div class="pricing-card scroll-fade" style="border:2px solid var(--gold);background:rgba(255,255,255,0.9);"><div class="tier">旗舰</div><div class="name">企业旗舰版</div><div class="audience">联邦机构 & 跨国集团</div><div class="price"><span class="currency">¥</span>1,675,000</div><ul><li>大型版全部功能</li><li>无限用户 · 白标品牌</li><li>专属技术经理 7×24</li><li>源码 + 专属部署</li></ul><a href="https://buy.stripe.com/00w4gAaLD57h7Nc3eiefC0g" class="btn-buy" target="_blank">立即咨询</a><div class="post-note">购买后邮件获取下载链接</div></div>
             </div>
         </div>
     </section>
 
+    <!-- ===== FEATURE MATRIX ===== -->
     <section class="section" id="matrix">
         <div class="container">
             <div class="scroll-fade" style="text-align:center;"><span class="section-label">详细对比</span><h2 class="section-title">功能 <span class="gold">全景矩阵</span></h2><p class="section-sub" style="margin:0 auto 2rem;">从免费版到企业旗舰版，所有功能一目了然。每个付费版本都包含终身免费升级。</p></div>
@@ -201,7 +157,7 @@
                         <tr><td class="feature-label">白标品牌</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td></tr>
                         <tr><td class="feature-label">审计日志</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
                         <tr><td class="feature-label">支持响应</td><td>社区</td><td>邮件</td><td>邮件+电话</td><td>邮件+电话</td><td>优先电话</td><td>优先电话</td><td>优先电话</td><td>7×24 专属</td></tr>
-                        <tr><td class="feature-label">价格 (CNY)</td><td>0</td><td>39</td><td>248</td><td>389</td><td>705</td><td>61,775</td><td>476,000</td><td>999,999</td></tr>
+                        <tr><td class="feature-label">价格 (CNY)</td><td>0</td><td>39</td><td>248</td><td>389</td><td>705</td><td>61,775</td><td>476,000</td><td>1,675,000</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -209,6 +165,7 @@
         </div>
     </section>
 
+    <!-- ===== FAQ ===== -->
     <section class="section" id="faq">
         <div class="container">
             <div class="scroll-fade" style="text-align:center;"><span class="section-label">常见问题</span><h2 class="section-title">定价 <span class="gold">常见问题</span></h2><p class="section-sub" style="margin:0 auto 2rem;">关于购买、升级、许可和支持的 6 个最常见问题。</p></div>
@@ -223,6 +180,7 @@
         </div>
     </section>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div><h4>CrownStar AI</h4><p style="opacity:0.6;font-size:0.85rem;">世界首个主权AI平台 · 中国首发<br />深度集成 DeepSeek · 完全私有化</p><p style="margin-top:0.5rem;"><a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div>
@@ -234,6 +192,7 @@
     </footer>
 
     <script>
+        // Same JS as product.html (quick access, particles, scroll, header shadow)
         (function() {
             const quickBtn = document.getElementById('quickAccessBtn');
             const quickDropdown = document.getElementById('quickAccessDropdown');
@@ -247,15 +206,15 @@
             let width, height, particles = [];
             function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; }
             window.addEventListener('resize', resize); resize();
-            class Particle { constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.size = Math.random() * 3 + 1; this.speedX = (Math.random() - 0.5) * 0.4; this.speedY = (Math.random() - 0.5) * 0.4; this.opacity = Math.random() * 0.2 + 0.05; } update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > width) this.speedX *= -1; if (this.y < 0 || this.y > height) this.speedY *= -1; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = gba(10,46,92,); ctx.fill(); } }
-            function drawLines() { for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const dist = Math.sqrt(dx * dx + dy * dy); if (dist < 150) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = gba(10,46,92,); ctx.lineWidth = 0.5; ctx.stroke(); } } } }
+            class Particle { constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.size = Math.random() * 3 + 1; this.speedX = (Math.random() - 0.5) * 0.4; this.speedY = (Math.random() - 0.5) * 0.4; this.opacity = Math.random() * 0.2 + 0.05; } update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > width) this.speedX *= -1; if (this.y < 0 || this.y > height) this.speedY *= -1; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(10,46,92,${this.opacity})`; ctx.fill(); } }
+            function drawLines() { for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const dist = Math.sqrt(dx * dx + dy * dy); if (dist < 150) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(10,46,92,${0.03 * (1 - dist / 150)})`; ctx.lineWidth = 0.5; ctx.stroke(); } } } }
             const count = Math.min(60, Math.floor((width * height) / 15000));
             for (let i = 0; i < count; i++) particles.push(new Particle());
             function animateParticles() { ctx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw(); }); drawLines(); requestAnimationFrame(animateParticles); }
             animateParticles();
             const bgCanvas = document.getElementById('bg-canvas');
             let bgHue = 220;
-            setInterval(() => { bgHue += 0.2; if (bgHue > 230) bgHue = 220; bgCanvas.style.background = linear-gradient(135deg, hsl(,20%,94%) 0%, #ffffff 60%, hsl(,15%,97%) 100%); }, 3000);
+            setInterval(() => { bgHue += 0.2; if (bgHue > 230) bgHue = 220; bgCanvas.style.background = `linear-gradient(135deg, hsl(${bgHue},20%,94%) 0%, #ffffff 60%, hsl(${bgHue+10},15%,97%) 100%)`; }, 3000);
             const header = document.getElementById('header');
             window.addEventListener('scroll', function() { header.classList.toggle('scrolled', window.scrollY > 50); });
         })();
