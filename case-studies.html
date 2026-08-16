@@ -1,22 +1,63 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>客户案例 · CrownStar AI</title>
-<style>/* Same styles as security */</style>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>客户案例 · CrownStar AI</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+        .logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; height:48px; font-size:1.6rem; font-weight:800; color:#0a2e5c; }
+        .logo span { color:#c9a84c; }
+        .nav { display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; align-items:center; }
+        .nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.9rem; padding:0.2rem 0; position:relative; transition:color 0.2s; }
+        .nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,#c9a84c,#0a2e5c); transition:width 0.4s; }
+        .nav a:hover { color:#0a2e5c; }
+        .nav a:hover::after { width:100%; }
+        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.6rem; border-radius:3rem; font-weight:600; }
+        .nav .cta::after { display:none; }
+        .nav .cta:hover { background:#1a4a7a; transform:scale(1.03); }
+        .nav .active { color:#c9a84c; font-weight:600; }
+        .page-hero { text-align:center; padding:3rem 0 2rem; }
+        .page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+        .page-hero h1 .gold { color:#c9a84c; }
+        .page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
+        .case-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2rem; margin:2rem 0; }
+        .case-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; transition:transform 0.3s; }
+        .case-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); border-color:#c9a84c; }
+        .case-card .icon { font-size:2.5rem; }
+        .case-card h3 { font-size:1.3rem; font-weight:700; color:#0a2e5c; margin:0.5rem 0; }
+        .case-card ul { list-style:none; padding-left:0; }
+        .case-card ul li { padding:0.3rem 0; color:#5a5a7a; display:flex; align-items:flex-start; gap:0.5rem; }
+        .case-card ul li::before { content:"◆"; color:#c9a84c; font-weight:700; font-size:0.6rem; margin-top:0.3rem; }
+        .footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
+        .footer a { color:#0a2e5c; text-decoration:none; }
+        .back-link { display:inline-block; margin-bottom:1rem; color:#0a2e5c; text-decoration:none; font-weight:500; }
+        .back-link:hover { text-decoration:underline; }
+        @media (max-width:768px){ .case-grid{grid-template-columns:1fr;} }
+    </style>
 </head>
 <body>
 <header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav">
 <a href="index.html">首页</a><a href="product.html">产品</a><a href="pricing.html">定价</a><a href="case-studies.html" class="active">案例</a><a href="security.html">安全</a><a href="download-free.html">免费下载</a><a href="downloads.html">下载中心</a><a href="swagger.html" target="_blank">API</a><a href="articles.html">文章库</a><a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a><a href="contact.html" class="cta">联系我们</a></nav></div></header>
-<section class="page-hero"><div class="container"><h1>客户 <span class="gold">成功案例</span></h1><p class="subtitle">来自金融、政务、制造、医疗、能源和教育领域的真实故事。</p></div></section>
+
 <div class="container">
-<div class="security-grid">
-<div class="security-card"><div class="icon">💰</div><h3>某头部保险公司 · 智能风控</h3><ul><li>200+ 用户 · 风控效率提升 40%</li><li>欺诈检测准确率从 78% 提升至 94%</li><li>5 分钟完成内网部署，数据安全完全可控</li></ul></div>
-<div class="security-card"><div class="icon">🏛️</div><h3>某省级政务平台 · 智慧政务</h3><ul><li>500+ 用户 · 政务咨询响应缩短 70%</li><li>满足信创合规和私有化部署全部要求</li><li>政策智能问答、办事指南自动生成</li></ul></div>
-<div class="security-card"><div class="icon">🏭</div><h3>德国制造业中国区 · 智能质检</h3><ul><li>100+ 用户 · 质检误判率降低 55%</li><li>全自动在线检测，替代人工抽检</li><li>数据主权满足跨国合规要求</li></ul></div>
-<div class="security-card"><div class="icon">🏥</div><h3>某三甲医院 · 辅助诊断</h3><ul><li>50+ 医生 · 诊断准确率提升 22%</li><li>平均诊断时间从 45 分钟缩短至 15 分钟</li><li>数学模块提供可解释的推理依据</li></ul></div>
-<div class="security-card"><div class="icon">⚡</div><h3>某省级电网 · 智能调度</h3><ul><li>负荷预测误差 < 2.5%</li><li>年节约运维成本超 2000 万元</li><li>实时负荷预测和故障预警</li></ul></div>
-<div class="security-card"><div class="icon">🎓</div><h3>某重点大学 · AI 科研平台</h3><ul><li>30+ 教授 · 科研效率提升 60%</li><li>学生直观理解数学模块的作用</li><li>加速多篇顶会论文发表</li></ul></div>
+    <a href="index.html" class="back-link">← 返回首页</a>
+    <section class="page-hero"><h1>客户 <span class="gold">成功案例</span></h1><p class="subtitle">来自金融、政务、制造、医疗、能源和教育领域的真实故事。</p></section>
+
+    <div class="case-grid">
+        <div class="case-card"><div class="icon">💰</div><h3>某头部保险公司 · 智能风控</h3><ul><li>200+ 用户 · 风控效率提升 40%</li><li>欺诈检测准确率从 78% 提升至 94%</li><li>5 分钟完成内网部署，数据安全完全可控</li></ul></div>
+        <div class="case-card"><div class="icon">🏛️</div><h3>某省级政务平台 · 智慧政务</h3><ul><li>500+ 用户 · 政务咨询响应缩短 70%</li><li>满足信创合规和私有化部署全部要求</li><li>政策智能问答、办事指南自动生成</li></ul></div>
+        <div class="case-card"><div class="icon">🏭</div><h3>德国制造业中国区 · 智能质检</h3><ul><li>100+ 用户 · 质检误判率降低 55%</li><li>全自动在线检测，替代人工抽检</li><li>数据主权满足跨国合规要求</li></ul></div>
+        <div class="case-card"><div class="icon">🏥</div><h3>某三甲医院 · 辅助诊断</h3><ul><li>50+ 医生 · 诊断准确率提升 22%</li><li>平均诊断时间从 45 分钟缩短至 15 分钟</li><li>数学模块提供可解释的推理依据</li></ul></div>
+        <div class="case-card"><div class="icon">⚡</div><h3>某省级电网 · 智能调度</h3><ul><li>负荷预测误差 < 2.5%</li><li>年节约运维成本超 2000 万元</li><li>实时负荷预测和故障预警</li></ul></div>
+        <div class="case-card"><div class="icon">🎓</div><h3>某重点大学 · AI 科研平台</h3><ul><li>30+ 教授 · 科研效率提升 60%</li><li>学生直观理解数学模块的作用</li><li>加速多篇顶会论文发表</li></ul></div>
+    </div>
 </div>
-</div>
+
 <footer class="footer"><div class="container"><p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div></footer>
 </body>
 </html>
