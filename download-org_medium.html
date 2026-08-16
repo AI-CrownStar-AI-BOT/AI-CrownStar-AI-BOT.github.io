@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>下载 组织版 – 中型 – CrownStar AI</title>
+    <title>🔒 购买后解锁 组织版 – 中型 – CrownStar AI</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; }
@@ -19,8 +19,8 @@
         .card .size { font-size:0.8rem; color:#7a7a9a; }
         .card .btn { display:inline-block; margin-top:0.8rem; padding:0.6rem 2rem; border-radius:30px; font-weight:600; text-decoration:none; transition:0.2s; }
         .card .btn-locked { background:#ccc; color:#888; cursor:not-allowed; pointer-events:none; }
-        .card .btn-download { background:#0a2e5c; color:white; }
-        .card .btn-download:hover { background:#1a4a7a; }
+        .card .btn-locked { background:#0a2e5c; color:white; }
+        .card .btn-locked:hover { background:#1a4a7a; }
         .lock-overlay { position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.04); border-radius:16px; display:flex; align-items:center; justify-content:center; pointer-events:none; }
         .lock-overlay .lock-icon { font-size:2rem; opacity:0.3; }
         .nav { margin-bottom:2rem; }
@@ -52,26 +52,34 @@
         <div class="nav">
             <a href="index.html">首页</a>
             <a href="pricing.html">定价</a>
-            <a href="downloads.html">下载中心</a>
+            <a href="downloads.html">🔒 购买后解锁中心</a>
         </div>
         <h1>组织版 – 中型 <span>CrownStar</span></h1>
-        <p class="sub">选择适合您的安装包类型 — <span class="price-tag">¥61,775 一次性购买</span> <span class="badge-paid">🔒 需要购买</span></p>
+        <p class="sub">选择适合您的安装包类型 — <span class="price-tag">¥61,775</span> <span class="badge-paid">🔒 需要购买</span></p>
         <div class="release-note">
-            📦 <strong>v7.12</strong> 已发布 · 购买后解锁下载
+            📦 <strong>v7.12</strong> 已发布 · 购买后解锁🔒 购买后解锁
             <br><span style="font-size:0.8rem;color:#7a7a9a;">
                 <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/tag/v7.12" target="_blank">查看所有发布</a>
             </span>
         </div>
-        <div id="unlockStatus" style="display:none;" class="unlock-msg">✅ 您已购买本层级，下载已解锁！</div>
+        <div id="unlockStatus" style="display:none;" class="unlock-msg">✅ 您已购买本层级，🔒 购买后解锁已解锁！</div>
         <div class="stripe-section">
             <h3>💳 立即购买 组织版 – 中型</h3>
-            <p>一次性买断，终身免费升级。支付完成后自动解锁下载。</p>
+            <p>一次性买断，终身免费升级。支付完成后自动解锁🔒 购买后解锁。</p>
             <a href="https://buy.stripe.com/8x2cN6g5X57hgjI5mqefC0e?prefilled_email=st3vens.ben%40yandex.com&success_url=https://ai-crownstar-ai-bot.github.io/success.html?tier=org_medium" class="btn-stripe" target="_blank">立即购买 ¥61,775</a>
             <div style="margin-top:0.8rem; font-size:0.8rem; color:#7a7a9a;">🔒 安全支付 · 支持信用卡 / 支付宝 / 微信支付</div>
         </div>
         <div style="text-align:center; margin:1.5rem 0;">
             <p style="font-size:0.9rem; color:#5a5a7a; margin-bottom:0.5rem;">📱 扫码支付（移动端推荐）</p>
-            <div class="qr-row"><div><img src="images/组织版 – 中型.png" alt="组织版 – 中型 支付二维码" /><div class="qr-label">微信 / 支付宝 扫码</div></div></div>
+            <div style="text-align:center; margin:1.5rem 0;">
+    <p style="font-size:0.9rem; color:#5a5a7a; margin-bottom:0.5rem;">📱 扫码支付（移动端推荐）</p>
+    <div class="qr-row">
+        <div>
+            <img src="images/组织版–中型企业.png" alt="组织版 – 中型 支付二维码" />
+            <div class="qr-label">微信 / 支付宝 扫码</div>
+        </div>
+    </div>
+</div></div></div>
         </div>
         <div class="grid" id="downloadGrid">
             <div class="card"><div class="icon">⚙️</div><div class="name">Windows (EXE)</div><div class="size">~331 MB</div><span class="btn btn-locked" id="basic-exe">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
@@ -100,8 +108,8 @@
                 for (const [id, url] of Object.entries(links)) {
                     const el = document.getElementById(id);
                     if (el) {
-                        el.textContent = '下载';
-                        el.className = 'btn btn-download';
+                        el.textContent = '🔒 购买后解锁';
+                        el.className = 'btn btn-locked';
                         el.href = url;
                         el.target = '_blank';
                         const card = el.closest('.card');
@@ -116,3 +124,4 @@
     </script>
 </body>
 </html>
+

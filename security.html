@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>安全合规 · CrownStar AI</title>
-<style>/* Same styles */</style>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>安全合规 · CrownStar AI · 数据主权</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+.container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+.header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; }
+.header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+.logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; height:48px; font-size:1.6rem; font-weight:800; color:#0a2e5c; }
+.logo span { color:#c9a84c; }
+.nav { display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; align-items:center; }
+.nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.9rem; padding:0.2rem 0; position:relative; transition:color 0.2s; }
+.nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,#c9a84c,#0a2e5c); transition:width 0.4s; }
+.nav a:hover { color:#0a2e5c; }
+.nav a:hover::after { width:100%; }
+.nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.6rem; border-radius:3rem; font-weight:600; }
+.nav .cta::after { display:none; }
+.nav .cta:hover { background:#1a4a7a; transform:scale(1.03); }
+.nav .active { color:#c9a84c; font-weight:600; }
+.page-hero { text-align:center; padding:3rem 0 2rem; }
+.page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+.page-hero h1 .gold { color:#c9a84c; }
+.page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
+.security-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; margin:2rem 0; }
+.security-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; transition:transform 0.3s; }
+.security-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); }
+.security-card .icon { font-size:2.5rem; }
+.security-card h3 { font-size:1.3rem; font-weight:700; color:#0a2e5c; margin:0.5rem 0; }
+.security-card ul { list-style:none; padding-left:0; }
+.security-card ul li { padding:0.3rem 0; color:#5a5a7a; display:flex; align-items:flex-start; gap:0.5rem; }
+.security-card ul li::before { content:"◆"; color:#c9a84c; font-weight:700; font-size:0.6rem; margin-top:0.3rem; }
+.footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
+.footer a { color:#0a2e5c; text-decoration:none; }
+</style>
 </head>
 <body>
 <header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav">
 <a href="index.html">首页</a><a href="product.html">产品</a><a href="pricing.html">定价</a><a href="case-studies.html">案例</a><a href="security.html" class="active">安全</a><a href="download-free.html">免费下载</a><a href="downloads.html">下载中心</a><a href="swagger.html" target="_blank">API</a><a href="articles.html">文章库</a><a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a><a href="contact.html" class="cta">联系我们</a></nav></div></header>
-<div class="container"><h1>安全合规</h1><p>内容请参阅旧版 security.html。</p></div>
-<footer class="footer"><p>© 2026 CrownStar</p></footer>
+<section class="page-hero"><div class="container"><h1>安全与合规 · <span class="gold">数据主权优先</span></h1><p class="subtitle">CrownStar AI 从设计之初就满足中国企业最严格的安全标准，100% 私有化部署，数据永不离开您的网络。</p></div></section>
+<div class="container">
+<div class="security-grid">
+<div class="security-card"><div class="icon">🔒</div><h3>数据主权</h3><ul><li>100% 私有化部署，数据永不离开您的网络</li><li>无外部 API 调用，杜绝数据泄露风险</li><li>满足《数据安全法》《个人信息保护法》</li></ul></div>
+<div class="security-card"><div class="icon">🇨🇳</div><h3>信创全栈适配</h3><ul><li>华为昇腾 NPU · 鲲鹏 CPU</li><li>麒麟 OS · 统信 UOS</li><li>达梦数据库 · 人大金仓</li></ul></div>
+<div class="security-card"><div class="icon">🛡️</div><h3>等保 2.0 三级</h3><ul><li>身份认证：多因素认证支持</li><li>访问控制：RBAC + 行级安全 (RLS)</li><li>数据加密：AES-256 + 国密</li><li>审计日志：全链路不可篡改</li></ul></div>
+<div class="security-card"><div class="icon">🔐</div><h3>国密加密</h3><ul><li>SM2 / SM3 / SM4 国密算法</li><li>满足《中华人民共和国密码法》</li><li>全链路加密传输与存储</li></ul></div>
+<div class="security-card"><div class="icon">📋</div><h3>全链路审计日志</h3><ul><li>所有 API 调用可追溯</li><li>用户行为不可篡改日志</li><li>合规报告一键导出</li><li>实时告警</li></ul></div>
+<div class="security-card"><div class="icon">🔑</div><h3>加密与隐私</h3><ul><li>传输加密：TLS 1.3</li><li>存储加密：AES-256</li><li>零知识证明 (ZK-SNARKs)</li><li>后量子密码 (PQC)</li></ul></div>
+</div>
+</div>
+<footer class="footer"><div class="container"><p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div></footer>
 </body>
 </html>
