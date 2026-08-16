@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>下载 企业旗舰版 – CrownStar</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>下载 企业旗舰版 – CrownStar AI</title>
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; }
         .container { max-width:1200px; margin:0 auto; padding:2rem; }
         h1 { font-size:2.5rem; color:#0a2e5c; margin-bottom:0.5rem; }
         h1 span { color:#c9a84c; }
-        .sub { color:#5a5a7a; font-size:1.1rem; margin-bottom:2rem; }
+        .sub { color:#5a5a7a; font-size:1.1rem; margin-bottom:1.5rem; }
         .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; }
-        .card { background:white; border-radius:16px; padding:1.5rem; text-align:center; border:1px solid #e8ecf0; transition:0.2s; }
+        .card { background:white; border-radius:16px; padding:1.5rem; text-align:center; border:1px solid #e8ecf0; transition:0.2s; position:relative; }
         .card:hover { transform:translateY(-4px); box-shadow:0 8px 30px rgba(0,0,0,0.06); }
         .card .icon { font-size:2.5rem; margin-bottom:0.3rem; }
         .card .name { font-weight:600; font-size:1rem; color:#0a2e5c; }
         .card .size { font-size:0.8rem; color:#7a7a9a; }
         .card .btn { display:inline-block; margin-top:0.8rem; padding:0.6rem 2rem; border-radius:30px; font-weight:600; text-decoration:none; transition:0.2s; }
+        .card .btn-locked { background:#ccc; color:#888; cursor:not-allowed; pointer-events:none; }
         .card .btn-download { background:#0a2e5c; color:white; }
         .card .btn-download:hover { background:#1a4a7a; }
+        .lock-overlay { position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.04); border-radius:16px; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+        .lock-overlay .lock-icon { font-size:2rem; opacity:0.3; }
         .nav { margin-bottom:2rem; }
         .nav a { color:#4a4a6a; margin-right:1.5rem; text-decoration:none; font-weight:500; }
         .nav a:hover { color:#0a2e5c; }
@@ -28,75 +32,93 @@
         .release-note a { color:#0a2e5c; font-weight:600; }
         .checksum { font-size:0.7rem; color:#999; word-break:break-all; font-family:monospace; margin-top:0.3rem; }
         .price-tag { display:inline-block; background:#c9a84c; color:#0a2e5c; padding:0.1rem 1rem; border-radius:2rem; font-weight:600; font-size:0.8rem; }
+        .badge-paid { display:inline-block; background:#fff3e0; color:#e65100; padding:0.1rem 0.8rem; border-radius:12px; font-size:0.7rem; font-weight:600; }
+        .stripe-section { background:#f8faff; border-radius:16px; padding:1.5rem; margin:1.5rem 0; border:1px solid #e8ecf0; text-align:center; }
+        .stripe-section h3 { font-size:1.2rem; color:#0a2e5c; margin-bottom:0.3rem; }
+        .stripe-section p { color:#5a5a7a; font-size:0.9rem; }
+        .qr-row { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin:1rem 0; }
+        .qr-row img { width:160px; height:160px; border-radius:12px; border:1px solid #e8ecf0; }
+        .qr-label { font-size:0.8rem; color:#7a7a9a; margin-top:0.2rem; }
+        .back-link { display:inline-block; margin-bottom:1rem; color:#0a2e5c; text-decoration:none; font-weight:500; }
+        .back-link:hover { text-decoration:underline; }
+        .unlock-msg { background:#e8f5e9; border:1px solid #4caf50; border-radius:12px; padding:0.8rem; text-align:center; margin-bottom:1.5rem; color:#2e7d32; font-weight:600; }
+        @media (max-width:768px){ .qr-row img { width:120px; height:120px; } }
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="index.html" class="back-link">← 返回首页</a>
         <div class="nav">
             <a href="index.html">首页</a>
             <a href="pricing.html">定价</a>
             <a href="downloads.html">下载中心</a>
         </div>
         <h1>企业旗舰版 <span>CrownStar</span></h1>
-        <p class="sub">选择适合您的安装包类型 — <span class="price-tag">¥999,999 一次性购买</span></p>
-
+        <p class="sub">选择适合您的安装包类型 — <span class="price-tag">¥598,000 一次性购买</span> <span class="badge-paid">🔒 需要购买</span></p>
         <div class="release-note">
-            📦 <strong>v7.12</strong> 已发布 · 从 GitHub Releases 下载
+            📦 <strong>v7.12</strong> 已发布 · 购买后解锁下载
             <br><span style="font-size:0.8rem;color:#7a7a9a;">
                 <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/tag/v7.12" target="_blank">查看所有发布</a>
             </span>
         </div>
-
-        <div class="grid">
-            <div class="card">
-                <div class="icon">⚙️</div>
-                <div class="name">Windows (EXE)</div>
-                <div class="size">~331 MB</div>
-                <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/CrownStar-Enterprise-Win64.exe" class="btn btn-download" target="_blank">下载</a>
-                <div class="checksum">SHA256: 请查看 GitHub Release</div>
-            </div>
-            <div class="card">
-                <div class="icon">📦</div>
-                <div class="name">Windows (ZIP)</div>
-                <div class="size">~328 MB</div>
-                <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/CrownStar-Enterprise-Win64.zip" class="btn btn-download" target="_blank">下载</a>
-                <div class="checksum">SHA256: 请查看 GitHub Release</div>
-            </div>
-            <div class="card">
-                <div class="icon">🚀</div>
-                <div class="name">Windows (CUDA)</div>
-                <div class="size">~331 MB</div>
-                <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/CrownStar-Enterprise-Win64-CUDA.exe" class="btn btn-download" target="_blank">下载</a>
-                <div class="checksum">SHA256: 请查看 GitHub Release</div>
-            </div>
-            <div class="card">
-                <div class="icon">🖥️</div>
-                <div class="name">Portable (ZIP)</div>
-                <div class="size">~340 MB</div>
-                <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/CrownStar-Enterprise-Portable.zip" class="btn btn-download" target="_blank">下载</a>
-                <div class="checksum">SHA256: 请查看 GitHub Release</div>
-            </div>
-                        <div class="card">
-                <div class="icon">📦</div>
-                <div class="name">源代码 (ZIP)</div>
-                <div class="size">~124 KB</div>
-                <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/SourceCode-enterprise.zip" class="btn btn-download" target="_blank">下载</a>
-                <div class="checksum">SHA256: 请查看 GitHub Release</div>
-            </div>
+        <div id="unlockStatus" style="display:none;" class="unlock-msg">✅ 您已购买本层级，下载已解锁！</div>
+        <div class="stripe-section">
+            <h3>💳 立即购买 企业旗舰版</h3>
+            <p>一次性买断，终身免费升级。支付完成后自动解锁下载。</p>
+            <stripe-buy-button
+                buy-button-id="buy_btn_1To1ptJ1ruuDi5Yqp2dnOktK"
+                publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
+                success-url="https://ai-crownstar-ai-bot.github.io/success.html?tier=enterprise"
+            >
+            </stripe-buy-button>
+            <div style="margin-top:0.8rem; font-size:0.8rem; color:#7a7a9a;">🔒 安全支付 · 支持信用卡 / 支付宝 / 微信支付</div>
         </div>
-
-                <div style="margin-top:2rem; padding:1.5rem; background:#f8f9fa; border-radius:12px; text-align:center; border:1px dashed #c9a84c;">
-            <p style="font-size:0.9rem; color:#0a2e5c; font-weight:600; margin-bottom:0.3rem;">📱 扫码支付（支付宝 / 微信）</p>
-            <img src="https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/企业旗舰版.png" alt="QR Code for 企业旗舰版" style="max-width:150px; height:auto; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.08);" />
-            <p style="font-size:0.75rem; color:#7a7a9a; margin-top:0.3rem;">支付后自动解锁下载链接</p>
+        <div style="text-align:center; margin:1.5rem 0;">
+            <p style="font-size:0.9rem; color:#5a5a7a; margin-bottom:0.5rem;">📱 扫码支付（移动端推荐）</p>
+            <div class="qr-row"><div><img src="images/企业旗舰版.png" alt="企业旗舰版 支付二维码" /><div class="qr-label">微信 / 支付宝 扫码</div></div></div>
         </div>
-
+        <div class="grid" id="downloadGrid">
+            <div class="card"><div class="icon">⚙️</div><div class="name">Windows (EXE)</div><div class="size">~331 MB</div><span class="btn btn-locked" id="ent-exe">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
+            <div class="card"><div class="icon">📦</div><div class="name">Windows (ZIP)</div><div class="size">~328 MB</div><span class="btn btn-locked" id="ent-zip">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
+            <div class="card"><div class="icon">🚀</div><div class="name">Windows (CUDA)</div><div class="size">~331 MB</div><span class="btn btn-locked" id="ent-cuda">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
+            <div class="card"><div class="icon">🖥️</div><div class="name">Portable (ZIP)</div><div class="size">~340 MB</div><span class="btn btn-locked" id="ent-portable">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
+            <div class="card"><div class="icon">📦</div><div class="name">源代码 (ZIP)</div><div class="size">~124 KB</div><span class="btn btn-locked" id="ent-source">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
+        </div>
         <div style="margin-top:2rem; padding:1rem; background:#f8f9fa; border-radius:12px; text-align:center; color:#7a7a9a; font-size:0.9rem;">
             💡 所有安装包均为 Windows 平台。<br>
             🐧 Linux、🍎 macOS、📱 ARM64 版本正在开发中，敬请期待。
         </div>
-
         <div class="footer">© 2026 CrownStar. All rights reserved. <a href="https://github.com/crownstar-ai/crown-star-ai-bot" target="_blank">GitHub</a></div>
     </div>
+    <script>
+        (function() {
+            const tier = 'enterprise';
+            const unlocked = localStorage.getItem('crownstar_unlocked_' + tier) === 'true';
+            if (unlocked) {
+                document.getElementById('unlockStatus').style.display = 'block';
+                const links = {
+                    'ent-exe': 'https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/CrownStar-Enterprise-Win64.exe',
+                    'ent-zip': 'https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/CrownStar-Enterprise-Win64.zip',
+                    'ent-cuda': 'https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/CrownStar-Enterprise-Win64-CUDA.exe',
+                    'ent-portable': 'https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/CrownStar-Enterprise-Portable.zip',
+                    'ent-source': 'https://github.com/crownstar-ai/crown-star-ai-bot/releases/download/v7.12/SourceCode-enterprise.zip'
+                };
+                for (const [id, url] of Object.entries(links)) {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.textContent = '下载';
+                        el.className = 'btn btn-download';
+                        el.href = url;
+                        el.target = '_blank';
+                        const card = el.closest('.card');
+                        if (card) {
+                            const overlay = card.querySelector('.lock-overlay');
+                            if (overlay) overlay.style.display = 'none';
+                        }
+                    }
+                }
+            }
+        })();
+    </script>
 </body>
 </html>

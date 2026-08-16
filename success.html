@@ -5,292 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>支付成功 · CrownStar</title>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: 'PingFang SC','Microsoft YaHei','Segoe UI',sans-serif;
-            background: #f5f7fb;
-            color: #1a1a2e;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-        .container {
-            max-width: 680px;
-            width: 100%;
-            background: white;
-            border-radius: 24px;
-            padding: 2.5rem;
-            box-shadow: 0 12px 48px rgba(0,0,0,0.06);
-            border: 1px solid #e8ecf0;
-        }
-        .checkmark { font-size: 4rem; text-align: center; margin-bottom: 0.5rem; }
-        h1 { font-size: 2.2rem; font-weight: 700; color: #0a2e5c; text-align: center; margin-bottom: 0.3rem; }
-        h1 .gold { color: #c9a84c; }
-        .sub { text-align: center; color: #5a5a7a; font-size: 1.05rem; margin-bottom: 1.5rem; }
-        .card { background: #f8faff; border-radius: 16px; padding: 1.5rem; margin: 1.2rem 0; border: 1px solid #e8ecf0; }
-        .card .row { display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid #eef2f8; }
-        .card .row:last-child { border-bottom: none; }
-        .card .label { color: #7a7a9a; font-weight: 500; }
-        .card .value { color: #0a2e5c; font-weight: 600; }
-        .card .note { font-size: 0.75rem; color: #7a7a9a; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed #e8ecf0; text-align: center; }
-        .download-section { background: #eef4fa; border-radius: 16px; padding: 1.5rem; text-align: center; margin: 1.2rem 0; }
-        .download-section .btn {
-            display: inline-block;
-            background: #0a2e5c;
-            color: white;
-            padding: 0.8rem 2.8rem;
-            border-radius: 40px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            margin-top: 0.5rem;
-        }
-        .download-section .btn:hover { background: #1a4a7a; transform: scale(1.02); }
-        .license { font-family: 'Courier New', monospace; background: #eef2f8; padding: 0.2rem 0.8rem; border-radius: 4px; letter-spacing: 1px; font-size: 0.9rem; color: #0a2e5c; }
-        .email-note { font-size: 0.85rem; color: #7a7a9a; text-align: center; margin-top: 1rem; }
-        .footer { margin-top: 1.5rem; text-align: center; font-size: 0.8rem; color: #7a7a9a; border-top: 1px solid #e8ecf0; padding-top: 1.5rem; }
-        .footer a { color: #0a2e5c; text-decoration: none; }
-        .loader { text-align: center; padding: 2rem; color: #7a7a9a; }
-        .loader .spinner {
-            display: inline-block;
-            width: 32px;
-            height: 32px;
-            border: 4px solid #e8ecf0;
-            border-top: 4px solid #c9a84c;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .error-box { background: #fef9e7; border-left: 4px solid #f39c12; padding: 1.2rem 1.5rem; border-radius: 12px; margin: 1rem 0; display: flex; align-items: flex-start; gap: 0.8rem; }
-        .error-box .icon { font-size: 1.4rem; line-height: 1; margin-top: 0.1rem; }
-        .error-box .content h3 { font-size: 1rem; font-weight: 600; color: #7d6608; margin-bottom: 0.2rem; }
-        .error-box .content p { font-size: 0.9rem; color: #5a4a1a; margin: 0; }
-        .error-box .content a { color: #0a2e5c; font-weight: 500; text-decoration: none; }
-        .error-box .content a:hover { text-decoration: underline; }
-        @media (max-width: 480px) { .container { padding: 1.5rem; } h1 { font-size: 1.8rem; } .card .row { flex-direction: column; gap: 0.1rem; } }
+        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
+        .container { background:white; padding:2.5rem; border-radius:20px; box-shadow:0 8px 40px rgba(0,0,0,0.08); text-align:center; max-width:500px; }
+        h1 { color:#0a2e5c; }
+        .loader { border:4px solid #f3f3f3; border-top:4px solid #c9a84c; border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin:20px auto; }
+        @keyframes spin { 0%{transform:rotate(0deg);}100%{transform:rotate(360deg);} }
+        .btn { display:inline-block; margin-top:20px; padding:10px 30px; background:#c9a84c; color:#0a2e5c; border-radius:40px; text-decoration:none; font-weight:600; }
+        .btn:hover { background:#dbb95e; }
     </style>
 </head>
 <body>
-
-<div class="container" id="app">
-    <!-- Loading -->
-    <div id="loading" class="loader">
-        <div class="spinner"></div>
-        <p style="margin-top:0.8rem;">正在验证您的支付...</p>
+    <div class="container">
+        <h1>✅ 支付成功！</h1>
+        <p>正在为您解锁下载权限...</p>
+        <div class="loader"></div>
+        <p style="color:#7a7a9a; font-size:0.9rem;">如果未自动跳转，请点击下方按钮</p>
+        <a href="#" class="btn" id="continueBtn">前往下载页</a>
     </div>
-
-    <!-- Success -->
-    <div id="success" style="display:none;">
-        <div class="checkmark">🎉</div>
-        <h1>支付成功！<span class="gold">感谢购买</span></h1>
-        <p class="sub">您已成功获得 <strong id="productName">CrownStar</strong> 的永久授权。</p>
-
-        <div class="card">
-            <div class="row"><span class="label">产品</span><span class="value" id="tierDisplay">—</span></div>
-            <div class="row"><span class="label">订单状态</span><span class="value" style="color:#22c55e;">已支付 ✓</span></div>
-            <div class="row"><span class="label">订单编号</span><span class="value license" id="licenseKey">—</span></div>
-            <div class="note">📌 此订单编号仅用于客户参考，代表您已完成购买并拥有该软件。<br>您不需要输入此代码来激活软件。</div>
-        </div>
-
-        <div class="download-section">
-            <p style="font-weight:600; color:#0a2e5c; margin-bottom:0.3rem;">⬇️ 您的专属下载页面</p>
-            <a id="downloadBtn" class="btn" href="#">前往下载页面</a>
-            <p style="font-size:0.75rem; color:#7a7a9a; margin-top:0.5rem;">您将被自动重定向…</p>
-        </div>
-
-        <div class="email-note">
-            📧 我们也已将下载信息发送至您的邮箱。<br />
-            如有任何问题，请联系 <a href="mailto:st3vens.ben@yandex.com" style="color:#c9a84c;">st3vens.ben@yandex.com</a>
-        </div>
-
-        <div class="footer"><p>© 2026 CrownStar. All rights reserved.</p></div>
-    </div>
-
-    <!-- Error -->
-    <div id="error" style="display:none;">
-        <div style="text-align:center; margin-bottom:1rem;">
-            <span style="font-size:2.8rem;">⚠️</span>
-            <h2 style="color:#7d6608; margin-top:0.3rem; font-size:1.6rem;">支付验证遇到问题</h2>
-        </div>
-        <div class="error-box">
-            <div class="icon">💡</div>
-            <div class="content">
-                <h3>我们无法立即验证您的支付</h3>
-                <p id="errorMessage">这可能是由于网络延迟或支付尚未完成。</p>
-                <p style="margin-top:0.5rem;">
-                    请检查您的邮箱（包括垃圾箱）以获取确认邮件。<br>
-                    如果问题持续，请通过 <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a> 联系我们。
-                </p>
-            </div>
-        </div>
-        <div style="text-align:center; margin-top:1.5rem;">
-            <a href="/website/contact.html" style="display:inline-block; background:#0a2e5c; color:white; padding:0.6rem 2rem; border-radius:40px; text-decoration:none; font-weight:600;">联系客服</a>
-        </div>
-    </div>
-</div>
-
-<script>
-    (function() {
-        'use strict';
-
-        // ---- Map tier_key -> download page ----
-        const TIER_TO_PAGE = {
-            'basic': 'download-basic.html',
-            'advanced': 'download-advanced.html',
-            'professional': 'download-pro.html',
-            'org_small': 'download-org_small.html',
-            'org_medium': 'download-org_medium.html',
-            'org_large': 'download-org_large.html',
-            'enterprise': 'download-enterprise.html'
-        };
-
-        // ---- DOM refs ----
-        const loadingEl = document.getElementById('loading');
-        const successEl = document.getElementById('success');
-        const errorEl = document.getElementById('error');
-        const errorMsgEl = document.getElementById('errorMessage');
-        const tierDisplayEl = document.getElementById('tierDisplay');
-        const productNameEl = document.getElementById('productName');
-        const licenseKeyEl = document.getElementById('licenseKey');
-        const downloadBtn = document.getElementById('downloadBtn');
-
-        // ---- Helper: generate a customer reference ----
-        function generateReference(email, tier) {
-            const base = (email || 'customer') + '-' + (tier || 'basic') + '-2026';
-            let hash = 0;
-            for (let i = 0; i < base.length; i++) {
-                const char = base.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash;
-            }
-            const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
-            return `CS-${hex}-${tier.slice(0, 4).toUpperCase()}`;
-        }
-
-        // ---- Set cookies ----
-        function setCookies(tier) {
-            // Set tier-specific cookie (expires in 1 year)
-            document.cookie = `crownstar_unlocked_${tier}=true; path=/; max-age=31536000`;
-            // Set generic cookie
-            document.cookie = `crownstar_unlocked=true; path=/; max-age=31536000`;
-        }
-
-        // ---- Get tier from URL param (fallback) ----
-        function getTierFromUrl() {
+    <script>
+        (function() {
             const params = new URLSearchParams(window.location.search);
-            return params.get('tier') || null;
-        }
-
-        // ---- Redirect to the download page ----
-        function redirectToDownload(tier) {
-            const page = TIER_TO_PAGE[tier];
-            if (page) {
-                window.location.href = page;
-            } else {
-                // fallback to download center
-                window.location.href = 'downloads.html';
-            }
-        }
-
-        // ---- Show success and set up redirect ----
-        function showSuccess(tier, customerEmail) {
-            const displayName = {
-                'basic': '基础版',
-                'advanced': '进阶版',
-                'professional': '专业版',
-                'org_small': '组织版 – 小型企业',
-                'org_medium': '组织版 – 中型企业',
-                'org_large': '组织版 – 大型企业',
-                'enterprise': '企业旗舰版'
-            }[tier] || 'CrownStar';
-
-            tierDisplayEl.textContent = displayName;
-            productNameEl.textContent = `CrownStar ${displayName}`;
-            licenseKeyEl.textContent = generateReference(customerEmail, tier);
-
-            // Set cookies
-            setCookies(tier);
-
-            // Set download button to the correct page
-            const page = TIER_TO_PAGE[tier] || 'downloads.html';
-            downloadBtn.href = page;
-
-            // Show success UI
-            loadingEl.style.display = 'none';
-            successEl.style.display = 'block';
-
-            // Auto-redirect after 2.5 seconds
-            setTimeout(function() {
-                redirectToDownload(tier);
-            }, 2500);
-        }
-
-        function showError(message) {
-            loadingEl.style.display = 'none';
-            errorEl.style.display = 'block';
-            errorMsgEl.textContent = message;
-        }
-
-        // ---- Main ----
-        function handlePayment() {
-            const params = new URLSearchParams(window.location.search);
-            const sessionId = params.get('session_id');
-
-            // If no session_id, try to use ?tier param (for testing or direct link)
-            if (!sessionId) {
-                const tierFromUrl = getTierFromUrl();
-                if (tierFromUrl) {
-                    showSuccess(tierFromUrl, 'customer@example.com');
-                } else {
-                    showError('未找到会话 ID。请确保您是通过支付链接到达此页面。');
-                }
-                return;
-            }
-
-            // Otherwise, use Stripe to verify the session
-            const stripe = Stripe('pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG');
-
-            stripe.retrieveCheckoutSession(sessionId)
-                .then(function(result) {
-                    if (result.error) {
-                        showError('无法验证支付：' + result.error.message);
-                        return;
-                    }
-
-                    const session = result.session;
-                    if (session.payment_status !== 'paid') {
-                        showError('支付尚未完成。请稍后重试或联系客服。');
-                        return;
-                    }
-
-                    // Get tier from metadata, or fallback to URL param
-                    let tier = session.metadata?.tier_key || getTierFromUrl() || 'basic';
-                    const customerEmail = session.customer_details?.email || 'customer@example.com';
-
-                    showSuccess(tier, customerEmail);
-                })
-                .catch(function(err) {
-                    showError('验证支付时出现错误：' + err.message);
-                });
-        }
-
-        // ---- Load Stripe ----
-        if (typeof Stripe !== 'undefined') {
-            handlePayment();
-        } else {
-            const script = document.createElement('script');
-            script.src = 'https://js.stripe.com/v3/';
-            script.onload = handlePayment;
-            script.onerror = function() {
-                showError('无法加载 Stripe 支付库。请检查您的网络连接。');
+            const tier = params.get('tier') || 'basic';
+            localStorage.setItem('crownstar_unlocked_' + tier, 'true');
+            localStorage.setItem('crownstar_unlocked', 'true');
+            const pageMap = {
+                'basic': 'download-basic.html',
+                'advanced': 'download-advanced.html',
+                'professional': 'download-professional.html',
+                'org_small': 'download-org_small.html',
+                'org_medium': 'download-org_medium.html',
+                'org_large': 'download-org_large.html',
+                'enterprise': 'download-enterprise.html'
             };
-            document.head.appendChild(script);
-        }
-
-    })();
-</script>
+            const targetPage = pageMap[tier] || 'downloads.html';
+            document.getElementById('continueBtn').href = targetPage;
+            setTimeout(function() { window.location.href = targetPage; }, 2500);
+        })();
+    </script>
 </body>
 </html>
