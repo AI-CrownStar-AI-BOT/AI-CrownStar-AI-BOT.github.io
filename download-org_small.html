@@ -66,7 +66,7 @@
         <div class="stripe-section">
             <h3>💳 立即购买 组织版 – 小型</h3>
             <p>一次性买断，终身免费升级。支付完成后自动解锁🔒 购买后解锁。</p>
-            <a href="https://buy.stripe.com/aFadRa4nf1V54B08yCefC0d?prefilled_email=st3vens.ben%40yandex.com&success_url=https://ai-crownstar-ai-bot.github.io/success.html?tier=org_small" class="btn-stripe" target="_blank">立即购买 ¥705</a>
+            <a href="https://buy.stripe.com/aFadRa4nf1V54B08yCefC0d?prefilled_email=st3vens.ben%40yandex.com&success_url=https://ai-crownstar-ai-bot.github.io/success.html?tier=org_small" class="btn-stripe" target="_blank">立即购买</a>
             <div style="margin-top:0.8rem; font-size:0.8rem; color:#7a7a9a;">🔒 安全支付 · 支持信用卡 / 支付宝 / 微信支付</div>
         </div>
         <div style="text-align:center; margin:1.5rem 0;">
@@ -80,8 +80,18 @@
         </div>
     </div>
 </div></div></div>
-        </div>
-        <div class="grid" id="downloadGrid">
+        <div class="stripe-section">
+    <h3>💳 立即购买</h3>
+    <p>一次性买断，终身免费升级。支付完成后自动解锁下载。</p>
+    <stripe-buy-button
+        buy-button-id="buy_btn_1Tt7PqJ1ruuDi5YqoL9o4AJz"
+        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
+        success-url="https://ai-crownstar-ai-bot.github.io/success.html?tier=org_small"
+    ></stripe-buy-button>
+    <div style="margin-top:0.8rem; font-size:0.8rem; color:#7a7a9a;">🔒 安全支付 · 支持信用卡 / 支付宝 / 微信支付</div>
+</div>
+
+<div class="grid" id="downloadGrid">
             <div class="card"><div class="icon">⚙️</div><div class="name">Windows (EXE)</div><div class="size">~331 MB</div><span class="btn btn-locked" id="basic-exe">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
             <div class="card"><div class="icon">📦</div><div class="name">Windows (ZIP)</div><div class="size">~328 MB</div><span class="btn btn-locked" id="basic-zip">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
             <div class="card"><div class="icon">🚀</div><div class="name">Windows (CUDA)</div><div class="size">~331 MB</div><span class="btn btn-locked" id="basic-cuda">🔒 购买后解锁</span><div class="lock-overlay"><span class="lock-icon">🔒</span></div><div class="checksum">SHA256: 购买后可查看</div></div>
@@ -124,4 +134,5 @@
     </script>
 </body>
 </html>
+
 
