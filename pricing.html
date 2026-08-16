@@ -6,34 +6,14 @@
     <title>定价 · CrownStar AI · 一次买断，终身升级</title>
     <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
-        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
-        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; }
-        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
-        .logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; height:48px; font-size:1.6rem; font-weight:800; color:#0a2e5c; }
-        .logo span { color:#c9a84c; }
-        .nav { display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; align-items:center; }
-        .nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.9rem; padding:0.2rem 0; position:relative; transition:color 0.2s; }
-        .nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,#c9a84c,#0a2e5c); transition:width 0.4s; }
-        .nav a:hover { color:#0a2e5c; }
-        .nav a:hover::after { width:100%; }
-        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.6rem; border-radius:3rem; font-weight:600; }
-        .nav .cta::after { display:none; }
-        .nav .cta:hover { background:#1a4a7a; transform:scale(1.03); }
-        .nav .active { color:#c9a84c; font-weight:600; }
-        .page-hero { text-align:center; padding:3rem 0 2rem; }
-        .page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
-        .page-hero h1 .gold { color:#c9a84c; }
-        .page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
-        .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; margin:2rem 0; }
-        .pricing-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; text-align:center; transition:transform 0.3s; }
+        .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.5rem; margin:2rem 0; }
+        .pricing-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; text-align:center; transition:transform 0.3s; overflow:hidden; display:flex; flex-direction:column; align-items:center; }
         .pricing-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); }
         .pricing-card .tier { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:#7a7a9a; }
         .pricing-card .name { font-size:1.6rem; font-weight:700; color:#0a2e5c; }
         .pricing-card .price { font-size:2.8rem; font-weight:800; color:#c9a84c; margin:0.2rem 0; }
         .pricing-card .price .currency { font-size:1.4rem; }
-        .pricing-card ul { text-align:left; padding-left:0.5rem; list-style:none; margin:0.8rem 0; }
+        .pricing-card ul { text-align:left; padding-left:0.5rem; list-style:none; margin:0.8rem 0; width:100%; }
         .pricing-card ul li { padding:0.2rem 0; font-size:0.9rem; color:#5a5a7a; display:flex; align-items:flex-start; gap:0.5rem; }
         .pricing-card ul li::before { content:"◆"; color:#c9a84c; font-weight:700; font-size:0.5rem; margin-top:0.3rem; }
         .pricing-card .btn-buy { display:inline-block; padding:0.6rem 2rem; border-radius:3rem; font-weight:600; text-decoration:none; background:#0a2e5c; color:#fff; transition:background 0.3s; }
@@ -42,13 +22,10 @@
         .pricing-card .btn-buy.gold-bg:hover { background:#dbb95e; }
         .popular { border:2px solid #c9a84c; background:rgba(255,255,255,0.9); }
         .popular-badge { display:inline-block; background:#c9a84c; color:#0a2e5c; font-size:0.6rem; font-weight:700; padding:0.2rem 1rem; border-radius:2rem; text-transform:uppercase; margin-bottom:0.5rem; }
-        .footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
-        .footer a { color:#0a2e5c; text-decoration:none; }
-        .back-link { display:inline-block; margin-bottom:1rem; color:#0a2e5c; text-decoration:none; font-weight:500; }
-        .back-link:hover { text-decoration:underline; }
-        .stripe-btn-wrapper { margin-top:0.5rem; }
+        .stripe-btn-wrapper { margin-top:0.8rem; width:100%; display:flex; justify-content:center; align-items:center; overflow:hidden; }
+        stripe-buy-button { display:block; width:100%; max-width:100%; }
         @media (max-width:768px){ .pricing-grid{grid-template-columns:1fr;} }
-    </style>
+</style>
 </head>
 <body>
 <header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav">
@@ -90,3 +67,6 @@
 <footer class="footer"><div class="container"><p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div></footer>
 </body>
 </html>
+
+
+

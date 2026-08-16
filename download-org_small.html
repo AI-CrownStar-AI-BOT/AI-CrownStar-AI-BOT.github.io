@@ -5,13 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🔒 购买后解锁 组织版 – 小型 – CrownStar AI</title>
     <style>
+        .stripe-btn-wrapper { 
+            margin-top: 0.8rem; 
+            width: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            overflow: hidden;
+        }
+        .stripe-btn-wrapper stripe-buy-button { 
+            display: block; 
+            width: 100%; 
+            max-width: 100%; 
+        }
+        .pricing-card, .download-card, .pricing-grid .pricing-card {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .pricing-grid, .download-grid {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+        .stripe-section {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid #e8ecf0;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .stripe-section stripe-buy-button {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; }
         .container { max-width:1200px; margin:0 auto; padding:2rem; }
         h1 { font-size:2.5rem; color:#0a2e5c; margin-bottom:0.5rem; }
         h1 span { color:#c9a84c; }
         .sub { color:#5a5a7a; font-size:1.1rem; margin-bottom:1.5rem; }
-        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; }
+        .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem; }
         .card { background:white; border-radius:16px; padding:1.5rem; text-align:center; border:1px solid #e8ecf0; transition:0.2s; position:relative; }
         .card:hover { transform:translateY(-4px); box-shadow:0 8px 30px rgba(0,0,0,0.06); }
         .card .icon { font-size:2.5rem; margin-bottom:0.3rem; }
@@ -134,5 +172,6 @@
     </script>
 </body>
 </html>
+
 
 
