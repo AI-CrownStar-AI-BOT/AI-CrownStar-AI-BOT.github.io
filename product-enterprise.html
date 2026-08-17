@@ -1,79 +1,48 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>基础版 · CrownStar AI · 产品详情</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业旗舰版 – CrownStar 产品详情</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
         .container { max-width:1100px; margin:0 auto; padding:2rem; }
-        .header { background:white; padding:1rem 0; border-bottom:1px solid #e8ecf0; margin-bottom:2rem; }
-        .header .container { display:flex; justify-content:space-between; align-items:center; }
-        .logo { font-size:1.8rem; font-weight:700; color:#0a2e5c; }
+        .header { background:#0a2e5c; padding:1rem 0; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+        .logo { font-size:1.6rem; font-weight:700; color:#fff; text-decoration:none; }
         .logo span { color:#c9a84c; }
-        .nav a { color:#4a4a6a; margin-left:1.5rem; text-decoration:none; font-weight:500; }
-        .nav a:hover { color:#0a2e5c; }
-        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.8rem; border-radius:3rem; font-weight:600; }
-        .nav .cta:hover { background:#1a4a7a; }
-        .product-hero { text-align:center; padding:2rem 0; }
-        .product-hero h1 { font-size:2.8rem; color:#0a2e5c; }
-        .product-hero h1 .gold { color:#c9a84c; }
-        .product-hero .price { font-size:3rem; font-weight:800; color:#c9a84c; margin:0.5rem 0; }
-        .product-hero .price .currency { font-size:1.6rem; }
-        .product-hero .tagline { font-size:1.2rem; color:#5a5a7a; max-width:600px; margin:0 auto; }
-        .features-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin:2rem 0; }
-        .feature-item { background:white; padding:1.5rem; border-radius:12px; border:1px solid #e8ecf0; }
-        .feature-item .icon { font-size:2rem; }
-        .feature-item h3 { color:#0a2e5c; margin-bottom:0.3rem; }
-        .feature-item p { color:#5a5a7a; }
-        .buy-section { background:white; padding:2rem; border-radius:16px; text-align:center; margin:2rem 0; border:2px solid #c9a84c; }
-        .buy-section h2 { color:#0a2e5c; margin-bottom:0.5rem; }
-        .buy-section p { color:#5a5a7a; margin-bottom:1.5rem; }
-        .buy-section .btn-buy { display:inline-block; padding:0.8rem 2.5rem; background:#c9a84c; color:#0a2e5c; border-radius:3rem; font-weight:600; text-decoration:none; transition:background 0.3s; }
-        .buy-section .btn-buy:hover { background:#dbb95e; }
-        .footer { margin-top:3rem; padding-top:1.5rem; border-top:1px solid #e8ecf0; text-align:center; color:#7a7a9a; font-size:0.9rem; }
+        .nav a { color:rgba(255,255,255,0.8); margin-left:1.5rem; text-decoration:none; font-weight:500; }
+        .nav a:hover { color:#c9a84c; }
+        .article { background:#fff; border-radius:16px; padding:2.5rem; box-shadow:0 4px 20px rgba(0,0,0,0.04); margin:2rem 0; }
+        .article h1 { font-size:2.4rem; color:#0a2e5c; margin-bottom:0.3rem; }
+        .article .price-tag { display:inline-block; background:#c9a84c; color:#0a2e5c; padding:0.2rem 1.2rem; border-radius:2rem; font-weight:700; font-size:1.2rem; margin:0.5rem 0; }
+        .article .subhead { color:#c9a84c; font-weight:600; font-size:1.1rem; margin-bottom:0.5rem; }
+        .article p { margin:0.8rem 0; color:#4a4a6a; }
+        .article h2 { font-size:1.6rem; color:#0a2e5c; margin:1.5rem 0 0.5rem; }
+        .article ul { padding-left:1.5rem; margin:0.5rem 0; }
+        .article ul li { margin:0.3rem 0; color:#4a4a6a; }
+        .article .badge { display:inline-block; background:#22c55e; color:#fff; font-size:0.7rem; padding:0.2rem 0.8rem; border-radius:2rem; margin-left:0.5rem; }
+        .article .cta-group { display:flex; gap:1rem; margin-top:1.5rem; flex-wrap:wrap; }
+        .article .btn { display:inline-block; padding:0.6rem 2rem; border-radius:3rem; font-weight:600; text-decoration:none; background:#0a2e5c; color:#fff; transition:0.2s; }
+        .article .btn:hover { background:#1a4a7a; }
+        .article .btn-gold { background:#c9a84c; color:#0a2e5c; }
+        .article .btn-gold:hover { background:#dbb95e; }
+        .footer { background:#f2f4f6; padding:2rem 0; margin-top:2rem; text-align:center; color:#7a7a9a; font-size:0.9rem; }
         .footer a { color:#0a2e5c; text-decoration:none; }
-        @media (max-width:768px) { .features-grid { grid-template-columns:1fr; } .product-hero h1 { font-size:2rem; } }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo">Crown<span>Star</span></div>
-            <nav class="nav">
-                <a href="index.html">首页</a>
-                <a href="pricing.html">定价</a>
-                <a href="product-org-large.html">产品</a>
-                <a href="contact.html">联系我们</a>
-            </nav>
-        </div>
-    </header>
-    <section class="product-hero">
-        <h1>组织版 – 大型企业 <span class="gold">CrownStar</span></h1>
-        <div class="price"><span class="currency">¥</span>476,000</div>
-        <p class="tagline">超大型企业及国家级机构，无限用户，源代码，优先电话支持</p>
-    </section>
-    <div class="container">
-        <h2 style="font-size:1.8rem; color:#0a2e5c; text-align:center;">核心优势</h2>
-        <div class="features-grid">
-            <div class="feature-item"><span class="icon">◆</span><h3>无限对话记忆</h3><p>永不遗忘，跨会话智能召回</p></div>
-            <div class="feature-item"><span class="icon">◆</span><h3>9 大数学模块</h3><p>Jacobian, Hessian, Gurney 等经典算法</p></div>
-            <div class="feature-item"><span class="icon">◆</span><h3>私有化部署</h3><p>数据永不离开您的网络</p></div>
-            <div class="feature-item"><span class="icon">◆</span><h3>信创合规</h3><p>华为·昇腾/鲲鹏/麒麟/统信适配</p></div>
-            <div class="feature-item"><span class="icon">◆</span><h3>AI-Groups 融合</h3><p>支持 Hugging Face 模型和数据集</p></div>
-            <div class="feature-item"><span class="icon">◆</span><h3>一次购买，终身升级</h3><p>无订阅陷阱，永久免费更新</p></div>
-        </div>
-<div class="buy-section">
-    <h2>立即咨询 企业旗舰版</h2>
-    <p>一次性购买，终身免费升级。支付完成后您将收到下载链接和授权密钥。</p>
-    <a href="https://buy.stripe.com/00w4gAaLD57h7Nc3eiefC0g" class="btn-buy" target="_blank">立即咨询 ¥999,999</a>
-</div>
+<header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav"><a href="index.html">首页</a><a href="articles.html">文章库</a><a href="pricing.html">定价</a><a href="contact.html">联系我们</a></nav></div></header>
+<div class="container"><div class="article">
+    <h1>企业旗舰版</h1>
+    <div class="price-tag">¥1,675,000 一次性买断</div>
+    <div class="subhead">跨国集团 · 联邦机构 · 关键基础设施</div>
+    <p>企业旗舰版是 CrownStar 的顶级方案，支持无限用户、白标品牌、源代码交付、专属技术经理 7×24 和信创全栈适配。¥1,675,000 一次性买断，终身免费升级。适合跨国企业、联邦级政府机构和关键基础设施运营者，提供最高级别的安全、合规和自主可控能力。</p>
+    <div class="cta-group">
+        <a href="https://buy.stripe.com/00w4gAaLD57h7Nc3eiefC0g" class="btn btn-gold">立即咨询 →</a>
+        <a href="download-enterprise.html" class="btn">查看安装包</a>
     </div>
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:support@crownstar.ai">support@crownstar.ai</a></p>
-        </div>
-    </footer>
-</body>
-</html>
+</div></div>
+<footer class="footer"><div class="container"><p>© 2026 CrownStar. <a href="articles.html">返回文章库</a> · <a href="index.html">首页</a></p></div></footer>
+</body></html>

@@ -1,53 +1,281 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>安全合规 · CrownStar AI · 数据主权</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
-.container { max-width:1280px; margin:0 auto; padding:0 2rem; }
-.header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; }
-.header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
-.logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; height:48px; font-size:1.6rem; font-weight:800; color:#0a2e5c; }
-.logo span { color:#c9a84c; }
-.nav { display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; align-items:center; }
-.nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.9rem; padding:0.2rem 0; position:relative; transition:color 0.2s; }
-.nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,#c9a84c,#0a2e5c); transition:width 0.4s; }
-.nav a:hover { color:#0a2e5c; }
-.nav a:hover::after { width:100%; }
-.nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.6rem; border-radius:3rem; font-weight:600; }
-.nav .cta::after { display:none; }
-.nav .cta:hover { background:#1a4a7a; transform:scale(1.03); }
-.nav .active { color:#c9a84c; font-weight:600; }
-.page-hero { text-align:center; padding:3rem 0 2rem; }
-.page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
-.page-hero h1 .gold { color:#c9a84c; }
-.page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
-.security-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; margin:2rem 0; }
-.security-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; transition:transform 0.3s; }
-.security-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); }
-.security-card .icon { font-size:2.5rem; }
-.security-card h3 { font-size:1.3rem; font-weight:700; color:#0a2e5c; margin:0.5rem 0; }
-.security-card ul { list-style:none; padding-left:0; }
-.security-card ul li { padding:0.3rem 0; color:#5a5a7a; display:flex; align-items:flex-start; gap:0.5rem; }
-.security-card ul li::before { content:"◆"; color:#c9a84c; font-weight:700; font-size:0.6rem; margin-top:0.3rem; }
-.footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
-.footer a { color:#0a2e5c; text-decoration:none; }
-</style>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>安全合规 · CrownStar · 等保2.0三级 · 信创 · 国密</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --primary: #0a2e5c;
+            --primary-light: #1a4a7a;
+            --gold: #c9a84c;
+            --gold-hover: #dbb95e;
+            --bg: #f5f7fb;
+            --text: #1a1a2e;
+            --text-light: #4a4a6a;
+            --text-muted: #7a7a9a;
+            --border: #e8ecf0;
+            --radius: 16px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.04);
+            --shadow-hover: 0 12px 40px rgba(0,0,0,0.08);
+            --bg-card: rgba(255,255,255,0.85);
+            --font-sans: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;
+        }
+        html { scroll-behavior:smooth; }
+        body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        #bg-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; pointer-events:none; background:linear-gradient(135deg,#eef2f8 0%,#ffffff 60%,#f5f8ff 100%); }
+        #particles-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; opacity:0.25; }
+        h1, h2, h3, h4 { font-weight:700; color:var(--primary); letter-spacing:-0.01em; }
+        h1 { font-size:3.6rem; line-height:1.1; } h2 { font-size:2.6rem; line-height:1.2; } h3 { font-size:1.5rem; }
+        .gold { color:var(--gold); } .text-light { color:var(--text-light); } .text-muted { color:var(--text-muted); }
+        .section-label { display:inline-block; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold); background:rgba(201,168,76,0.1); padding:0.2rem 1rem; border-radius:2rem; margin-bottom:0.5rem; }
+        .section-title { font-size:2.4rem; font-weight:700; color:var(--primary); margin-bottom:0.5rem; line-height:1.2; }
+        .section-sub { font-size:1.05rem; color:var(--text-light); max-width:700px; line-height:1.8; margin-bottom:2rem; }
+        .section { padding:4rem 0; border-bottom:1px solid rgba(0,0,0,0.03); }
+        .scroll-fade { opacity:0; transform:translateY(30px); transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .scroll-fade.visible { opacity:1; transform:translateY(0); }
+
+        /* HEADER */
+        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px) saturate(1.6); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; transition:box-shadow 0.3s; }
+        .header.scrolled { box-shadow:0 4px 30px rgba(0,0,0,0.06); }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+        .logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; height:48px; transition:transform 0.2s; }
+        .logo:hover { transform:scale(1.02); }
+        .logo svg { height:100%; width:auto; }
+        .logo .brand { font-size:1.6rem; font-weight:800; color:var(--primary); letter-spacing:-0.02em; }
+        .logo .brand .highlight { color:var(--gold); }
+        .logo .ai-label { font-size:0.85rem; font-weight:700; color:var(--gold); background:rgba(201,168,76,0.12); padding:0.1rem 0.6rem; border-radius:2rem; border:1px solid rgba(201,168,76,0.2); }
+        .nav { display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; align-items:center; }
+        .nav a { color:var(--text-light); font-weight:500; text-decoration:none; font-size:0.9rem; padding:0.2rem 0; position:relative; transition:color 0.2s; }
+        .nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,var(--gold),var(--primary)); transition:width 0.4s; }
+        .nav a:hover { color:var(--primary); }
+        .nav a:hover::after { width:100%; }
+        .nav .cta { background:var(--primary); color:#fff !important; padding:0.4rem 1.6rem; border-radius:3rem; font-weight:600; transition:all 0.2s; }
+        .nav .cta::after { display:none; }
+        .nav .cta:hover { background:var(--primary-light); transform:scale(1.03); box-shadow:0 8px 24px rgba(10,46,92,0.2); }
+        .nav .active { color:var(--gold); font-weight:600; }
+        .nav .active::after { width:100%; }
+
+        /* SECURITY GRID */
+        .security-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
+        .security-card { background:var(--bg-card); border-radius:var(--radius); padding:2rem; border:1px solid var(--border); transition:all 0.3s; }
+        .security-card:hover { transform:translateY(-4px); border-color:var(--gold); }
+        .security-card .icon { font-size:2.8rem; }
+        .security-card h3 { margin:0.5rem 0; }
+        .security-card ul { list-style:none; padding:0; }
+        .security-card ul li { padding:0.2rem 0; font-size:0.85rem; color:var(--text-light); display:flex; align-items:center; gap:0.5rem; }
+        .security-card ul li::before { content:"◆"; color:var(--gold); font-weight:700; font-size:0.5rem; }
+
+        /* TIER SECURITY TABLE */
+        .tier-grid-table { width:100%; border-collapse:collapse; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); border-radius:var(--radius); overflow:hidden; margin:2rem 0; font-size:0.85rem; }
+        .tier-grid-table th { background:var(--primary); color:#fff; padding:0.8rem 0.4rem; text-align:center; font-weight:600; font-size:0.75rem; }
+        .tier-grid-table td { padding:0.5rem 0.4rem; text-align:center; border-bottom:1px solid var(--border); color:var(--text-light); font-size:0.8rem; }
+        .tier-grid-table tr:last-child td { border-bottom:none; }
+        .tier-grid-table .check { color:#22c55e; font-weight:700; font-size:1.1rem; }
+        .tier-grid-table .cross { color:#ef4444; font-size:1.1rem; }
+        .tier-grid-table .feature-label { text-align:left; font-weight:600; color:var(--primary); padding-left:0.8rem; font-size:0.85rem; }
+
+        .footer { background:#f2f4f6; padding:2.5rem 0 2rem; border-top:1px solid rgba(0,0,0,0.06); margin-top:2rem; }
+        .footer .container { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2rem; }
+        .footer h4 { font-size:0.95rem; color:var(--primary); margin-bottom:0.5rem; }
+        .footer a { color:var(--text-muted); text-decoration:none; display:block; padding:0.2rem 0; font-size:0.85rem; transition:color 0.2s; }
+        .footer a:hover { color:var(--primary); }
+        .footer .bottom { grid-column:1/-1; text-align:center; padding-top:1.5rem; border-top:1px solid rgba(0,0,0,0.06); margin-top:1rem; font-size:0.75rem; color:var(--text-muted); }
+        .footer .bottom a { display:inline; }
+        @media (max-width:768px){ h1{font-size:2.4rem;} .footer .container{grid-template-columns:1fr;} .tier-grid-table{font-size:0.7rem;} }
+    </style>
 </head>
 <body>
-<header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav">
-<a href="index.html">首页</a><a href="product.html">产品</a><a href="pricing.html">定价</a><a href="case-studies.html">案例</a><a href="security.html" class="active">安全</a><a href="download-free.html">免费下载</a><a href="downloads.html">下载中心</a><a href="swagger.html" target="_blank">API</a><a href="articles.html">文章库</a><a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a><a href="contact.html" class="cta">联系我们</a></nav></div></header>
-<section class="page-hero"><div class="container"><h1>安全与合规 · <span class="gold">数据主权优先</span></h1><p class="subtitle">CrownStar AI 从设计之初就满足中国企业最严格的安全标准，100% 私有化部署，数据永不离开您的网络。</p></div></section>
-<div class="container">
-<div class="security-grid">
-<div class="security-card"><div class="icon">🔒</div><h3>数据主权</h3><ul><li>100% 私有化部署，数据永不离开您的网络</li><li>无外部 API 调用，杜绝数据泄露风险</li><li>满足《数据安全法》《个人信息保护法》</li></ul></div>
-<div class="security-card"><div class="icon">🇨🇳</div><h3>信创全栈适配</h3><ul><li>华为昇腾 NPU · 鲲鹏 CPU</li><li>麒麟 OS · 统信 UOS</li><li>达梦数据库 · 人大金仓</li></ul></div>
-<div class="security-card"><div class="icon">🛡️</div><h3>等保 2.0 三级</h3><ul><li>身份认证：多因素认证支持</li><li>访问控制：RBAC + 行级安全 (RLS)</li><li>数据加密：AES-256 + 国密</li><li>审计日志：全链路不可篡改</li></ul></div>
-<div class="security-card"><div class="icon">🔐</div><h3>国密加密</h3><ul><li>SM2 / SM3 / SM4 国密算法</li><li>满足《中华人民共和国密码法》</li><li>全链路加密传输与存储</li></ul></div>
-<div class="security-card"><div class="icon">📋</div><h3>全链路审计日志</h3><ul><li>所有 API 调用可追溯</li><li>用户行为不可篡改日志</li><li>合规报告一键导出</li><li>实时告警</li></ul></div>
-<div class="security-card"><div class="icon">🔑</div><h3>加密与隐私</h3><ul><li>传输加密：TLS 1.3</li><li>存储加密：AES-256</li><li>零知识证明 (ZK-SNARKs)</li><li>后量子密码 (PQC)</li></ul></div>
-</div>
-</div>
-<footer class="footer"><div class="container"><p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div></footer>
+    <div id="bg-canvas"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 44 44"><defs><linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c9a84c"/><stop offset="100%" stop-color="#e8c86a"/></linearGradient></defs>
+                <path class="crown" d="M4 32 L6 18 L12 22 L22 10 L32 22 L38 18 L40 32 L4 32 Z" fill="url(#cg)"/>
+                <path class="star" d="M22 4 L24 12 L32 12 L26 18 L28 26 L22 20 L16 26 L18 18 L12 12 L20 12 L22 4 Z" fill="#0a2e5c"/>
+                <rect x="6" y="32" width="32" height="3" rx="1.5" fill="#0a2e5c" opacity="0.12"/>
+                <polygon points="22,14 26,22 34,22 28,28 30,36 22,30 14,36 16,28 10,22 18,22" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.2"/></svg>
+                <span class="brand">Crown<span class="highlight">Star</span></span>
+                <span class="ai-label">AI</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html">案例</a>
+                <a href="security.html" class="active">安全</a>
+                <a href="download-free.html">免费下载</a>
+                <a href="downloads.html">下载中心</a>
+                <a href="swagger.html" target="_blank">API</a>
+                <a href="articles.html">文章库</a>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="section" style="padding:2rem 0 1rem;">
+        <div class="container">
+            <div style="text-align:center;" class="scroll-fade">
+                <span class="section-label">安全合规</span>
+                <h1 class="section-title">数据主权 · <span class="gold">安全合规</span></h1>
+                <p class="section-sub" style="margin:0 auto 2rem;">CrownStar 从设计之初就满足中国企业和政府最严格的安全标准，100% 私有化部署，数据永不离开您的网络。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECURITY GRID ===== -->
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="security-grid">
+                <div class="security-card scroll-fade"><span class="icon">🔒</span><h3>数据主权</h3><ul><li>100% 私有化部署</li><li>数据永不离开您的网络</li><li>无任何云端依赖</li><li>满足《数据安全法》</li></ul></div>
+                <div class="security-card scroll-fade"><span class="icon">🛡️</span><h3>等保 2.0 三级</h3><ul><li>身份认证：多因素认证支持</li><li>访问控制：RBAC + 行级安全 (RLS)</li><li>数据加密：AES-256 + 国密</li><li>审计日志：全链路不可篡改</li></ul></div>
+                <div class="security-card scroll-fade"><span class="icon">🔐</span><h3>国密加密 · 信创适配</h3><ul><li>SM2 / SM3 / SM4 国密算法</li><li>华为昇腾 NPU · 鲲鹏 CPU</li><li>麒麟 OS · 统信 UOS</li><li>达梦数据库 · 人大金仓</li></ul></div>
+                <div class="security-card scroll-fade"><span class="icon">📋</span><h3>全链路审计日志</h3><ul><li>所有 API 调用可追溯</li><li>用户行为不可篡改日志</li><li>合规报告一键导出</li><li>实时告警</li></ul></div>
+                <div class="security-card scroll-fade"><span class="icon">🔑</span><h3>加密与隐私</h3><ul><li>传输加密：TLS 1.3</li><li>存储加密：AES-256</li><li>零知识证明 (ZK-SNARKs)</li><li>后量子密码 (PQC)</li></ul></div>
+                <div class="security-card scroll-fade"><span class="icon">🧪</span><h3>安全开发与运维</h3><ul><li>代码签名 (Code Signing)</li><li>漏洞赏金计划</li><li>定期渗透测试</li><li>安全补丁 48 小时内发布</li></ul></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TIER SECURITY FEATURES ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">安全功能矩阵</span>
+                <h2 class="section-title">各层级 <span class="gold">安全能力</span>对比</h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">从免费版到企业旗舰版，安全功能逐级增强，满足不同合规需求。</p>
+            </div>
+            <div class="compare-wrap scroll-fade">
+                <table class="tier-grid-table">
+                    <thead>
+                        <tr>
+                            <th>安全功能</th>
+                            <th>免费</th><th>基础</th><th>进阶</th><th>专业</th>
+                            <th>组织S</th><th>组织M</th><th>组织L</th><th>企业</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="feature-label">私有化部署</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">TLS 1.3 传输加密</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">AES-256 存储加密</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">行级安全 (RLS)</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">全链路审计日志</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">国密 SM2/SM3/SM4</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">信创全栈适配</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">源代码交付</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
+                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">白标品牌</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
+                        </tr>
+                        <tr><td class="feature-label">专属技术经理 7×24</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
+                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align:center;color:var(--text-muted);margin-top:1rem;">✔ = 包含 &nbsp;&nbsp; — = 不包含 &nbsp;&nbsp; 所有付费版本均包含终身免费升级。</p>
+        </div>
+    </section>
+
+    <!-- ===== COMPLIANCE DETAILS ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="scroll-fade" style="text-align:center;">
+                <span class="section-label">合规细节</span>
+                <h2 class="section-title">满足 <span class="gold">最严格</span> 的合规要求</h2>
+                <p class="section-sub" style="margin:0 auto 2rem;">CrownStar 已通过等保 2.0 三级评估，并完成信创全栈适配，是政府和企业最可信赖的 AI 平台。</p>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5rem;" class="scroll-fade">
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border);"><h4>✅ 等保 2.0 三级</h4><p style="font-size:0.9rem;color:var(--text-light);">从身份认证、访问控制、数据加密、审计日志四个维度全面满足等保 2.0 三级要求。</p></div>
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border);"><h4>✅ 信创全栈适配</h4><p style="font-size:0.9rem;color:var(--text-light);">适配华为昇腾 NPU、鲲鹏 CPU、麒麟 OS、统信 UOS、达梦数据库等国产化软硬件。</p></div>
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border);"><h4>✅ 国密合规</h4><p style="font-size:0.9rem;color:var(--text-light);">支持 SM2/SM3/SM4 国密算法，满足《中华人民共和国密码法》要求。</p></div>
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border);"><h4>✅ 《数据安全法》</h4><p style="font-size:0.9rem;color:var(--text-light);">100% 私有化部署，数据不出域，完全满足数据安全法对重要数据保护的要求。</p></div>
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border);"><h4>✅ 《个人信息保护法》</h4><p style="font-size:0.9rem;color:var(--text-light);">行级安全 (RLS) 确保个人信息严格隔离，仅授权用户可访问。</p></div>
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border);"><h4>✅ 等保三级审计</h4><p style="font-size:0.9rem;color:var(--text-light);">全链路审计日志记录所有操作，满足等保三级对日志留存和不可篡改的要求。</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="section">
+        <div class="container">
+            <div style="background:var(--navy-bg-gradient);border-radius:var(--radius);padding:3rem;text-align:center;color:#fff;" class="scroll-fade">
+                <h2 style="color:#fff;font-size:2.2rem;">准备确保 <span style="color:var(--gold);">数据主权</span> 与合规？</h2>
+                <p style="max-width:600px;margin:0 auto 1.5rem;opacity:0.8;">我们的安全专家团队将协助您完成部署和合规评估，确保您的数据安全无忧。</p>
+                <a href="contact.html" style="display:inline-block;background:#fff;color:var(--primary);padding:0.8rem 2.8rem;border-radius:3rem;font-weight:600;text-decoration:none;transition:all 0.3s;">立即咨询 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div><h4>CrownStar AI</h4><p style="opacity:0.6;font-size:0.85rem;">世界首个主权AI平台 · 中国首发<br />深度集成 DeepSeek · 完全私有化</p><p style="margin-top:0.5rem;"><a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div>
+            <div><h4>产品</h4><a href="product.html">产品功能</a><a href="pricing.html">定价方案</a><a href="download-free.html">免费下载</a><a href="downloads.html">下载中心</a></div>
+            <div><h4>资源</h4><a href="case-studies.html">客户案例</a><a href="security.html">安全合规</a><a href="swagger.html" target="_blank">API文档</a><a href="articles.html">文章库</a></div>
+            <div><h4>公司</h4><a href="contact.html">联系我们</a><a href="https://github.com/crownstar-ai/crown-star-ai-bot" target="_blank">GitHub</a><a href="mailto:st3vens.ben@yandex.com">商务咨询</a></div>
+            <div class="bottom"><p>© 2026 CrownStar AI. All rights reserved. <a href="sitemap.xml">站点地图</a></p></div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation
+        (function() {
+            const fadeElements = document.querySelectorAll('.scroll-fade');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.08 });
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Particles (simplified)
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            function resize() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; }
+            window.addEventListener('resize', resize); resize();
+            class Particle { constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.size = Math.random() * 3 + 1; this.speedX = (Math.random() - 0.5) * 0.4; this.speedY = (Math.random() - 0.5) * 0.4; this.opacity = Math.random() * 0.2 + 0.05; } update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > width) this.speedX *= -1; if (this.y < 0 || this.y > height) this.speedY *= -1; } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(10,46,92,${this.opacity})`; ctx.fill(); } }
+            function drawLines() { for (let i = 0; i < particles.length; i++) { for (let j = i + 1; j < particles.length; j++) { const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const dist = Math.sqrt(dx * dx + dy * dy); if (dist < 150) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(10,46,92,${0.03 * (1 - dist / 150)})`; ctx.lineWidth = 0.5; ctx.stroke(); } } } }
+            const count = Math.min(60, Math.floor((width * height) / 15000));
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+            function animateParticles() { ctx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw(); }); drawLines(); requestAnimationFrame(animateParticles); }
+            animateParticles();
+            const bgCanvas = document.getElementById('bg-canvas');
+            let bgHue = 220;
+            setInterval(() => { bgHue += 0.2; if (bgHue > 230) bgHue = 220; bgCanvas.style.background = `linear-gradient(135deg, hsl(${bgHue},20%,94%) 0%, #ffffff 60%, hsl(${bgHue+10},15%,97%) 100%)`; }, 3000);
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() { header.classList.toggle('scrolled', window.scrollY > 50); });
+        })();
+    </script>
 </body>
 </html>

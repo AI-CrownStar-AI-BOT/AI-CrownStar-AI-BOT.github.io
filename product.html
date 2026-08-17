@@ -1,53 +1,136 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>产品 · CrownStar AI</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
-.container { max-width:1280px; margin:0 auto; padding:0 2rem; }
-.header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; }
-.header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
-.logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; height:48px; font-size:1.6rem; font-weight:800; color:#0a2e5c; }
-.logo span { color:#c9a84c; }
-.nav { display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; align-items:center; }
-.nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.9rem; padding:0.2rem 0; position:relative; transition:color 0.2s; }
-.nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,#c9a84c,#0a2e5c); transition:width 0.4s; }
-.nav a:hover { color:#0a2e5c; }
-.nav a:hover::after { width:100%; }
-.nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.6rem; border-radius:3rem; font-weight:600; }
-.nav .cta::after { display:none; }
-.nav .cta:hover { background:#1a4a7a; transform:scale(1.03); }
-.nav .active { color:#c9a84c; font-weight:600; }
-.nav .active::after { width:100%; }
-.page-hero { text-align:center; padding:3rem 0 2rem; }
-.page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
-.page-hero h1 .gold { color:#c9a84c; }
-.page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
-.features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; margin:2rem 0; }
-.feature-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; transition:transform 0.3s; }
-.feature-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); }
-.feature-card .icon { font-size:2.5rem; }
-.feature-card h3 { font-size:1.3rem; font-weight:700; color:#0a2e5c; margin:0.5rem 0; }
-.feature-card p { color:#5a5a7a; }
-.footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
-.footer a { color:#0a2e5c; text-decoration:none; }
-</style>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>产品 · CrownStar · 企业级主权AI平台</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        .header { background:#0a2e5c; padding:0.8rem 0; position:sticky; top:0; z-index:1000; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+        .logo { font-size:1.6rem; font-weight:700; color:#fff; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav a { color:rgba(255,255,255,0.8); margin-left:1.5rem; text-decoration:none; font-weight:500; font-size:0.95rem; }
+        .nav a:hover { color:#c9a84c; }
+        .nav .cta { background:#c9a84c; color:#0a2e5c !important; padding:0.3rem 1.5rem; border-radius:3rem; font-weight:600; }
+        .nav .cta:hover { background:#dbb95e; }
+        .hero { text-align:center; padding:3rem 0 2rem; background:linear-gradient(170deg,#eef2f8 0%,#ffffff 80%,#f8faff 100%); }
+        .hero h1 { font-size:3.2rem; font-weight:800; color:#0a2e5c; }
+        .hero h1 .gold { color:#c9a84c; }
+        .hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0.5rem auto 1.5rem; }
+        .section { padding:3rem 0; border-bottom:1px solid #e8ecf0; }
+        .section:last-of-type { border-bottom:none; }
+        .section-title { font-size:2.2rem; font-weight:700; color:#0a2e5c; text-align:center; margin-bottom:1rem; }
+        .section-title .gold { color:#c9a84c; }
+        .section-sub { text-align:center; color:#5a5a7a; max-width:700px; margin:0 auto 2rem; }
+        .grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
+        .card { background:#fff; border-radius:16px; padding:2rem; border:1px solid #e8ecf0; transition:0.3s; box-shadow:0 4px 12px rgba(0,0,0,0.03); }
+        .card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); border-color:#c9a84c; }
+        .card .icon { font-size:2.8rem; display:block; margin-bottom:0.5rem; }
+        .card h3 { font-size:1.3rem; color:#0a2e5c; margin-bottom:0.3rem; }
+        .card p { color:#5a5a7a; font-size:0.95rem; }
+        .card .tier-tag { display:inline-block; background:#c9a84c; color:#0a2e5c; font-size:0.6rem; font-weight:700; padding:0.1rem 0.8rem; border-radius:2rem; margin-top:0.5rem; }
+        .tier-map { background:#f8faff; border-radius:16px; padding:2rem; margin:2rem 0; border:1px solid #e8ecf0; }
+        .tier-map table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+        .tier-map th { background:#0a2e5c; color:#fff; padding:0.6rem; text-align:center; }
+        .tier-map td { padding:0.5rem; text-align:center; border-bottom:1px solid #e8ecf0; color:#4a4a6a; }
+        .tier-map .highlight { background:rgba(201,168,76,0.08); }
+        .tier-map .check { color:#22c55e; font-weight:700; }
+        .cta-section { background:#0a2e5c; border-radius:16px; padding:3rem; text-align:center; color:#fff; margin:2rem 0; }
+        .cta-section h2 { color:#fff; font-size:2rem; }
+        .cta-section .gold { color:#c9a84c; }
+        .cta-section .btn { display:inline-block; padding:0.8rem 2.8rem; border-radius:3rem; font-weight:600; text-decoration:none; background:#fff; color:#0a2e5c; transition:0.3s; margin:0.5rem; }
+        .cta-section .btn:hover { background:#c9a84c; }
+        .cta-section .btn-gold { background:#c9a84c; color:#0a2e5c; }
+        .cta-section .btn-gold:hover { background:#dbb95e; }
+        .footer { background:#f2f4f6; padding:2rem 0; margin-top:2rem; text-align:center; color:#7a7a9a; font-size:0.9rem; }
+        .footer a { color:#0a2e5c; text-decoration:none; }
+        @media (max-width:768px){ .hero h1{font-size:2.2rem;} .nav a{margin-left:0.8rem;font-size:0.8rem;} .tier-map{font-size:0.75rem;} }
+    </style>
 </head>
 <body>
-<header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav">
-<a href="index.html">首页</a><a href="product.html" class="active">产品</a><a href="pricing.html">定价</a><a href="case-studies.html">案例</a><a href="security.html">安全</a><a href="download-free.html">免费下载</a><a href="downloads.html">下载中心</a><a href="swagger.html" target="_blank">API</a><a href="articles.html">文章库</a><a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a><a href="contact.html" class="cta">联系我们</a></nav></div></header>
-<section class="page-hero"><div class="container"><h1>产品功能 · <span class="gold">AI-Groups 引擎</span></h1><p class="subtitle">CrownStar 不仅是 DeepSeek 的增强层，更是 <strong>AI-Groups</strong> 多模型融合平台。</p></div></section>
-<div class="container">
-<div class="features-grid">
-<div class="feature-card"><div class="icon">🧠</div><h3>AI-Groups 多模型融合</h3><p>同时运行多个 vLLM（如 DeepSeek, Qwen, Llama），通过 9 个数学模块融合输出。</p></div>
-<div class="feature-card"><div class="icon">📚</div><h3>Hugging Face 深度整合</h3><p>直接加载 Hugging Face 模型库、数据集和存储桶（hf://buckets/）。</p></div>
-<div class="feature-card"><div class="icon">🔒</div><h3>数据主权 100% 私有化</h3><p>满足等保 2.0 三级、信创合规、国密加密，数据永不离开您的网络。</p></div>
-<div class="feature-card"><div class="icon">∞</div><h3>无限记忆 · 永不遗忘</h3><p>生物拟态记忆 + FAISS 向量检索，所有对话永久保存，跨会话智能召回。</p></div>
-<div class="feature-card"><div class="icon">🧮</div><h3>9 大数学模块</h3><p>Jacobian, Hessian, UAT, Gurney, Yegnanarayana, Haykin, Bishop, Zurada, Ultra — 可单独开关。</p></div>
-<div class="feature-card"><div class="icon">⚡</div><h3>开箱即用 · 全平台</h3><p>5 分钟部署，支持 Windows, Linux, macOS, ARM。桌面 UI + REST API + 12 种语言 SDK。</p></div>
-</div>
-<div style="text-align:center; margin:2rem 0;"><a href="pricing.html" style="display:inline-block; background:#0a2e5c; color:#fff; padding:0.8rem 3rem; border-radius:3rem; font-weight:600; text-decoration:none;">查看定价 →</a></div>
-</div>
-<footer class="footer"><div class="container"><p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div></footer>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html" class="active" style="color:#c9a84c;">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html">案例</a>
+                <a href="security.html">安全</a>
+                <a href="articles.html">文章库</a>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>世界首个主权级 <span class="gold">AI 平台</span></h1>
+            <p class="subtitle">100% 私有化部署 · 9 大数学模块 · AI‑Groups 多模型融合 · HPC‑Parallel 并行计算</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">为什么选择 <span class="gold">CrownStar</span></h2>
+            <p class="section-sub">CrownStar 不是普通的 AI 封装 — 它是一个完整的 AI 操作系统，专为数据主权和卓越性能而设计。</p>
+            <div class="grid-3">
+                <div class="card"><span class="icon">🧠</span><h3>AI‑Groups 多模型融合</h3><p>同时运行多个 vLLM，通过 9 个数学模块实时融合，输出质量远超单一模型。</p><span class="tier-tag">所有层级</span></div>
+                <div class="card"><span class="icon">🔒</span><h3>100% 数据主权</h3><p>完全私有化部署，数据永不离开您的网络。满足等保 2.0 三级和《数据安全法》。</p><span class="tier-tag">所有层级</span></div>
+                <div class="card"><span class="icon">⚡</span><h3>HPC‑Parallel 引擎</h3><p>分布式并行计算，Redis 缓存，批量处理能力，推理速度提升 10 倍以上。</p><span class="tier-tag">进阶版及以上</span></div>
+                <div class="card"><span class="icon">📎</span><h3>RAG 检索增强生成</h3><p>FAISS 向量检索 + BM25 混合检索，让 AI 访问您的专有文档库，回答更精准。</p><span class="tier-tag">专业版及以上</span></div>
+                <div class="card"><span class="icon">🎤</span><h3>语音与视觉</h3><p>语音识别、语音合成、OCR 和视觉模型集成，多模态 AI 能力全面赋能。</p><span class="tier-tag">进阶版及以上</span></div>
+                <div class="card"><span class="icon">⏰</span><h3>工作流自动化</h3><p>定时任务、邮件摘要、事件触发器 — AI 成为您的“数字员工”。</p><span class="tier-tag">专业版及以上</span></div>
+                <div class="card"><span class="icon">🤝</span><h3>实时协作</h3><p>共享会话、现场感知、消息广播 — 让团队在同一个 AI 空间中共创。</p><span class="tier-tag">专业版及以上</span></div>
+                <div class="card"><span class="icon">📊</span><h3>12+ 数据库套接字</h3><p>支持 SQLite、PostgreSQL、MySQL、MongoDB、Oracle 等 12+ 种数据库。</p><span class="tier-tag">组织版及以上</span></div>
+                <div class="card"><span class="icon">💎</span><h3>终身免费升级</h3><p>一次购买，永久免费升级。无订阅陷阱，无按 token 计费。</p><span class="tier-tag">所有付费层级</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background:#f8faff;">
+        <div class="container">
+            <h2 class="section-title">功能 <span class="gold">全景矩阵</span></h2>
+            <p class="section-sub">从免费版到企业旗舰版，所有功能一目了然。每个付费版本都包含终身免费升级。</p>
+            <div class="tier-map">
+                <table>
+                    <thead><tr><th>功能</th><th>免费</th><th>基础</th><th>进阶</th><th>专业</th><th>组织S</th><th>组织M</th><th>组织L</th><th>企业</th></tr></thead>
+                    <tbody>
+                        <tr><td style="text-align:left;font-weight:600;">无限对话记忆</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">9 大数学模块</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">私有化部署</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">用户数</td><td>1</td><td>5</td><td>50</td><td>10</td><td>100</td><td>1,000</td><td>∞</td><td>∞</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">完整 API</td><td>只读</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">RLS 行级安全</td><td>—</td><td>—</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">源代码交付</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">白标品牌</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">审计日志</td><td>—</td><td>—</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">信创适配</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td></tr>
+                        <tr><td style="text-align:left;font-weight:600;">价格 (CNY)</td><td>0</td><td>39</td><td>248</td><td>389</td><td>49,999</td><td>99,999</td><td>299,999</td><td>1,675,000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="cta-section">
+                <h2>准备好体验 <span class="gold">主权 AI</span> 了吗？</h2>
+                <p style="max-width:600px;margin:0 auto 1.5rem;opacity:0.9;">从免费版开始，或直接选择适合您业务层级。一次购买，终身免费升级。</p>
+                <a href="download-free.html" class="btn">🚀 免费下载</a>
+                <a href="pricing.html" class="btn btn-gold">查看定价</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. <a href="index.html">首页</a> · <a href="articles.html">文章库</a> · <a href="contact.html">联系我们</a></p>
+        </div>
+    </footer>
 </body>
 </html>

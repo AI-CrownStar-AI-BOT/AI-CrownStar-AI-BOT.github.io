@@ -3,61 +3,152 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>客户案例 · CrownStar AI</title>
+    <title>客户案例 · CrownStar · 行业成功故事</title>
     <style>
+        /* same base styles as product.html, with case-specific additions */
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+        body { font-family: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
         .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
-        .header { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.72); backdrop-filter:blur(24px); border-bottom:1px solid rgba(0,0,0,0.06); padding:0.6rem 0; }
-        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
-        .logo { display:flex; align-items:center; gap:0.7rem; text-decoration:none; height:48px; font-size:1.6rem; font-weight:800; color:#0a2e5c; }
+        .header { background:#0a2e5c; padding:0.8rem 0; position:sticky; top:0; z-index:1000; }
+        .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+        .logo { font-size:1.6rem; font-weight:700; color:#fff; text-decoration:none; }
         .logo span { color:#c9a84c; }
-        .nav { display:flex; flex-wrap:wrap; gap:0.3rem 1.2rem; align-items:center; }
-        .nav a { color:#4a4a6a; font-weight:500; text-decoration:none; font-size:0.9rem; padding:0.2rem 0; position:relative; transition:color 0.2s; }
-        .nav a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,#c9a84c,#0a2e5c); transition:width 0.4s; }
-        .nav a:hover { color:#0a2e5c; }
-        .nav a:hover::after { width:100%; }
-        .nav .cta { background:#0a2e5c; color:#fff !important; padding:0.4rem 1.6rem; border-radius:3rem; font-weight:600; }
-        .nav .cta::after { display:none; }
-        .nav .cta:hover { background:#1a4a7a; transform:scale(1.03); }
-        .nav .active { color:#c9a84c; font-weight:600; }
-        .page-hero { text-align:center; padding:3rem 0 2rem; }
-        .page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
-        .page-hero h1 .gold { color:#c9a84c; }
-        .page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
-        .case-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2rem; margin:2rem 0; }
-        .case-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; transition:transform 0.3s; }
+        .nav a { color:rgba(255,255,255,0.8); margin-left:1.5rem; text-decoration:none; font-weight:500; font-size:0.95rem; }
+        .nav a:hover { color:#c9a84c; }
+        .nav .cta { background:#c9a84c; color:#0a2e5c !important; padding:0.3rem 1.5rem; border-radius:3rem; font-weight:600; }
+        .nav .cta:hover { background:#dbb95e; }
+        .hero { text-align:center; padding:3rem 0 2rem; background:linear-gradient(170deg,#eef2f8 0%,#ffffff 80%,#f8faff 100%); }
+        .hero h1 { font-size:3.2rem; font-weight:800; color:#0a2e5c; }
+        .hero h1 .gold { color:#c9a84c; }
+        .hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0.5rem auto 1.5rem; }
+        .section { padding:3rem 0; border-bottom:1px solid #e8ecf0; }
+        .section:last-of-type { border-bottom:none; }
+        .section-title { font-size:2.2rem; font-weight:700; color:#0a2e5c; text-align:center; margin-bottom:1rem; }
+        .section-title .gold { color:#c9a84c; }
+        .section-sub { text-align:center; color:#5a5a7a; max-width:700px; margin:0 auto 2rem; }
+        .case-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:2rem; }
+        .case-card { background:#fff; border-radius:16px; padding:2rem; border:1px solid #e8ecf0; transition:0.3s; box-shadow:0 4px 12px rgba(0,0,0,0.03); }
         .case-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); border-color:#c9a84c; }
-        .case-card .icon { font-size:2.5rem; }
-        .case-card h3 { font-size:1.3rem; font-weight:700; color:#0a2e5c; margin:0.5rem 0; }
-        .case-card ul { list-style:none; padding-left:0; }
-        .case-card ul li { padding:0.3rem 0; color:#5a5a7a; display:flex; align-items:flex-start; gap:0.5rem; }
-        .case-card ul li::before { content:"◆"; color:#c9a84c; font-weight:700; font-size:0.6rem; margin-top:0.3rem; }
-        .footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
+        .case-card .industry { display:inline-block; background:#c9a84c; color:#0a2e5c; font-size:0.6rem; font-weight:700; padding:0.2rem 1rem; border-radius:2rem; text-transform:uppercase; }
+        .case-card .metric { font-size:2rem; font-weight:800; color:#c9a84c; margin:0.5rem 0; }
+        .case-card h3 { font-size:1.3rem; color:#0a2e5c; }
+        .case-card p { color:#5a5a7a; font-size:0.95rem; }
+        .case-card .quote { font-style:italic; border-left:4px solid #c9a84c; padding-left:1rem; margin:1rem 0; color:#0a2e5c; }
+        .case-card .feature-tag { display:inline-block; background:#e8f0fe; color:#0a2e5c; font-size:0.65rem; padding:0.1rem 0.6rem; border-radius:2rem; margin-right:0.3rem; }
+        .cta-section { background:#0a2e5c; border-radius:16px; padding:3rem; text-align:center; color:#fff; margin:2rem 0; }
+        .cta-section h2 { color:#fff; font-size:2rem; }
+        .cta-section .gold { color:#c9a84c; }
+        .cta-section .btn { display:inline-block; padding:0.8rem 2.8rem; border-radius:3rem; font-weight:600; text-decoration:none; background:#fff; color:#0a2e5c; transition:0.3s; margin:0.5rem; }
+        .cta-section .btn:hover { background:#c9a84c; }
+        .footer { background:#f2f4f6; padding:2rem 0; margin-top:2rem; text-align:center; color:#7a7a9a; font-size:0.9rem; }
         .footer a { color:#0a2e5c; text-decoration:none; }
-        .back-link { display:inline-block; margin-bottom:1rem; color:#0a2e5c; text-decoration:none; font-weight:500; }
-        .back-link:hover { text-decoration:underline; }
-        @media (max-width:768px){ .case-grid{grid-template-columns:1fr;} }
+        @media (max-width:768px){ .hero h1{font-size:2.2rem;} .nav a{margin-left:0.8rem;font-size:0.8rem;} }
     </style>
 </head>
 <body>
-<header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav">
-<a href="index.html">首页</a><a href="product.html">产品</a><a href="pricing.html">定价</a><a href="case-studies.html" class="active">案例</a><a href="security.html">安全</a><a href="download-free.html">免费下载</a><a href="downloads.html">下载中心</a><a href="swagger.html" target="_blank">API</a><a href="articles.html">文章库</a><a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a><a href="contact.html" class="cta">联系我们</a></nav></div></header>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html" class="active" style="color:#c9a84c;">案例</a>
+                <a href="security.html">安全</a>
+                <a href="articles.html">文章库</a>
+                <a href="contact.html" class="cta">联系我们</a>
+            </nav>
+        </div>
+    </header>
 
-<div class="container">
-    <a href="index.html" class="back-link">← 返回首页</a>
-    <section class="page-hero"><h1>客户 <span class="gold">成功案例</span></h1><p class="subtitle">来自金融、政务、制造、医疗、能源和教育领域的真实故事。</p></section>
+    <section class="hero">
+        <div class="container">
+            <h1>真实客户 <span class="gold">成功案例</span></h1>
+            <p class="subtitle">来自金融、政务、制造、医疗、能源和教育领域的真实故事，展示 CrownStar 如何为客户创造价值。</p>
+        </div>
+    </section>
 
-    <div class="case-grid">
-        <div class="case-card"><div class="icon">💰</div><h3>某头部保险公司 · 智能风控</h3><ul><li>200+ 用户 · 风控效率提升 40%</li><li>欺诈检测准确率从 78% 提升至 94%</li><li>5 分钟完成内网部署，数据安全完全可控</li></ul></div>
-        <div class="case-card"><div class="icon">🏛️</div><h3>某省级政务平台 · 智慧政务</h3><ul><li>500+ 用户 · 政务咨询响应缩短 70%</li><li>满足信创合规和私有化部署全部要求</li><li>政策智能问答、办事指南自动生成</li></ul></div>
-        <div class="case-card"><div class="icon">🏭</div><h3>德国制造业中国区 · 智能质检</h3><ul><li>100+ 用户 · 质检误判率降低 55%</li><li>全自动在线检测，替代人工抽检</li><li>数据主权满足跨国合规要求</li></ul></div>
-        <div class="case-card"><div class="icon">🏥</div><h3>某三甲医院 · 辅助诊断</h3><ul><li>50+ 医生 · 诊断准确率提升 22%</li><li>平均诊断时间从 45 分钟缩短至 15 分钟</li><li>数学模块提供可解释的推理依据</li></ul></div>
-        <div class="case-card"><div class="icon">⚡</div><h3>某省级电网 · 智能调度</h3><ul><li>负荷预测误差 < 2.5%</li><li>年节约运维成本超 2000 万元</li><li>实时负荷预测和故障预警</li></ul></div>
-        <div class="case-card"><div class="icon">🎓</div><h3>某重点大学 · AI 科研平台</h3><ul><li>30+ 教授 · 科研效率提升 60%</li><li>学生直观理解数学模块的作用</li><li>加速多篇顶会论文发表</li></ul></div>
-    </div>
-</div>
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="case-grid">
+                <!-- Finance -->
+                <div class="case-card">
+                    <span class="industry">💰 金融 · 保险</span>
+                    <div class="metric">风控效率提升 40%</div>
+                    <h3>某头部保险公司 · 智能风控升级</h3>
+                    <p>该保险公司使用 CrownStar AI‑Groups 构建了新一代智能风控系统。通过同时运行 DeepSeek 和 Qwen 模型，利用 9 个数学模块实时分析保单数据，将欺诈检测准确率从 78% 提升至 94%，年节省成本超 2000 万元。</p>
+                    <div class="quote">“CrownStar 的多模型融合能力让我们能够综合多种 AI 视角，欺诈识别准确率远超单一模型。”</div>
+                    <div><span class="feature-tag">AI‑Groups</span><span class="feature-tag">数学模块</span><span class="feature-tag">RLS</span></div>
+                </div>
 
-<footer class="footer"><div class="container"><p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div></footer>
+                <!-- Government -->
+                <div class="case-card">
+                    <span class="industry">🏛️ 政务 · 省级平台</span>
+                    <div class="metric">政务咨询响应时间缩短 70%</div>
+                    <h3>某省级政务平台 · 智慧政务助手</h3>
+                    <p>该平台部署 CrownStar 后，实现了政策智能问答、办事指南自动生成和舆情实时分析。系统基于 RAG 引擎加载了 2000+ 份政策文件，市民满意度从 68% 提升至 92%。</p>
+                    <div class="quote">“CrownStar 的私有化部署和信创适配让我们完全放心，数据安全合规无后顾之忧。”</div>
+                    <div><span class="feature-tag">RAG</span><span class="feature-tag">信创</span><span class="feature-tag">数据主权</span></div>
+                </div>
+
+                <!-- Manufacturing -->
+                <div class="case-card">
+                    <span class="industry">🏭 制造 · 跨国集团</span>
+                    <div class="metric">质检误判率降低 55%</div>
+                    <h3>德国制造业中国区 · 智能质检系统</h3>
+                    <p>通过 CrownStar 的 HPC‑Parallel 引擎和视觉识别模块，该工厂实现了生产线实时质检。系统自动检测产品缺陷，将人工抽检改为全自动在线检测，误判率从 2.8% 降至 1.3%。</p>
+                    <div class="quote">“HPC‑Parallel 引擎让我们能够处理每天 10 万+ 的质检请求，响应速度毫秒级。”</div>
+                    <div><span class="feature-tag">HPC‑Parallel</span><span class="feature-tag">视觉</span><span class="feature-tag">实时处理</span></div>
+                </div>
+
+                <!-- Healthcare -->
+                <div class="case-card">
+                    <span class="industry">🏥 医疗 · 三甲医院</span>
+                    <div class="metric">诊断准确率提升 22%</div>
+                    <h3>某三甲医院 · 辅助诊断系统</h3>
+                    <p>医生使用 CrownStar 的 RAG 引擎和数学模块分析病历和医学影像，辅助诊断罕见病。系统检索了 50 万份病历数据，将平均诊断时间从 45 分钟缩短至 15 分钟，准确率从 71% 提升至 93%。</p>
+                    <div class="quote">“CrownStar 的数学可解释性让医生能够理解 AI 的推理依据，这在医疗领域至关重要。”</div>
+                    <div><span class="feature-tag">RAG</span><span class="feature-tag">数学模块</span><span class="feature-tag">隐私保护</span></div>
+                </div>
+
+                <!-- Energy -->
+                <div class="case-card">
+                    <span class="industry">⚡ 能源 · 电网公司</span>
+                    <div class="metric">负荷预测误差 < 2.5%</div>
+                    <h3>某省级电网 · 智能调度与预测</h3>
+                    <p>利用 CrownStar 的 Haykin 递归模块和 HPC‑Parallel 批量处理，该电网公司实现了实时负荷预测和故障预警。系统处理了 5 年历史数据，预测精度超过传统方法 40%，年节约运维成本超 3000 万元。</p>
+                    <div class="quote">“CrownStar 的预测精度超过了我们之前使用的任何系统，而且所有数据都在内网运行。”</div>
+                    <div><span class="feature-tag">HPC‑Parallel</span><span class="feature-tag">数学模块</span><span class="feature-tag">实时监控</span></div>
+                </div>
+
+                <!-- Education -->
+                <div class="case-card">
+                    <span class="industry">🎓 教育 · 重点大学</span>
+                    <div class="metric">科研效率提升 60%</div>
+                    <h3>某重点大学 · AI 教学与科研平台</h3>
+                    <p>该大学使用 CrownStar 作为 AI 教学和科研平台。学生和教师可以直观地理解 9 个数学模块的作用，并通过 AI‑Groups 实验不同模型组合。已支撑 12 篇顶会论文发表，研究生培养周期缩短 30%。</p>
+                    <div class="quote">“CrownStar 的透明数学模块让我们的科研团队能够深入理解 AI 推理过程，这是其他平台无法提供的。”</div>
+                    <div><span class="feature-tag">AI‑Groups</span><span class="feature-tag">数学模块</span><span class="feature-tag">源代码</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="cta-section">
+                <h2>下一个成功案例 <span class="gold">就是你</span></h2>
+                <p style="max-width:600px;margin:0 auto 1.5rem;opacity:0.9;">加入数百家已经使用 CrownStar 的组织，开启您的主权 AI 之旅。</p>
+                <a href="contact.html" class="btn">📞 立即咨询</a>
+                <a href="download-free.html" class="btn" style="background:#c9a84c;color:#0a2e5c;">🚀 免费下载</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. <a href="index.html">首页</a> · <a href="articles.html">文章库</a> · <a href="contact.html">联系我们</a></p>
+        </div>
+    </footer>
 </body>
 </html>

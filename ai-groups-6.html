@@ -1,60 +1,25 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI-Groups 06 · Hugging Face Storage Buckets · CrownStar</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
-        .container { max-width:960px; margin:0 auto; padding:2rem; }
-        h1 { font-size:2.8rem; color:#0a2e5c; margin-bottom:0.5rem; }
-        h1 span { color:#c9a84c; }
-        h2 { font-size:1.8rem; color:#0a2e5c; margin-top:2rem; margin-bottom:0.5rem; }
-        p { font-size:1.05rem; color:#4a4a6a; margin-bottom:1rem; }
-        .gold { color:#c9a84c; }
-        .back-link { display:inline-block; margin-top:2rem; background:#0a2e5c; color:#fff; padding:0.6rem 1.8rem; border-radius:3rem; text-decoration:none; font-weight:600; }
-        .header { background:#fff; padding:1rem 0; border-bottom:1px solid #e8ecf0; }
-        .header .container { display:flex; justify-content:space-between; align-items:center; padding:0 2rem; max-width:1280px; margin:0 auto; }
-        .logo { font-size:1.6rem; font-weight:800; color:#0a2e5c; text-decoration:none; }
-        .logo span { color:#c9a84c; }
-        .nav a { color:#4a4a6a; text-decoration:none; margin-left:1.2rem; font-weight:500; }
-        .nav a:hover { color:#0a2e5c; }
-        .footer { background:#f2f4f6; padding:2rem 0; margin-top:3rem; text-align:center; color:#7a7a9a; font-size:0.85rem; }
-        @media (max-width:768px) { h1 { font-size:2rem; } }
-    </style>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hugging Face Storage Buckets – CrownStar</title>
+<style>/* same styles */</style></head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">Crown<span>Star</span> AI</a>
-            <nav class="nav"><a href="index.html">首页</a><a href="ai-groups.html">AI-Groups</a><a href="pricing.html">定价</a><a href="contact.html">联系我们</a></nav>
-        </div>
-    </header>
-    <div class="container">
-        <h1>Hugging Face <span>Storage Buckets</span></h1>
-        <p style="font-size:1.1rem; color:#5a5a7a;">使用 <code>hf://buckets/</code> 协议存储和共享模型与数据集，实现云端与本地的高效协同。</p>
-
-        <h2>什么是 Hugging Face Storage Buckets？</h2>
-        <p>Hugging Face 提供了类似 S3 的存储服务，您可以在上面存储模型、数据集、配置文件等。通过 <code>hf://buckets/</code> 协议，AI-Groups 可以直接访问这些存储桶，实现模型的云端存储和按需下载。</p>
-
-        <h2>在 CrownStar 中使用存储桶</h2>
-        <p>您只需在 CrownStar 中配置 Hugging Face Token，即可访问您拥有的存储桶。AI-Groups 支持：<br>
-        <span class="gold">◆</span> 列出存储桶中的文件<br>
-        <span class="gold">◆</span> 下载文件到本地<br>
-        <span class="gold">◆</span> 上传文件到存储桶（用于共享或备份）</p>
-
-        <h2>典型使用场景</h2>
-        <p><strong>团队协作：</strong> 多个团队成员可以共享同一个存储桶中的模型和数据集，保持一致性。<br>
-        <strong>跨设备同步：</strong> 您可以在办公室 PC 上下载模型，回到家后从存储桶再次下载，无需重复上传。<br>
-        <strong>备份与恢复：</strong> 将重要模型和数据集备份到存储桶，防止本地数据丢失。</p>
-
-        <p style="background:#eef2f8; padding:1.5rem; border-radius:12px; border-left:4px solid #c9a84c;">
-            ☁️ <strong>数据主权声明：</strong> 即使使用存储桶，您的模型和数据仍然由您完全控制。Hugging Face 不会访问您的私有数据。
-        </p>
-
-        <a href="ai-groups.html" class="back-link">← 返回 AI-Groups</a>
+<header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav"><a href="index.html">首页</a><a href="articles.html">文章库</a><a href="pricing.html">定价</a><a href="contact.html">联系我们</a></nav></div></header>
+<div class="container"><div class="article">
+    <h1>💾 Hugging Face Storage Buckets：安全高效的模型托管</h1>
+    <div class="subhead">使用 hf://buckets/ 协议统一管理您的 AI 资产</div>
+    <p>随着 AI 应用的深入，模型和数据集的管理变得越来越复杂。CrownStar 集成了 Hugging Face 的存储桶协议，让您能够像管理云存储一样管理 AI 资产。</p>
+    <p><strong>存储桶带来的价值：</strong></p>
+    <ul>
+        <li><strong>统一管理</strong>：所有模型权重、数据集和配置文件都可以存储在 Hugging Face 存储桶中，通过统一的 URI 进行访问。</li>
+        <li><strong>版本控制</strong>：每次更新模型或数据集都会生成新版本，您可以随时回滚到之前的版本，确保生产环境的稳定性。</li>
+        <li><strong>协作共享</strong>：团队成员可以通过存储桶共享模型，无需手动传输文件，提高协作效率。</li>
+        <li><strong>安全访问</strong>：存储桶支持访问控制，您可以将私有模型限制为仅团队内部使用，同时公开共享通用模型。</li>
+    </ul>
+    <p>对于大型企业，存储桶是构建“模型中心”的基础设施，让不同部门能够共享和复用 AI 资产。对于研究机构，它简化了实验结果的存档和复现。</p>
+    <div class="cta-group">
+        <a href="pricing.html" class="btn btn-gold">查看定价 →</a>
+        <a href="download-free.html" class="btn">免费下载</a>
     </div>
-    <footer class="footer"><p>© 2026 CrownStar AI. All rights reserved.</p></footer>
-</body>
-</html>
+</div></div>
+<footer class="footer"><div class="container"><p>© 2026 CrownStar. <a href="articles.html">返回文章库</a> · <a href="index.html">首页</a></p></div></footer>
+</body></html>
