@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrownStar 实用 AI 工具箱 · 体验进阶 API</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;
+            background: #f0f4fa;
+            color: #1a1a2e;
+            line-height: 1.8;
+        }
+        .container { max-width:1200px; margin:0 auto; padding:0 2rem; }
+
+        .header {
+            background: linear-gradient(135deg, #0a2e5c 0%, #1a4a7a 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(10,46,92,0.15);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo { font-size:1.8rem; font-weight:800; color:#fff; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav a {
+            color: rgba(255,255,255,0.8);
+            margin-left: 1.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .nav a:hover { color:#c9a84c; }
+
+        .hero {
+            text-align: center;
+            padding: 2.5rem 0 2rem;
+            background: linear-gradient(170deg, #eef2f8 0%, #ffffff 80%, #f8faff 100%);
+            border-bottom: 1px solid #e8ecf0;
+        }
+        .hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+        .hero h1 .gold { color:#c9a84c; }
+        .hero .subtitle {
+            font-size:1.1rem;
+            color:#5a5a7a;
+            max-width:750px;
+            margin:0.5rem auto 1rem;
+        }
+        .hero .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        .hero .badge {
+            display:inline-block;
+            padding:0.3rem 1.2rem;
+            border-radius:3rem;
+            font-weight:700;
+            font-size:0.8rem;
+        }
+        .badge-free { background:#e8f5e9; color:#2e7d32; }
+        .badge-basic { background:#fff3e0; color:#e65100; }
+        .badge-advanced { background:#fef3c7; color:#92400e; }
+        .badge-pro { background:#dbeafe; color:#1e40af; }
+        .badge-org { background:#fce4ec; color:#b71c1c; }
+
+        .section-title {
+            font-size:2rem;
+            font-weight:700;
+            color:#0a2e5c;
+            margin:2.5rem 0 1rem;
+            display:flex;
+            align-items:center;
+            gap:0.8rem;
+        }
+        .section-title .gold { color:#c9a84c; }
+
+        .tier-banner {
+            background: linear-gradient(135deg, #fff8e7, #fff3d6);
+            border: 2px solid #c9a84c;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tier-banner .left { display:flex; align-items:center; gap:1.5rem; }
+        .tier-banner .price-tag { font-size:1.8rem; font-weight:800; color:#0a2e5c; }
+        .tier-banner .price-tag small { font-size:1rem; font-weight:400; color:#5a5a7a; }
+        .tier-banner .btn {
+            display:inline-block;
+            padding:0.6rem 2rem;
+            border-radius:3rem;
+            font-weight:700;
+            text-decoration:none;
+            background:#c9a84c;
+            color:#0a2e5c;
+            transition:0.2s;
+        }
+        .tier-banner .btn:hover { background:#dbb95e; transform:scale(1.03); }
+
+        .endpoint-group {
+            background:#fff;
+            border-radius:16px;
+            border:1px solid #e8ecf0;
+            margin-bottom:1.2rem;
+            overflow:hidden;
+            box-shadow:0 2px 8px rgba(0,0,0,0.02);
+        }
+        .group-header {
+            background:#f8faff;
+            padding:0.8rem 1.8rem;
+            cursor:pointer;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            border-bottom:1px solid #e8ecf0;
+            font-weight:600;
+            color:#0a2e5c;
+            transition:0.2s;
+            user-select:none;
+        }
+        .group-header:hover { background:#f0f4fa; }
+        .group-header .arrow { transition:transform 0.3s; }
+        .group-header .arrow.open { transform:rotate(180deg); }
+        .group-body { padding:0.8rem 1.8rem 1.8rem; display:none; }
+        .group-body.open { display:block; }
+
+        .endpoint {
+            border-left:3px solid #c9a84c;
+            padding:1rem 1.2rem;
+            margin:1rem 0;
+            background:#fafcff;
+            border-radius:6px;
+        }
+        .endpoint .method {
+            display:inline-block;
+            font-weight:700;
+            font-size:0.7rem;
+            padding:0.15rem 0.8rem;
+            border-radius:4px;
+            color:#fff;
+            margin-right:0.6rem;
+            text-transform:uppercase;
+        }
+        .method.get { background:#22c55e; }
+        .method.post { background:#3b82f6; }
+        .endpoint .path {
+            font-family:'JetBrains Mono','Consolas',monospace;
+            font-weight:600;
+            color:#0a2e5c;
+            font-size:1rem;
+        }
+        .endpoint .desc { color:#5a5a7a; font-size:0.95rem; margin:0.3rem 0; }
+        .endpoint .tier-tag {
+            display:inline-block;
+            font-size:0.6rem;
+            font-weight:700;
+            padding:0.1rem 0.8rem;
+            border-radius:2rem;
+            margin-left:0.5rem;
+        }
+        .tier-tag.free { background:#e8f5e9; color:#2e7d32; }
+        .tier-tag.basic { background:#fff3e0; color:#e65100; }
+        .tier-tag.advanced { background:#fef3c7; color:#92400e; }
+        .tier-tag.pro { background:#dbeafe; color:#1e40af; }
+        .tier-tag.org { background:#fce4ec; color:#b71c1c; }
+
+        .code-block {
+            background:#1a1a2e;
+            color:#e0e0e0;
+            padding:0.8rem 1rem;
+            border-radius:6px;
+            font-family:'JetBrains Mono','Consolas',monospace;
+            font-size:0.8rem;
+            overflow-x:auto;
+            white-space:pre-wrap;
+            margin:0.5rem 0;
+        }
+        .code-block .ps1 { color:#4fc3f7; }
+        .code-block .comment { color:#7a7a9a; }
+
+        .footer {
+            background:#f2f4f6;
+            padding:2rem 0;
+            margin-top:3rem;
+            text-align:center;
+            color:#7a7a9a;
+            font-size:0.9rem;
+            border-top:1px solid #e8ecf0;
+        }
+        .footer a { color:#0a2e5c; text-decoration:none; }
+
+        @media (max-width:768px){
+            .hero h1{font-size:2rem;}
+            .tier-banner{flex-direction:column;align-items:flex-start;gap:0.8rem;}
+            .endpoint{padding:0.8rem;}
+            .nav a{margin-left:0.8rem;font-size:0.8rem;}
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="api-toolbox.html" style="color:#c9a84c;">AI 工具箱</a>
+                <a href="contact.html">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>🧰 CrownStar 实用 <span class="gold">AI 工具箱</span></h1>
+            <p class="subtitle">
+                体验 AI 如何帮助您使用 PowerShell、学习、工作、生活 – 每个端点都对应不同的层级，<br />
+                从 ¥39 到 ¥705，逐步解锁更强大的能力。
+            </p>
+            <div class="badge-group">
+                <span class="badge badge-free">🆓 免费</span>
+                <span class="badge badge-basic">📘 基础 (¥39)</span>
+                <span class="badge badge-advanced">📙 进阶 (¥248)</span>
+                <span class="badge badge-pro">📗 专业 (¥389)</span>
+                <span class="badge badge-org">🏢 组织 (¥705+)</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- ========================================================== -->
+        <!-- TIER BANNER – Encourage Upgrade                            -->
+        <!-- ========================================================== -->
+        <div class="tier-banner">
+            <div class="left">
+                <span style="font-size:2.5rem;">🚀</span>
+                <div>
+                    <div style="font-weight:700;color:#0a2e5c;font-size:1.2rem;">想解锁更多 AI 能力？</div>
+                    <div style="color:#5a5a7a;font-size:0.95rem;">
+                        从 <strong>¥39</strong> 升级到 <strong>¥248</strong>，即可使用代码解释、文档摘要等高级工具。<br />
+                        升级到 <strong>¥705</strong>，还能获得数据分析、家庭计划等专业功能。
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span class="price-tag">¥39 <small>起</small></span>
+                <a href="pricing.html" class="btn">立即升级 →</a>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- SECTION 1: FREE / BASIC TIER (¥0 – ¥39)                    -->
+        <!-- ========================================================== -->
+        <h2 class="section-title">
+            🆓 免费 & 基础 <span class="gold">(¥0 – ¥39)</span>
+        </h2>
+
+        <div class="endpoint-group">
+            <div class="group-header" onclick="toggleGroup(this)">
+                <span>💡 日常小助手 – 适合学生、家庭、个人</span>
+                <span class="arrow open">▼</span>
+            </div>
+            <div class="group-body open">
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/toolbox/powershell-help</span>
+                    <span class="tier-tag free">免费</span>
+                    <div class="desc">解释 PowerShell 命令的作用、参数和常见用法 – 对系统管理员和学生非常有用。</div>
+                    <div class="code-block"><span class="comment"># PowerShell 调用示例</span>
+$body = @{ command = "Get-ChildItem -Recurse *.ps1" } | ConvertTo-Json
+Invoke-RestMethod -Uri "https://your-crownstar-server.com/api/toolbox/powershell-help" `
+    -Method Post -Body $body -ContentType "application/json" -Headers @{ "X-API-Key" = "your_key" }</div>
+                    <div class="code-block">{
+  "command": "Get-ChildItem -Recurse *.ps1",
+  "explanation": "递归搜索当前目录及所有子目录中扩展名为 .ps1 的文件。",
+  "usage": "常用于查找所有 PowerShell 脚本文件。",
+  "example": "Get-ChildItem -Recurse *.ps1 | ForEach-Object { $_.FullName }"
+}</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/toolbox/math-tutor</span>
+                    <span class="tier-tag basic">基础 (¥39)</span>
+                    <div class="desc">分步解数学题（代数、微积分、统计），适合学生和家长辅导功课。</div>
+                    <div class="code-block"><span class="comment"># 让 AI 解二次方程</span>
+$body = @{ problem = "x^2 - 5x + 6 = 0" } | ConvertTo-Json
+Invoke-RestMethod -Uri "https://your-crownstar-server.com/api/toolbox/math-tutor" -Method Post -Body $body -ContentType "application/json"</div>
+                    <div class="code-block">{
+  "problem": "x^2 - 5x + 6 = 0",
+  "steps": [
+    "因式分解: (x - 2)(x - 3) = 0",
+    "解得: x = 2 或 x = 3"
+  ],
+  "final_answer": "x = 2, 3"
+}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- SECTION 2: ADVANCED TIER (¥248)                            -->
+        <!-- ========================================================== -->
+        <h2 class="section-title">
+            📙 进阶 <span class="gold">(¥248)</span>
+        </h2>
+
+        <div class="endpoint-group">
+            <div class="group-header" onclick="toggleGroup(this)">
+                <span>⚙️ 开发者 & 专业人士工具</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="group-body">
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/toolbox/code-explain</span>
+                    <span class="tier-tag advanced">进阶 (¥248)</span>
+                    <div class="desc">解释任意代码片段（Python, JavaScript, PowerShell）的逻辑和功能。</div>
+                    <div class="code-block"><span class="comment"># 解释一段 Python 代码</span>
+$body = @{ code = "def fib(n): return n if n<2 else fib(n-1)+fib(n-2)" } | ConvertTo-Json
+Invoke-RestMethod -Uri "https://your-crownstar-server.com/api/toolbox/code-explain" -Method Post -Body $body</div>
+                    <div class="code-block">{
+  "code": "def fib(n): return n if n<2 else fib(n-1)+fib(n-2)",
+  "explanation": "这是一个递归函数，计算斐波那契数列的第 n 项。",
+  "complexity": "时间复杂度 O(2^n)，空间复杂度 O(n)。",
+  "suggestion": "可用循环或记忆化优化。"
+}</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/toolbox/document-summarize</span>
+                    <span class="tier-tag advanced">进阶 (¥248)</span>
+                    <div class="desc">从长文档（文本、PDF 摘要）中提取核心要点，节省阅读时间。</div>
+                    <div class="code-block"><span class="comment"># 摘要一段长文本</span>
+$body = @{ text = "长达几千字的技术文档..." } | ConvertTo-Json
+Invoke-RestMethod -Uri "https://your-crownstar-server.com/api/toolbox/document-summarize" -Method Post -Body $body</div>
+                    <div class="code-block">{
+  "summary": "本文档介绍了 CrownStar 的 RAG 引擎架构...",
+  "key_points": ["FAISS 向量检索", "BM25 混合检索", "多格式文档支持"],
+  "word_count": 450
+}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- SECTION 3: PROFESSIONAL / ORGANIZATION (¥389 – ¥705+)    -->
+        <!-- ========================================================== -->
+        <h2 class="section-title">
+            📗 专业 & 组织 <span class="gold">(¥389 – ¥705+)</span>
+        </h2>
+
+        <div class="endpoint-group">
+            <div class="group-header" onclick="toggleGroup(this)">
+                <span>📊 商务智能 & 家庭规划 – 适合企业、家庭</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="group-body">
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/toolbox/data-insight</span>
+                    <span class="tier-tag pro">专业 (¥389)</span>
+                    <div class="desc">从 CSV 或 JSON 数据中自动提取趋势、异常和统计摘要，适合商务分析。</div>
+                    <div class="code-block"><span class="comment"># 分析销售数据</span>
+$body = @{ data = Get-Content "sales.csv" -Raw } | ConvertTo-Json
+Invoke-RestMethod -Uri "https://your-crownstar-server.com/api/toolbox/data-insight" -Method Post -Body $body</div>
+                    <div class="code-block">{
+  "summary": "总销售额 ¥1,245,000，较上季度增长 8.3%",
+  "trends": ["Q2 增长最快", "华东地区贡献 45%"],
+  "anomalies": ["深圳区域有异常负增长"],
+  "recommendation": "建议加大华东推广力度"
+}</div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/toolbox/family-planner</span>
+                    <span class="tier-tag org">组织 (¥705)</span>
+                    <div class="desc">生成旅行计划、家庭预算、学习路线等 – 适合家庭和团队。</div>
+                    <div class="code-block"><span class="comment"># 生成家庭旅行计划</span>
+$body = @{ destination = "云南"; days = 7; budget = 15000; interests = "文化,自然" } | ConvertTo-Json
+Invoke-RestMethod -Uri "https://your-crownstar-server.com/api/toolbox/family-planner" -Method Post -Body $body</div>
+                    <div class="code-block">{
+  "itinerary": [
+    "Day 1: 抵达昆明，入住酒店",
+    "Day 2: 石林风景区",
+    "Day 3: 大理古城"
+  ],
+  "budget_breakdown": { "住宿": 4500, "交通": 3000, "餐饮": 2500, "门票": 2000 },
+  "family_tips": "适合孩子的是...",
+  "total": 12000
+}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- CALL TO ACTION                                              -->
+        <!-- ========================================================== -->
+        <div style="margin:2.5rem 0;padding:2rem;background:linear-gradient(135deg,#0a2e5c,#1a4a7a);border-radius:16px;text-align:center;color:#fff;">
+            <h2 style="color:#fff;font-size:2rem;">🚀 立即体验这些强大的 AI 工具</h2>
+            <p style="margin:0.5rem 0 1.5rem;opacity:0.9;max-width:600px;margin-left:auto;margin-right:auto;">
+                从 ¥39 开始，解锁基础工具。<br />
+                升级到 ¥248 获得代码解释和文档摘要。<br />
+                升级到 ¥705 解锁商务智能和家庭规划。
+            </p>
+            <a href="pricing.html" style="display:inline-block;background:#c9a84c;color:#0a2e5c;padding:0.8rem 3rem;border-radius:3rem;font-weight:700;text-decoration:none;font-size:1.1rem;transition:0.2s;">查看完整定价 →</a>
+        </div>
+
+        <div style="background:#fff;border-radius:12px;padding:1.5rem;border:1px solid #e8ecf0;text-align:center;margin-bottom:2rem;">
+            <p style="color:#5a5a7a;font-size:0.95rem;">
+                💡 所有端点均支持 <strong>PowerShell</strong>、<strong>curl</strong> 和 <strong>Python</strong> 调用。<br />
+                使用 <code style="background:#f0f0f0;padding:0.1rem 0.4rem;border-radius:3px;">X-API-Key</code> 或 <code style="background:#f0f0f0;padding:0.1rem 0.4rem;border-radius:3px;">Authorization: Bearer</code> 认证。
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a> &nbsp;·&nbsp; <a href="swagger.html" style="color:#c9a84c;font-weight:600;">📖 查看完整 API 文档</a> &nbsp;·&nbsp; <a href="swagger.html" style="color:#c9a84c;font-weight:600;">📖 查看完整 API 文档</a></p>
+            <p style="font-size:0.8rem;margin-top:0.3rem;color:#a0a0b0;">
+                API 工具箱 – 体验进阶 · 适用于所有层级
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleGroup(header) {
+            const body = header.nextElementSibling;
+            const arrow = header.querySelector('.arrow');
+            if (body.classList.contains('open')) {
+                body.classList.remove('open');
+                arrow.classList.remove('open');
+            } else {
+                body.classList.add('open');
+                arrow.classList.add('open');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstGroup = document.querySelector('.endpoint-group .group-body');
+            if (firstGroup) firstGroup.classList.add('open');
+        });
+    </script>
+</body>
+</html>
