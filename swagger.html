@@ -1,23 +1,612 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>API 文档 · CrownStar AI · Swagger UI</title>
-<style>/* Same styles */</style>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrownStar API 文档 · 源代码用户专属</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;
+            background: #f5f7fb;
+            color: #1a1a2e;
+            line-height: 1.7;
+        }
+        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+        .header {
+            background: #0a2e5c;
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #c9a84c;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo { font-size:1.6rem; font-weight:700; color:#fff; text-decoration:none; }
+        .logo span { color:#c9a84c; }
+        .nav a {
+            color: rgba(255,255,255,0.8);
+            margin-left: 1.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .nav a:hover { color:#c9a84c; }
+        .nav .active { color:#c9a84c; font-weight:600; }
+
+        .hero {
+            text-align: center;
+            padding: 2.5rem 0 1.5rem;
+            background: linear-gradient(170deg, #eef2f8 0%, #ffffff 80%, #f8faff 100%);
+            border-bottom: 1px solid #e8ecf0;
+        }
+        .hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+        .hero h1 .gold { color:#c9a84c; }
+        .hero .subtitle {
+            font-size:1.1rem;
+            color:#5a5a7a;
+            max-width:700px;
+            margin:0.3rem auto 1rem;
+        }
+        .hero .badge {
+            display:inline-block;
+            background:#c9a84c;
+            color:#0a2e5c;
+            padding:0.2rem 1.2rem;
+            border-radius:2rem;
+            font-weight:600;
+            font-size:0.8rem;
+        }
+
+        .section { padding:2rem 0; border-bottom:1px solid #e8ecf0; }
+        .section-title {
+            font-size:1.8rem;
+            font-weight:700;
+            color:#0a2e5c;
+            margin-bottom:1rem;
+        }
+        .section-title .gold { color:#c9a84c; }
+        .section-sub {
+            color:#5a5a7a;
+            margin-bottom:1.5rem;
+            font-size:1rem;
+        }
+
+        .endpoint-group {
+            background:#fff;
+            border-radius:12px;
+            border:1px solid #e8ecf0;
+            margin-bottom:1rem;
+            overflow:hidden;
+            box-shadow:0 2px 8px rgba(0,0,0,0.03);
+        }
+        .endpoint-group .group-header {
+            background:#f8faff;
+            padding:0.8rem 1.5rem;
+            cursor:pointer;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            border-bottom:1px solid #e8ecf0;
+            font-weight:600;
+            color:#0a2e5c;
+            transition:0.2s;
+        }
+        .endpoint-group .group-header:hover { background:#f0f4fa; }
+        .endpoint-group .group-header .arrow { transition:0.3s; }
+        .endpoint-group .group-header .arrow.open { transform:rotate(180deg); }
+        .endpoint-group .group-body { padding:0.5rem 1.5rem 1.5rem; display:none; }
+        .endpoint-group .group-body.open { display:block; }
+
+        .endpoint {
+            border-left:3px solid #c9a84c;
+            padding:0.8rem 1rem;
+            margin:0.8rem 0;
+            background:#fafcff;
+            border-radius:4px;
+        }
+        .endpoint .method {
+            display:inline-block;
+            font-weight:700;
+            font-size:0.7rem;
+            padding:0.1rem 0.6rem;
+            border-radius:3px;
+            margin-right:0.5rem;
+            color:#fff;
+        }
+        .method.get { background:#22c55e; }
+        .method.post { background:#3b82f6; }
+        .method.put { background:#f59e0b; }
+        .method.delete { background:#ef4444; }
+        .endpoint .path {
+            font-family:'JetBrains Mono','Consolas',monospace;
+            font-weight:600;
+            color:#0a2e5c;
+            font-size:0.95rem;
+        }
+        .endpoint .desc {
+            color:#5a5a7a;
+            font-size:0.9rem;
+            margin:0.3rem 0;
+        }
+        .endpoint .code-block {
+            background:#1a1a2e;
+            color:#e0e0e0;
+            padding:0.6rem 1rem;
+            border-radius:6px;
+            font-family:'JetBrains Mono','Consolas',monospace;
+            font-size:0.8rem;
+            overflow-x:auto;
+            margin:0.3rem 0;
+            white-space:pre-wrap;
+        }
+        .endpoint .param-table {
+            width:100%;
+            border-collapse:collapse;
+            font-size:0.85rem;
+            margin:0.5rem 0;
+        }
+        .endpoint .param-table th {
+            background:#0a2e5c;
+            color:#fff;
+            padding:0.3rem 0.6rem;
+            text-align:left;
+        }
+        .endpoint .param-table td {
+            padding:0.3rem 0.6rem;
+            border-bottom:1px solid #e8ecf0;
+            color:#4a4a6a;
+        }
+
+        .footer {
+            background:#f2f4f6;
+            padding:2rem 0;
+            margin-top:2rem;
+            text-align:center;
+            color:#7a7a9a;
+            font-size:0.9rem;
+        }
+        .footer a { color:#0a2e5c; text-decoration:none; }
+
+        @media (max-width:768px){
+            .hero h1{font-size:2rem;}
+            .nav a{margin-left:0.8rem;font-size:0.8rem;}
+            .endpoint{ padding:0.5rem; }
+        }
+    </style>
 </head>
 <body>
-<header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav">
-<a href="index.html">首页</a><a href="product.html">产品</a><a href="pricing.html">定价</a><a href="case-studies.html">案例</a><a href="security.html">安全</a><a href="download-free.html">免费下载</a><a href="downloads.html">下载中心</a><a href="swagger.html" class="active" target="_blank">API</a><a href="articles.html">文章库</a><a href="ai-groups.html" class="cta" style="background:#c9a84c; color:#0a2e5c !important;">AI-Groups</a><a href="contact.html" class="cta">联系我们</a></nav></div></header>
-<section class="page-hero"><div class="container"><h1>📖 <span class="gold">CrownStar</span> API 文档</h1><p class="subtitle">Swagger UI – 交互式 API 文档</p></div></section>
-<div class="container" style="max-width:700px; margin:0 auto; padding:2rem; text-align:center;">
-<div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border-radius:1.5rem; padding:2rem; border:1px solid rgba(255,255,255,0.7);">
-<p style="color:#5a5a7a; font-size:1rem;">您的 CrownStar 服务器运行后，Swagger 文档将在以下地址可用：</p>
-<code style="display:block; background:rgba(10,46,92,0.04); padding:0.8rem; border-radius:0.8rem; margin:1rem 0; font-family:monospace; color:#0a2e5c;">https://your-server.com/docs</code>
-<p style="font-size:0.85rem; color:#7a7a9a;">或访问本地开发服务器：<code style="background:rgba(0,0,0,0.04); padding:0.2rem 0.6rem; border-radius:4px;">http://localhost:8000/docs</code></p>
-<div style="margin-top:1.5rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-<a href="https://github.com/crownstar-ai/crown-star-ai-bot/wiki" target="_blank" style="padding:0.6rem 2rem; border-radius:3rem; background:#0a2e5c; color:#fff; text-decoration:none; font-weight:600;">📚 GitHub Wiki</a>
-<a href="https://github.com/crownstar-ai/crown-star-ai-bot/blob/main/README.md" target="_blank" style="padding:0.6rem 2rem; border-radius:3rem; background:#c9a84c; color:#0a2e5c; text-decoration:none; font-weight:600;">📄 README</a>
-</div>
-</div>
-</div>
-<footer class="footer"><div class="container"><p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div></footer>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Crown<span>Star</span></a>
+            <nav class="nav">
+                <a href="index.html">首页</a>
+                <a href="product.html">产品</a>
+                <a href="pricing.html">定价</a>
+                <a href="case-studies.html">案例</a>
+                <a href="security.html">安全</a>
+                <a href="articles.html">文章库</a>
+                <a href="swagger.html" class="active">API</a>
+                <a href="contact.html">联系我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>📖 CrownStar <span class="gold">API 文档</span></h1>
+            <p class="subtitle">适用于源代码持有者（组织版及以上）的完整 RESTful API 参考</p>
+            <span class="badge">🔐 源代码用户专属</span>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">🚀 快速开始</h2>
+            <p class="section-sub">
+                CrownStar API 为组织版、企业版用户提供完整的程序化控制能力。
+                所有 API 均基于 <strong>HTTP + JSON</strong>，支持标准的 <strong>API Key</strong> 认证。
+            </p>
+            <div style="background:#fff;border-radius:12px;padding:1.5rem;border:1px solid #e8ecf0;">
+                <div style="font-weight:600;color:#0a2e5c;font-size:1rem;">🔑 认证方式</div>
+                <p style="color:#5a5a7a;font-size:0.9rem;margin:0.3rem 0;">
+                    在请求头中携带 <code style="background:#f0f0f0;padding:0.1rem 0.4rem;border-radius:3px;">X-API-Key</code> 或使用 <code style="background:#f0f0f0;padding:0.1rem 0.4rem;border-radius:3px;">Authorization: Bearer &lt;your_key&gt;</code>。
+                </p>
+                <div style="font-weight:600;color:#0a2e5c;font-size:1rem;margin-top:0.8rem;">🌐 基础 URL</div>
+                <p style="color:#5a5a7a;font-size:0.9rem;margin:0.3rem 0;">
+                    请将 <strong><code>https://your-crownstar-server.com</code></strong> 替换为您实际部署的 CrownStar 服务器地址。
+                </p>
+                <div style="background:#1a1a2e;color:#e0e0e0;padding:0.6rem 1rem;border-radius:6px;font-family:monospace;font-size:0.8rem;margin:0.5rem 0;">
+                    # 示例请求<br>
+                    curl -X GET https://your-crownstar-server.com/api/v1/health \<br>
+                    &nbsp;&nbsp;-H "X-API-Key: your_api_key_here"
+                </div>
+            </div>
+            <div style="margin-top:1rem;padding:0.8rem 1.2rem;background:#fef3c7;border-radius:8px;border-left:4px solid #f59e0b;">
+                <strong style="color:#92400e;">📌 提示：</strong>
+                <span style="color:#78350f;font-size:0.9rem;">
+                    此 API 仅适用于 <strong>组织版（小型/中型/大型）</strong> 和 <strong>企业旗舰版</strong> 用户。
+                    免费版、基础版、进阶版、专业版不提供完整 API 访问。
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- API ENDPOINT GROUPS                                           -->
+    <!-- ============================================================ -->
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">📋 API 端点参考</h2>
+            <p class="section-sub">点击展开每个模块的详细端点说明。</p>
+
+            <!-- ===== GROUP 1: Chat & Conversation ===== -->
+            <div class="endpoint-group">
+                <div class="group-header" onclick="toggleGroup(this)">
+                    💬 聊天与对话
+                    <span class="arrow open">▼</span>
+                </div>
+                <div class="group-body open">
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/chat</span>
+                        <div class="desc">发送消息并获取 AI 回复（支持流式与非流式）</div>
+                        <div style="font-weight:600;color:#0a2e5c;font-size:0.85rem;margin:0.3rem 0;">请求体 (JSON):</div>
+                        <div class="code-block">{
+  "message": "你好，请解释一下什么是主权 AI",
+  "temperature": 0.85,
+  "max_tokens": 512,
+  "top_p": 0.95,
+  "stream": false
+}</div>
+                        <div style="font-weight:600;color:#0a2e5c;font-size:0.85rem;margin:0.3rem 0;">响应示例:</div>
+                        <div class="code-block">{
+  "id": "chat_123abc",
+  "content": "主权 AI 是指数据主权、算法主权和计算主权完全由用户掌控的 AI 系统...",
+  "tokens_used": 234,
+  "model": "deepseek-v4"
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/conversations</span>
+                        <div class="desc">获取所有对话列表</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/conversations/{conv_id}</span>
+                        <div class="desc">获取指定对话的完整消息历史</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/conversations</span>
+                        <div class="desc">创建新对话</div>
+                        <div class="code-block">{
+  "title": "我的新对话"
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method delete">DELETE</span>
+                        <span class="path">/api/v1/conversations/{conv_id}</span>
+                        <div class="desc">删除对话</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== GROUP 2: Models & AI-Groups ===== -->
+            <div class="endpoint-group">
+                <div class="group-header" onclick="toggleGroup(this)">
+                    🧠 模型与 AI‑Groups
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="group-body">
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/models</span>
+                        <div class="desc">获取所有可用模型列表（包括本地、Hugging Face、DeepSeek 等）</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/ai-groups/run</span>
+                        <div class="desc">使用 AI‑Groups 多模型融合引擎生成回答</div>
+                        <div class="code-block">{
+  "prompt": "解释一下量子计算的基本原理",
+  "models": ["deepseek-v4", "qwen-72b", "llama-3-70b"],
+  "weights": [40, 30, 30],
+  "math_modules": ["jacobian", "hessian", "ultra"]
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/ai-groups/config</span>
+                        <div class="desc">更新 AI‑Groups 配置（模型组合、权重、数学模块）</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== GROUP 3: Math Modules ===== -->
+            <div class="endpoint-group">
+                <div class="group-header" onclick="toggleGroup(this)">
+                    🧮 数学模块
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="group-body">
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/math/modules</span>
+                        <div class="desc">获取所有数学模块列表及其状态</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/math/toggle</span>
+                        <div class="desc">启用/禁用数学模块</div>
+                        <div class="code-block">{
+  "module": "hessian",
+  "enabled": true
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/math/params</span>
+                        <div class="desc">设置数学模块参数（如 Jacobian 阶数、Hessian 迭代次数等）</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== GROUP 4: HPC-Parallel ===== -->
+            <div class="endpoint-group">
+                <div class="group-header" onclick="toggleGroup(this)">
+                    ⚡ HPC‑Parallel 并行计算
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="group-body">
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/hpc/start</span>
+                        <div class="desc">启动 HPC 引擎（并行会话、Redis 缓存配置）</div>
+                        <div class="code-block">{
+  "parallel_sessions": 20,
+  "queue_size": 5000,
+  "cache_backend": "redis",
+  "redis_url": "redis://localhost:6379/0"
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/hpc/batch</span>
+                        <div class="desc">提交批量任务（.env 格式）</div>
+                        <div class="code-block">{
+  "env_content": "SESSION_NAME=my_batch\nQUESTION_1=什么是 AI？\nQUESTION_2=解释数据主权",
+  "max_windows": 4
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/hpc/status</span>
+                        <div class="desc">获取 HPC 引擎状态（活跃会话、队列、缓存连接等）</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/hpc/stop</span>
+                        <div class="desc">停止 HPC 引擎</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== GROUP 5: RAG Engine ===== -->
+            <div class="endpoint-group">
+                <div class="group-header" onclick="toggleGroup(this)">
+                    📎 RAG 检索增强生成
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="group-body">
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/rag/upload</span>
+                        <div class="desc">上传文档（PDF, DOCX, TXT, CSV, JSON）到 RAG 索引</div>
+                        <div style="font-size:0.8rem;color:#5a5a7a;">multipart/form-data 格式，字段名: file</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/rag/search</span>
+                        <div class="desc">语义检索文档库</div>
+                        <div class="code-block">{
+  "query": "如何部署 CrownStar 到内网？",
+  "top_k": 5
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/rag/documents</span>
+                        <div class="desc">获取已索引的文档列表</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method delete">DELETE</span>
+                        <span class="path">/api/v1/rag/clear</span>
+                        <div class="desc">清空所有 RAG 数据</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== GROUP 6: Collaboration ===== -->
+            <div class="endpoint-group">
+                <div class="group-header" onclick="toggleGroup(this)">
+                    🤝 实时协作
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="group-body">
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/collab/session</span>
+                        <div class="desc">创建协作会话</div>
+                        <div class="code-block">{
+  "title": "项目讨论",
+  "creator_id": "user123"
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/collab/session/{session_id}/join</span>
+                        <div class="desc">加入协作会话</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/collab/session/{session_id}/message</span>
+                        <div class="desc">发送协作消息</div>
+                        <div class="code-block">{
+  "user_id": "user123",
+  "content": "我认为我们应该采用这个方案"
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/collab/session/{session_id}</span>
+                        <div class="desc">获取会话状态（参与者、消息、打字状态）</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/collab/session/{session_id}/leave</span>
+                        <div class="desc">离开协作会话</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== GROUP 7: Workflow Automation ===== -->
+            <div class="endpoint-group">
+                <div class="group-header" onclick="toggleGroup(this)">
+                    ⏰ 工作流自动化
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="group-body">
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/workflow</span>
+                        <div class="desc">创建工作流（定时任务或事件触发）</div>
+                        <div class="code-block">{
+  "name": "每日报告",
+  "type": "scheduled",
+  "schedule": "0 8 * * *",
+  "query": "生成本日数据摘要",
+  "action": "email",
+  "email_recipient": "admin@company.com"
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/workflow</span>
+                        <div class="desc">获取所有工作流</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/v1/workflow/{workflow_id}/run</span>
+                        <div class="desc">立即执行工作流</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method delete">DELETE</span>
+                        <span class="path">/api/v1/workflow/{workflow_id}</span>
+                        <div class="desc">删除工作流</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== GROUP 8: System & Health ===== -->
+            <div class="endpoint-group">
+                <div class="group-header" onclick="toggleGroup(this)">
+                    🩺 系统与健康检查
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="group-body">
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/health</span>
+                        <div class="desc">检查服务健康状态（返回 200 表示正常）</div>
+                        <div class="code-block">{
+  "status": "ok",
+  "version": "v7.12",
+  "tier": "enterprise"
+}</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/tier/info</span>
+                        <div class="desc">获取当前许可证层级信息</div>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/v1/stats</span>
+                        <div class="desc">获取系统统计（对话数、消息数、令牌使用等）</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- REFERENCE & FOOTER                                            -->
+    <!-- ============================================================ -->
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">📚 Swagger 参考</h2>
+            <p class="section-sub">
+                如需完整的 OpenAPI 规范（JSON/YAML），请联系 CrownStar 技术支持。
+                我们提供标准的 <strong>Swagger UI</strong> 界面（部署后访问 <code>/docs</code>），
+                以及 <strong>Postman 集合</strong> 供测试使用。
+            </p>
+            <div style="background:#fff;border-radius:12px;padding:1.5rem;border:1px solid #e8ecf0;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;">
+                <div style="text-align:center;flex:1;min-width:150px;">
+                    <div style="font-size:2rem;">📖</div>
+                    <div style="font-weight:600;color:#0a2e5c;">OpenAPI 规范</div>
+                    <div style="font-size:0.8rem;color:#5a5a7a;">JSON / YAML 格式</div>
+                </div>
+                <div style="text-align:center;flex:1;min-width:150px;">
+                    <div style="font-size:2rem;">🧪</div>
+                    <div style="font-weight:600;color:#0a2e5c;">Postman 集合</div>
+                    <div style="font-size:0.8rem;color:#5a5a7a;">一键导入测试</div>
+                </div>
+                <div style="text-align:center;flex:1;min-width:150px;">
+                    <div style="font-size:2rem;">🔐</div>
+                    <div style="font-weight:600;color:#0a2e5c;">API Key 管理</div>
+                    <div style="font-size:0.8rem;color:#5a5a7a;">在管理后台生成</div>
+                </div>
+            </div>
+            <div style="margin-top:1.5rem;padding:1rem;background:#e8f0fe;border-radius:8px;text-align:center;">
+                <p style="color:#0a2e5c;font-weight:500;">
+                    💡 所有 API 端点均支持 <strong>JSON</strong> 和 <strong>Streaming (SSE)</strong> 两种响应模式。
+                    详细错误码请参考 <a href="mailto:st3vens.ben@yandex.com" style="color:#c9a84c;font-weight:600;">技术支持</a>。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
+            <p style="font-size:0.8rem;margin-top:0.3rem;color:#a0a0b0;">
+                API 版本 v1 · 适用于组织版及以上用户
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleGroup(header) {
+            const body = header.nextElementSibling;
+            const arrow = header.querySelector('.arrow');
+            if (body.classList.contains('open')) {
+                body.classList.remove('open');
+                arrow.classList.remove('open');
+            } else {
+                body.classList.add('open');
+                arrow.classList.add('open');
+            }
+        }
+    </script>
 </body>
 </html>
