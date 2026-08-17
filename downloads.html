@@ -1,190 +1,91 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>下载中心 · CrownStar AI · 所有层级</title>
-    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下载中心 – CrownStar</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family: 'PingFang SC','Microsoft YaHei',sans-serif; background:#f5f7fb; color:#1a1a2e; }
-        .container { max-width:1280px; margin:0 auto; padding:2rem; }
+        .container { max-width:1200px; margin:0 auto; padding:2rem; }
         h1 { font-size:2.5rem; color:#0a2e5c; margin-bottom:0.5rem; }
         h1 span { color:#c9a84c; }
         .sub { color:#5a5a7a; font-size:1.1rem; margin-bottom:2rem; }
-        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
-        .card { background:white; border-radius:16px; padding:1.8rem; text-align:center; border:1px solid #e8ecf0; transition:0.2s; }
-        .card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); border-color:#c9a84c; }
-        .card .tier-icon { font-size:2.8rem; display:block; margin-bottom:0.3rem; }
-        .card .tier-name { font-weight:700; font-size:1.2rem; color:#0a2e5c; }
-        .card .tier-price { font-size:0.9rem; color:#7a7a9a; margin:0.2rem 0; }
-        .card .badge { display:inline-block; font-size:0.6rem; font-weight:600; text-transform:uppercase; padding:0.1rem 0.8rem; border-radius:12px; margin:0.3rem 0; }
-        .badge-free { background:#e8f5e9; color:#2e7d32; }
-        .badge-paid { background:#fff3e0; color:#e65100; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; }
+        .card { background:white; border-radius:16px; padding:1.5rem; text-align:center; border:1px solid #e8ecf0; transition:0.2s; }
+        .card:hover { transform:translateY(-4px); box-shadow:0 8px 30px rgba(0,0,0,0.06); border-color:#c9a84c; }
+        .card .tier-icon { font-size:2.5rem; display:block; margin-bottom:0.3rem; }
+        .card .tier-name { font-weight:700; font-size:1.1rem; color:#0a2e5c; }
+        .card .tier-price { font-size:0.8rem; color:#7a7a9a; }
         .card .btn { display:inline-block; margin-top:0.6rem; padding:0.4rem 1.5rem; border-radius:30px; font-weight:600; text-decoration:none; transition:0.2s; background:#0a2e5c; color:white; }
         .card .btn:hover { background:#1a4a7a; }
         .card .btn-gold { background:#c9a84c; color:#0a2e5c; }
         .card .btn-gold:hover { background:#dbb95e; }
-        .card .stripe-btn-wrapper { margin-top:0.8rem; width:100%; display:flex; justify-content:center; align-items:center; overflow:hidden; }
         .nav { margin-bottom:2rem; }
         .nav a { color:#4a4a6a; margin-right:1.5rem; text-decoration:none; font-weight:500; }
         .nav a:hover { color:#0a2e5c; }
         .footer { margin-top:3rem; padding-top:1.5rem; border-top:1px solid #e8ecf0; text-align:center; color:#7a7a9a; font-size:0.9rem; }
         .release-badge { display:inline-block; background:#22c55e; color:#fff; padding:0.2rem 1rem; border-radius:2rem; font-size:0.7rem; font-weight:600; margin-bottom:1rem; }
         .price-tag { display:inline-block; background:#c9a84c; color:#0a2e5c; padding:0.1rem 1rem; border-radius:2rem; font-weight:600; font-size:0.7rem; }
-        .back-link { display:inline-block; margin-bottom:1rem; color:#0a2e5c; text-decoration:none; font-weight:500; }
-        .back-link:hover { text-decoration:underline; }
-        .qr-thumb { width:80px; height:80px; border-radius:8px; border:1px solid #e8ecf0; margin-top:0.4rem; cursor:pointer; transition:0.2s; }
-        .qr-thumb:hover { transform:scale(1.05); border-color:#c9a84c; }
-        @media (max-width:768px){ .grid{grid-template-columns:1fr 1fr;} .qr-thumb{width:60px;height:60px;} }
-        @media (max-width:480px){ .grid{grid-template-columns:1fr;} }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link">← 返回首页</a>
         <div class="nav">
             <a href="index.html">首页</a>
             <a href="pricing.html">定价</a>
             <a href="downloads.html">下载中心</a>
         </div>
         <h1>📦 <span>CrownStar</span> 下载中心</h1>
-        <p class="sub">选择您的层级，进入专属下载页面 — <span class="release-badge">v7.12 最新发布</span></p>
-        <div style="margin-bottom:1.5rem; padding:0.8rem; background:#e8f0fe; border-radius:8px; font-size:0.85rem; color:#0a2e5c; text-align:center;">
-            🔗 所有安装包均来自 <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/tag/v7.12" target="_blank" style="color:#0a2e5c; font-weight:600;">GitHub Release v7.12</a>
-            · 付费层级需要购买后解锁下载
+        <p class="sub">选择您的层级，下载对应安装包 — <span class="release-badge">v7.12 最新发布</span></p>
+        <div style="margin-bottom:1.5rem;padding:0.8rem;background:#e8f0fe;border-radius:8px;font-size:0.85rem;color:#0a2e5c;text-align:center;">
+            🔗 所有安装包均来自 <a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/tag/v7.12" target="_blank" style="color:#0a2e5c;font-weight:600;">GitHub Release v7.12</a> · SHA256 校验和可验证
         </div>
-        <div class="grid">
-
-            <!-- 企业旗舰版 -->
-            <div class="card" style="border:2px solid #c9a84c; background:rgba(255,255,255,0.9);">
-                <span class="tier-icon">👑</span>
-                <div class="tier-name">企业旗舰版</div>
-                <div class="tier-price"><span class="price-tag">¥999,999</span></div>
-                <span class="badge badge-paid">🔒 需要购买</span>
-                <div class="stripe-btn-wrapper">
-                    <stripe-buy-button
-                        buy-button-id="buy_btn_1Tt7nyJ1ruuDi5YqMez5yz5A"
-                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                    ></stripe-buy-button>
-                </div>
-                <img src="images/企业旗舰版.png" alt="企业旗舰版 QR" class="qr-thumb" title="扫码支付" />
-                <a href="download-enterprise.html" class="btn btn-gold">查看下载 →</a>
-            </div>
-
-            <!-- 组织版 – 大型企业 -->
-            <div class="card">
-                <span class="tier-icon">🏢</span>
-                <div class="tier-name">组织版 – 大型企业</div>
-                <div class="tier-price"><span class="price-tag">¥476,000</span></div>
-                <span class="badge badge-paid">🔒 需要购买</span>
-                <div class="stripe-btn-wrapper">
-                    <stripe-buy-button
-                        buy-button-id="buy_btn_1Tt7VXJ1ruuDi5YqkUijyCHE"
-                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                    ></stripe-buy-button>
-                </div>
-                <img src="images/组织版–大型企业.png" alt="组织版–大型企业 QR" class="qr-thumb" title="扫码支付" />
-                <a href="download-org_large.html" class="btn">查看下载 →</a>
-            </div>
-
-            <!-- 组织版 – 中型企业 -->
-            <div class="card">
-                <span class="tier-icon">🏢</span>
-                <div class="tier-name">组织版 – 中型企业</div>
-                <div class="tier-price"><span class="price-tag">¥61,775</span></div>
-                <span class="badge badge-paid">🔒 需要购买</span>
-                <div class="stripe-btn-wrapper">
-                    <stripe-buy-button
-                        buy-button-id="buy_btn_1Tt7StJ1ruuDi5YqNibrAQG9"
-                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                    ></stripe-buy-button>
-                </div>
-                <img src="images/组织版–中型企业.png" alt="组织版–中型企业 QR" class="qr-thumb" title="扫码支付" />
-                <a href="download-org_medium.html" class="btn">查看下载 →</a>
-            </div>
-
-            <!-- 组织版 – 小型企业 -->
-            <div class="card">
-                <span class="tier-icon">🏢</span>
-                <div class="tier-name">组织版 – 小型企业</div>
-                <div class="tier-price"><span class="price-tag">¥705</span></div>
-                <span class="badge badge-paid">🔒 需要购买</span>
-                <div class="stripe-btn-wrapper">
-                    <stripe-buy-button
-                        buy-button-id="buy_btn_1Tt7PqJ1ruuDi5YqoL9o4AJz"
-                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                    ></stripe-buy-button>
-                </div>
-                <img src="images/组织版–小型企业.png" alt="组织版–小型企业 QR" class="qr-thumb" title="扫码支付" />
-                <a href="download-org_small.html" class="btn">查看下载 →</a>
-            </div>
-
-            <!-- 专业版 -->
-            <div class="card" style="border:2px solid #c9a84c; background:rgba(255,255,255,0.9);">
-                <span class="tier-icon">📗</span>
-                <div class="tier-name">专业版</div>
-                <div class="tier-price"><span class="price-tag">¥389</span> 最受欢迎</div>
-                <span class="badge badge-paid">🔒 需要购买</span>
-                <div class="stripe-btn-wrapper">
-                    <stripe-buy-button
-                        buy-button-id="buy_btn_1Tt7KWJ1ruuDi5YqpRUOlsMU"
-                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                    ></stripe-buy-button>
-                </div>
-                <img src="images/专业版.png" alt="专业版 QR" class="qr-thumb" title="扫码支付" />
-                <a href="download-professional.html" class="btn btn-gold">查看下载 →</a>
-            </div>
-
-            <!-- 进阶版 -->
-            <div class="card">
-                <span class="tier-icon">📙</span>
-                <div class="tier-name">进阶版</div>
-                <div class="tier-price"><span class="price-tag">¥248</span></div>
-                <span class="badge badge-paid">🔒 需要购买</span>
-                <div class="stripe-btn-wrapper">
-                    <stripe-buy-button
-                        buy-button-id="buy_btn_1Tt7GIJ1ruuDi5YqArBtgvxH"
-                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                    ></stripe-buy-button>
-                </div>
-                <img src="images/进阶版.png" alt="进阶版 QR" class="qr-thumb" title="扫码支付" />
-                <a href="download-advanced.html" class="btn">查看下载 →</a>
-            </div>
-
-            <!-- 基础版 -->
-            <div class="card">
-                <span class="tier-icon">📘</span>
-                <div class="tier-name">基础版</div>
-                <div class="tier-price"><span class="price-tag">¥39</span></div>
-                <span class="badge badge-paid">🔒 需要购买</span>
-                <div class="stripe-btn-wrapper">
-                    <stripe-buy-button
-                        buy-button-id="buy_btn_1Tv0GpJ1ruuDi5YqZiWJR6mF"
-                        publishable-key="pk_live_51Tfj4kJ1ruuDi5YqOIzlE161ry0CZm8psePd0dMUN3z2BQ0RsKJVKq0s0TMVSowXVTaFE6kCvwpZ4n21VDi2FLsR00MlVGLppG"
-                    ></stripe-buy-button>
-                </div>
-                <img src="images/基础版.png" alt="基础版 QR" class="qr-thumb" title="扫码支付" />
-                <a href="download-basic.html" class="btn">查看下载 →</a>
-            </div>
-
-            <!-- 免费版 -->
-            <div class="card">
+        <div class="grid">            <div class="card">
                 <span class="tier-icon">🆓</span>
                 <div class="tier-name">免费版</div>
                 <div class="tier-price">¥0 永久免费</div>
-                <span class="badge badge-free">🆓 立即下载</span>
-                <a href="download-free.html" class="btn" style="background:#4a4a6a;">查看下载 →</a>
-            </div>
-
-        </div>
-        <div style="margin-top:2rem; padding:1rem; background:#f8f9fa; border-radius:12px; text-align:center; color:#7a7a9a; font-size:0.9rem;">
-            💡 购买后您将获得该层级所有安装包和未来版本的永久访问权限。<br>
-            已购买的用户会自动解锁下载按钮。
+                <a href="download-free.html" class="btn">下载</a>
+            </div>            <div class="card">
+                <span class="tier-icon">📘</span>
+                <div class="tier-name">基础版</div>
+                <div class="tier-price"><span class='price-tag'>¥39</span></div>
+                <a href="download-basic.html" class="btn">下载</a>
+            </div>            <div class="card" style="border:2px solid #c9a84c;">
+                <span class="tier-icon">📙</span>
+                <div class="tier-name">进阶版</div>
+                <div class="tier-price"><span class='price-tag'>¥248</span></div>
+                <a href="download-advanced.html" class="btn btn-gold">下载</a>
+            </div>            <div class="card">
+                <span class="tier-icon">📗</span>
+                <div class="tier-name">专业版</div>
+                <div class="tier-price"><span class='price-tag'>¥389</span></div>
+                <a href="download-professional.html" class="btn">下载</a>
+            </div>            <div class="card">
+                <span class="tier-icon">🏢</span>
+                <div class="tier-name">组织版 – 小型</div>
+                <div class="tier-price"><span class='price-tag'>¥705</span></div>
+                <a href="download-org_small.html" class="btn">下载</a>
+            </div>            <div class="card">
+                <span class="tier-icon">🏢</span>
+                <div class="tier-name">组织版 – 中型</div>
+                <div class="tier-price"><span class='price-tag'>¥61,775</span></div>
+                <a href="download-org_medium.html" class="btn">下载</a>
+            </div>            <div class="card">
+                <span class="tier-icon">🏢</span>
+                <div class="tier-name">组织版 – 大型</div>
+                <div class="tier-price"><span class='price-tag'>¥476,000</span></div>
+                <a href="download-org_large.html" class="btn">下载</a>
+            </div>            <div class="card" style="border:2px solid #c9a84c;">
+                <span class="tier-icon">👑</span>
+                <div class="tier-name">企业旗舰版</div>
+                <div class="tier-price"><span class='price-tag'>¥999,999</span></div>
+                <a href="download-enterprise.html" class="btn btn-gold">下载</a>
+            </div>        </div>
+        <div style="margin-top:2rem;padding:1rem;background:#f8f9fa;border-radius:12px;text-align:center;color:#7a7a9a;font-size:0.9rem;">
+            💡 所有付费版本包含 <strong>永久免费升级</strong> 和 <strong>源代码授权</strong>（组织版及以上）。
         </div>
         <div class="footer">© 2026 CrownStar. All rights reserved. <a href="https://github.com/crownstar-ai/crown-star-ai-bot" target="_blank">GitHub</a></div>
     </div>
 </body>
 </html>
-
-

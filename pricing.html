@@ -1,1225 +1,138 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>定价 · CrownStar AI · 一次买断，终身升级 · 8个层级</title>
-    <meta name="description" content="CrownStar AI 定价方案 — 免费版、基础版、进阶版、专业版、组织版、企业旗舰版。一次买断，终身免费升级。100%私有化部署，信创合规。" />
-    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-    <style>
-        /* ============================================================
-           RESET & ROOT VARIABLES (same as product.html)
-           ============================================================ */
-        * { margin:0; padding:0; box-sizing:border-box; }
-        :root {
-            --primary: #0a2e5c;
-            --primary-light: #1a4a7a;
-            --primary-dark: #071e3a;
-            --gold: #c9a84c;
-            --gold-light: #e8c86a;
-            --gold-hover: #dbb95e;
-            --gold-glow: rgba(201,168,76,0.15);
-            --text: #1a1a2e;
-            --text-light: #4a4a6a;
-            --text-muted: #7a7a9a;
-            --border: #e8ecf0;
-            --bg: #f5f7fb;
-            --bg-card: rgba(255,255,255,0.85);
-            --shadow: 0 4px 20px rgba(0,0,0,0.04);
-            --shadow-hover: 0 12px 40px rgba(0,0,0,0.08);
-            --radius: 16px;
-            --font-sans: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,-apple-system,sans-serif;
-            --font-mono: 'JetBrains Mono','Consolas',monospace;
-            --navy-bg-gradient: linear-gradient(135deg,#0a2e5c 0%,#143e6e 50%,#1a4a7a 100%);
-        }
-        html { scroll-behavior:smooth; }
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
-
-        /* ===== ANIMATED BACKGROUNDS ===== */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            pointer-events: none;
-            background: linear-gradient(135deg, #eef2f8 0%, #ffffff 60%, #f5f8ff 100%);
-            transition: background 2s ease;
-        }
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.25;
-        }
-
-        /* ===== TYPOGRAPHY ===== */
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: -0.01em;
-        }
-        h1 { font-size: 4.4rem; line-height: 1.1; }
-        h2 { font-size: 2.6rem; line-height: 1.2; margin-bottom: 0.5rem; }
-        h3 { font-size: 1.5rem; line-height: 1.3; }
-        h4 { font-size: 1.1rem; }
-        .gold { color: var(--gold); }
-        .text-light { color: var(--text-light); }
-        .text-muted { color: var(--text-muted); }
-        .text-center { text-align: center; }
-
-        /* ===== HEADER & QUICK ACCESS (same as product.html) ===== */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255,255,255,0.72);
-            backdrop-filter: blur(24px) saturate(1.6);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            padding: 0.6rem 0;
-            transition: box-shadow 0.3s;
-        }
-        .header.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            text-decoration: none;
-            transition: transform 0.2s ease;
-            height: 48px;
-        }
-        .logo:hover { transform: scale(1.02); }
-        .logo svg {
-            height: 100%;
-            width: auto;
-            filter: drop-shadow(0 2px 8px rgba(201,168,76,0.1));
-            transition: filter 0.3s;
-        }
-        .logo:hover svg {
-            filter: drop-shadow(0 4px 16px rgba(201,168,76,0.2));
-        }
-        .logo .brand {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: -0.02em;
-        }
-        .logo .brand .highlight { color: var(--gold); }
-        .logo .ai-label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--gold);
-            background: rgba(201,168,76,0.12);
-            padding: 0.1rem 0.6rem;
-            border-radius: 2rem;
-            letter-spacing: 0.04em;
-            border: 1px solid rgba(201,168,76,0.2);
-            transition: all 0.2s;
-        }
-        .logo:hover .ai-label {
-            background: rgba(201,168,76,0.2);
-            border-color: var(--gold);
-        }
-
-        .nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem 1.2rem;
-            align-items: center;
-        }
-        .nav a {
-            color: var(--text-light);
-            font-weight: 500;
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 0.2rem 0;
-            position: relative;
-            transition: color 0.2s;
-        }
-        .nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--gold), var(--primary));
-            transition: width 0.4s;
-        }
-        .nav a:hover { color: var(--primary); }
-        .nav a:hover::after { width: 100%; }
-        .nav .cta {
-            background: var(--primary);
-            color: #fff !important;
-            padding: 0.4rem 1.6rem;
-            border-radius: 3rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .nav .cta::after { display: none; }
-        .nav .cta:hover {
-            background: var(--primary-light);
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(10,46,92,0.2);
-        }
-        .nav .active {
-            color: var(--gold);
-            font-weight: 600;
-        }
-        .nav .active::after { width: 100%; }
-
-        .quick-access-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        .quick-access-btn {
-            background: rgba(10,46,92,0.06);
-            border: 1px solid rgba(10,46,92,0.1);
-            border-radius: 3rem;
-            padding: 0.4rem 1.2rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--primary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: all 0.3s;
-            font-family: var(--font-sans);
-        }
-        .quick-access-btn:hover {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-            transform: scale(1.03);
-        }
-        .quick-access-btn .icon { font-size: 1rem; }
-        .quick-access-dropdown {
-            position: absolute;
-            top: calc(100% + 10px);
-            right: 0;
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 0.8rem 0;
-            min-width: 220px;
-            box-shadow: var(--shadow-hover);
-            display: none;
-            z-index: 1001;
-        }
-        .quick-access-dropdown.show {
-            display: block;
-            animation: fadeSlide 0.25s ease;
-        }
-        .quick-access-dropdown a {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.5rem 1.5rem;
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .quick-access-dropdown a:hover {
-            background: rgba(10,46,92,0.04);
-            color: var(--primary);
-            padding-left: 2rem;
-        }
-        .quick-access-dropdown a .emoji { font-size: 1.1rem; width: 1.6rem; text-align: center; }
-        .quick-access-dropdown .divider { height: 1px; background: var(--border); margin: 0.3rem 1rem; }
-        @keyframes fadeSlide {
-            0% { opacity: 0; transform: translateY(12px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== SECTION TITLES ===== */
-        .section-label {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--gold);
-            background: rgba(201,168,76,0.1);
-            padding: 0.2rem 1rem;
-            border-radius: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        .section-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-        .section-sub {
-            font-size: 1.05rem;
-            color: var(--text-light);
-            max-width: 700px;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        .section {
-            padding: 4rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-        }
-        .section:last-of-type { border-bottom: none; }
-        .scroll-fade {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
-        }
-        .scroll-fade.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            padding: 3rem 0 2rem;
-        }
-        .hero-panel {
-            background: var(--navy-bg-gradient);
-            border-radius: var(--radius);
-            padding: 3.5rem 3rem 3rem;
-            box-shadow: 0 8px 40px rgba(10,46,92,0.15);
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .hero-panel .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 1.2rem;
-        }
-        .hero-panel .badge .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #4ECFA0;
-            display: inline-block;
-        }
-        .hero-panel .badge .release-tag {
-            background: var(--gold);
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 0.7rem;
-            padding: 0.1rem 0.6rem;
-            border-radius: 2rem;
-            margin-left: 0.4rem;
-        }
-        .hero-panel h1 {
-            color: #fff;
-            font-size: 3.6rem;
-            line-height: 1.1;
-            margin-bottom: 0.8rem;
-        }
-        .hero-panel h1 em {
-            font-style: italic;
-            font-weight: 400;
-            color: rgba(255,255,255,0.8);
-        }
-        .hero-panel .sub {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.6);
-            max-width: 600px;
-            line-height: 1.8;
-            margin-bottom: 1.8rem;
-        }
-        .hero-panel .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-        }
-        .btn-hero-primary {
-            background: #fff;
-            color: var(--primary);
-            padding: 0.8rem 2.4rem;
-            border-radius: 3rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-block;
-            font-size: 1rem;
-        }
-        .btn-hero-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
-        .btn-hero-ghost {
-            background: transparent;
-            color: rgba(255,255,255,0.8);
-            padding: 0.8rem 2.4rem;
-            border-radius: 3rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s;
-            display: inline-block;
-            font-size: 1rem;
-        }
-        .btn-hero-ghost:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.4);
-        }
-
-        /* ===== PRICING GRID ===== */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        .pricing-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 2rem 1.8rem;
-            text-align: center;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-            box-shadow: var(--shadow);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-        .pricing-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--gold);
-        }
-        .pricing-card.popular {
-            border: 2px solid var(--gold);
-            background: rgba(255,255,255,0.9);
-        }
-        .pricing-card .popular-badge {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            background: var(--gold);
-            color: var(--primary);
-            font-size: 0.6rem;
-            font-weight: 700;
-            padding: 0.2rem 1rem;
-            border-radius: 2rem;
-            text-transform: uppercase;
-        }
-        .pricing-card .tier-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-muted);
-        }
-        .pricing-card .tier-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        .pricing-card .tier-audience {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-bottom: 0.3rem;
-        }
-        .pricing-card .price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--gold);
-            margin: 0.2rem 0;
-        }
-        .pricing-card .price .currency {
-            font-size: 1.6rem;
-            font-weight: 600;
-        }
-        .pricing-card .value-prop {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            margin: 0.5rem 0;
-            flex: 1;
-        }
-        .pricing-card ul {
-            text-align: left;
-            padding-left: 0.5rem;
-            margin: 0.8rem 0 1.2rem;
-            list-style: none;
-        }
-        .pricing-card ul li {
-            padding: 0.3rem 0;
-            font-size: 0.85rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-        }
-        .pricing-card ul li::before {
-            content: "◆";
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 0.5rem;
-            margin-top: 0.3rem;
-        }
-        .pricing-card .btn-buy {
-            display: block;
-            padding: 0.7rem 1.5rem;
-            border-radius: 3rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            background: var(--primary);
-            color: #fff;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-        }
-        .pricing-card .btn-buy:hover {
-            background: var(--primary-light);
-            transform: scale(1.02);
-        }
-        .pricing-card .btn-buy.gold-bg {
-            background: var(--gold);
-            color: var(--primary);
-        }
-        .pricing-card .btn-buy.gold-bg:hover {
-            background: var(--gold-hover);
-        }
-        .pricing-card .btn-buy.outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        .pricing-card .btn-buy.outline:hover {
-            background: var(--primary);
-            color: #fff;
-        }
-        .pricing-card .post-note {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-        }
-
-        /* ===== FEATURE COMPARISON MATRIX ===== */
-        .tier-grid-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(8px);
-            border-radius: var(--radius);
-            overflow: hidden;
-            margin: 2rem 0;
-            font-size: 0.85rem;
-        }
-        .tier-grid-table th {
-            background: var(--primary);
-            color: #fff;
-            padding: 0.8rem 0.4rem;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.75rem;
-        }
-        .tier-grid-table td {
-            padding: 0.5rem 0.4rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-light);
-            font-size: 0.8rem;
-        }
-        .tier-grid-table tr:last-child td { border-bottom: none; }
-        .tier-grid-table .check { color: #22c55e; font-weight:700; font-size:1.1rem; }
-        .tier-grid-table .cross { color: #ef4444; font-size:1.1rem; }
-        .tier-grid-table .feature-label {
-            text-align: left;
-            font-weight: 600;
-            color: var(--primary);
-            padding-left: 0.8rem;
-            font-size: 0.85rem;
-        }
-
-        /* ===== FAQ ===== */
-        .faq-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        .faq-item {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-        .faq-item:hover { border-color: var(--gold); }
-        .faq-item h4 {
-            font-size: 1rem;
-            color: var(--primary);
-            margin-bottom: 0.2rem;
-        }
-        .faq-item p {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: #f2f4f6;
-            padding: 2.5rem 0 2rem;
-            border-top: 1px solid rgba(0,0,0,0.06);
-            margin-top: 2rem;
-        }
-        .footer .container {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
-        }
-        .footer h4 {
-            font-size: 0.95rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        .footer a {
-            color: var(--text-muted);
-            text-decoration: none;
-            display: block;
-            padding: 0.2rem 0;
-            font-size: 0.85rem;
-            transition: color 0.2s;
-        }
-        .footer a:hover { color: var(--primary); }
-        .footer .bottom {
-            grid-column: 1/-1;
-            text-align: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(0,0,0,0.06);
-            margin-top: 1rem;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-        .footer .bottom a { display: inline; color: var(--text-muted); }
-        .footer .bottom a:hover { color: var(--primary); }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            h1 { font-size: 3.2rem; }
-            .hero-panel h1 { font-size: 2.8rem; }
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 2.4rem; }
-            h2 { font-size: 2rem; }
-            .hero-panel { padding: 2rem 1.5rem; }
-            .hero-panel h1 { font-size: 2.2rem; }
-            .footer .container { grid-template-columns: 1fr; gap: 1.5rem; }
-            .section { padding: 2.5rem 0; }
-            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-            .tier-grid-table { font-size: 0.7rem; }
-            .tier-grid-table th, .tier-grid-table td { padding: 0.3rem 0.2rem; }
-            .faq-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 480px) {
-            .hero-panel h1 { font-size: 1.8rem; }
-            .btn-hero-primary, .btn-hero-ghost { padding: 0.6rem 1.5rem; font-size: 0.85rem; width: 100%; text-align: center; }
-        }
-    </style>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>定价 · CrownStar · 一次买断，终身升级</title>
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif; background:#f5f7fb; color:#1a1a2e; line-height:1.8; }
+    .container { max-width:1280px; margin:0 auto; padding:0 2rem; }
+    .header { background:#0a2e5c; padding:0.8rem 0; position:sticky; top:0; z-index:1000; }
+    .header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    .logo { font-size:1.6rem; font-weight:700; color:#fff; text-decoration:none; }
+    .logo span { color:#c9a84c; }
+    .nav a { color:rgba(255,255,255,0.8); margin-left:1.5rem; text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav a:hover { color:#c9a84c; }
+    .nav .cta { background:#c9a84c; color:#0a2e5c !important; padding:0.3rem 1.5rem; border-radius:3rem; font-weight:600; }
+    .nav .cta:hover { background:#dbb95e; }
+    .page-hero { text-align:center; padding:3rem 0 2rem; background:linear-gradient(170deg,#eef2f8 0%,#ffffff 80%,#f8faff 100%); }
+    .page-hero h1 { font-size:2.8rem; font-weight:800; color:#0a2e5c; }
+    .page-hero h1 .gold { color:#c9a84c; }
+    .page-hero .subtitle { font-size:1.2rem; color:#5a5a7a; max-width:700px; margin:0 auto; }
+    .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; margin:2rem 0; }
+    .pricing-card { background:rgba(255,255,255,0.6); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.7); border-radius:1.5rem; padding:2rem; text-align:center; transition:transform 0.3s; }
+    .pricing-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.06); }
+    .pricing-card .tier { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:#7a7a9a; }
+    .pricing-card .name { font-size:1.6rem; font-weight:700; color:#0a2e5c; }
+    .pricing-card .price { font-size:2.8rem; font-weight:800; color:#c9a84c; margin:0.2rem 0; }
+    .pricing-card .price .currency { font-size:1.4rem; }
+    .pricing-card ul { text-align:left; padding-left:0.5rem; list-style:none; margin:0.8rem 0; }
+    .pricing-card ul li { padding:0.2rem 0; font-size:0.9rem; color:#5a5a7a; display:flex; align-items:flex-start; gap:0.5rem; }
+    .pricing-card ul li::before { content:"●"; color:#c9a84c; font-weight:700; font-size:0.5rem; margin-top:0.3rem; }
+    .pricing-card .btn { display:inline-block; padding:0.6rem 2rem; border-radius:3rem; font-weight:600; text-decoration:none; transition:0.2s; }
+    .pricing-card .btn-buy { background:#0a2e5c; color:#fff; }
+    .pricing-card .btn-buy:hover { background:#1a4a7a; }
+    .pricing-card .btn-gold { background:#c9a84c; color:#0a2e5c; }
+    .pricing-card .btn-gold:hover { background:#dbb95e; }
+    .popular { border:2px solid #c9a84c; background:rgba(255,255,255,0.9); }
+    .popular-badge { display:inline-block; background:#c9a84c; color:#0a2e5c; font-size:0.6rem; font-weight:700; padding:0.2rem 1rem; border-radius:2rem; text-transform:uppercase; margin-bottom:0.5rem; }
+    .footer { text-align:center; padding:2.5rem 0; color:#7a7a9a; border-top:1px solid #e2e8f0; margin-top:2rem; font-size:0.9rem; }
+    .footer a { color:#0a2e5c; text-decoration:none; }
+    .release-note { background:#f0f8f0; border:1px solid #22c55e; border-radius:12px; padding:0.8rem; text-align:center; margin:1rem 0; font-size:0.85rem; }
+    @media (max-width:768px){ .page-hero h1{font-size:2.2rem;} .pricing-grid{grid-template-columns:1fr;} }
+</style></head>
 <body>
-
-    <!-- ===== ANIMATED BACKGROUNDS ===== -->
-    <div id="bg-canvas"></div>
-    <canvas id="particles-canvas"></canvas>
-
-    <!-- ============================================================
-    HEADER
-    ============================================================ -->
-    <header class="header" id="header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#c9a84c" />
-                            <stop offset="100%" stop-color="#e8c86a" />
-                        </linearGradient>
-                    </defs>
-                    <path class="crown" d="M4 32 L6 18 L12 22 L22 10 L32 22 L38 18 L40 32 L4 32 Z" fill="url(#cg)" />
-                    <path class="star" d="M22 4 L24 12 L32 12 L26 18 L28 26 L22 20 L16 26 L18 18 L12 12 L20 12 L22 4 Z" fill="#0a2e5c" />
-                    <rect x="6" y="32" width="32" height="3" rx="1.5" fill="#0a2e5c" opacity="0.12" />
-                    <polygon points="22,14 26,22 34,22 28,28 30,36 22,30 14,36 16,28 10,22 18,22" fill="none" stroke="#c9a84c" stroke-width="0.5" opacity="0.2" />
-                </svg>
-                <span class="brand">Crown<span class="highlight">Star</span></span>
-                <span class="ai-label">AI</span>
-            </a>
-            <nav class="nav">
-                <a href="index.html">首页</a>
-                <a href="product.html">产品</a>
-                <a href="pricing.html" class="active">定价</a>
-                <a href="case-studies.html">案例</a>
-                <a href="security.html">安全</a>
-                <a href="download-free.html">免费下载</a>
-                <a href="downloads.html">下载中心</a>
-                <a href="swagger.html" target="_blank">API</a>
-                <a href="articles.html">文章库</a>
-                <a href="contact.html" class="cta">联系我们</a>
-                <div class="quick-access-wrapper">
-                    <button class="quick-access-btn" id="quickAccessBtn">
-                        <span class="icon">⚡</span> 快速跳转
-                    </button>
-                    <div class="quick-access-dropdown" id="quickAccessDropdown">
-                        <a href="#tiers"><span class="emoji">💰</span> 定价层级</a>
-                        <a href="#matrix"><span class="emoji">📊</span> 功能矩阵</a>
-                        <a href="#faq"><span class="emoji">❓</span> 常见问题</a>
-                        <div class="divider"></div>
-                        <a href="product.html"><span class="emoji">🧠</span> 产品详解</a>
-                        <a href="download-free.html"><span class="emoji">⬇️</span> 免费下载</a>
-                        <a href="contact.html"><span class="emoji">📞</span> 联系我们</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- ============================================================
-    HERO
-    ============================================================ -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-panel scroll-fade">
-                <div class="badge">
-                    <span class="dot"></span> 透明定价 · 一次买断 · 终身免费升级
-                </div>
-                <h1>选择适合您的 <span style="color:var(--gold);">层级</span></h1>
-                <p class="sub">
-                    免费版 · 基础版 · 进阶版 · 专业版 · 组织版 · 企业旗舰版 — 按需选择<br>
-                    <strong>所有付费版本均为一次性买断，包含终身免费升级。</strong>
-                </p>
-                <div class="btn-group">
-                    <a href="#tiers" class="btn-hero-primary">查看定价方案 →</a>
-                    <a href="download-free.html" class="btn-hero-ghost">免费下载</a>
-                    <a href="contact.html" class="btn-hero-ghost">企业咨询</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    PRICING GRID
-    ============================================================ -->
-    <section class="section" id="tiers" style="padding-top:0;">
-        <div class="container">
-            <div class="scroll-fade" style="text-align:center;">
-                <span class="section-label">定价方案</span>
-                <h2 class="section-title">8 个层级 · <span class="gold">覆盖所有需求</span></h2>
-                <p class="section-sub" style="margin:0 auto 2rem;">
-                    从个人开发者到国家级机构，CrownStar 为每个场景提供恰到好处的能力。<br>
-                    <strong>所有付费版本均包含终身免费升级和源代码授权（组织版及以上）。</strong>
-                </p>
-            </div>
-
-            <div class="pricing-grid">
-                <!-- FREE -->
-                <div class="pricing-card scroll-fade">
-                    <div class="tier-label">社区版</div>
-                    <div class="tier-name">免费</div>
-                    <div class="tier-audience">个人探索 · 学习 · 创作</div>
-                    <div class="price" style="font-size:1.8rem; color:var(--text-light);">¥0</div>
-                    <div class="value-prop">永久免费，无限对话，9个数学模块</div>
-                    <ul>
-                        <li>无限对话 · 9个数学模块</li>
-                        <li>1 用户 · 只读 API</li>
-                        <li>本地 SQLite 存储</li>
-                        <li>100% 私有化部署</li>
-                        <li>永久免费，无时间限制</li>
-                    </ul>
-                    <a href="download-free.html" class="btn-buy outline">免费下载</a>
-                    <div class="post-note">无需支付 · 即刻使用</div>
-                </div>
-
-                <!-- BASIC -->
-                <div class="pricing-card scroll-fade">
-                    <div class="tier-label">入门</div>
-                    <div class="tier-name">基础版</div>
-                    <div class="tier-audience">个人专业用户 · 自由职业者</div>
-                    <div class="price"><span class="currency">¥</span>39</div>
-                    <div class="value-prop">完整 API · 5 用户 · 终身升级</div>
-                    <ul>
-                        <li>免费版全部功能</li>
-                        <li>5 用户 · 完整 API</li>
-                        <li>邮件技术支持</li>
-                        <li>终身免费升级</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/5kQcN69HzarBd7w4imefC0a" class="btn-buy" target="_blank">立即购买</a>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
-                <!-- ADVANCED -->
-                <div class="pricing-card scroll-fade">
-                    <div class="tier-label">进阶</div>
-                    <div class="tier-name">进阶版</div>
-                    <div class="tier-audience">小型团队 · 创业公司</div>
-                    <div class="price"><span class="currency">¥</span>248</div>
-                    <div class="value-prop">50 用户 · RLS 安全 · 邮件+电话支持</div>
-                    <ul>
-                        <li>基础版全部功能</li>
-                        <li>50 用户 · RLS 行级安全</li>
-                        <li>邮件+电话支持</li>
-                        <li>互联网皮层 · Web 搜索</li>
-                        <li>12+ 数据库套接字</li>
-                        <li>终身免费升级</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/fZu28sbPH9nxffE9CGefC0b" class="btn-buy" target="_blank">立即购买</a>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
-                <!-- PROFESSIONAL (Most Popular) -->
-                <div class="pricing-card popular scroll-fade">
-                    <div class="popular-badge">最受欢迎</div>
-                    <div class="tier-label">专业</div>
-                    <div class="tier-name">专业版</div>
-                    <div class="tier-audience">大型团队 · 企业 · 研发中心</div>
-                    <div class="price"><span class="currency">¥</span>389</div>
-                    <div class="value-prop">10 用户 · 审计日志 · 全子系统</div>
-                    <ul>
-                        <li>进阶版全部功能</li>
-                        <li>10 用户 · RLS + 审计日志</li>
-                        <li>AI‑Groups 多模型融合</li>
-                        <li>HPC‑Parallel 并行计算</li>
-                        <li>RAG 引擎 · 实时协作</li>
-                        <li>语音/视觉 · 工作流自动化</li>
-                        <li>沙盒执行 · 分析仪表板</li>
-                        <li>终身免费升级</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/4gM14o4nf57hd7waGKefC0c" class="btn-buy gold-bg" target="_blank">立即购买</a>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
-                <!-- ORG SMALL -->
-                <div class="pricing-card scroll-fade">
-                    <div class="tier-label">组织</div>
-                    <div class="tier-name">组织版 – 小型企业</div>
-                    <div class="tier-audience">中小企业 · 地方政府</div>
-                    <div class="price"><span class="currency">¥</span>705</div>
-                    <div class="value-prop">100 用户 · 源代码 · 优先电话支持</div>
-                    <ul>
-                        <li>专业版全部功能</li>
-                        <li>100 用户 · 用户管理</li>
-                        <li>完整源代码交付</li>
-                        <li>优先电话支持</li>
-                        <li>终身免费升级</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/aFadRa4nf1V54B08yCefC0d" class="btn-buy" target="_blank">立即购买</a>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
-                <!-- ORG MEDIUM -->
-                <div class="pricing-card scroll-fade">
-                    <div class="tier-label">组织</div>
-                    <div class="tier-name">组织版 – 中型企业</div>
-                    <div class="tier-audience">大中型企业 · 区域政府</div>
-                    <div class="price"><span class="currency">¥</span>61,775</div>
-                    <div class="value-prop">1,000 用户 · 源代码 · 高并发</div>
-                    <ul>
-                        <li>小型版全部功能</li>
-                        <li>1,000 用户 · 用户管理</li>
-                        <li>完整源代码交付</li>
-                        <li>优先电话支持</li>
-                        <li>高并发优化</li>
-                        <li>终身免费升级</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/8x2cN6g5X57hgjI5mqefC0e" class="btn-buy" target="_blank">立即购买</a>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
-                <!-- ORG LARGE -->
-                <div class="pricing-card scroll-fade">
-                    <div class="tier-label">组织</div>
-                    <div class="tier-name">组织版 – 大型企业</div>
-                    <div class="tier-audience">超大型企业 · 国家级机构</div>
-                    <div class="price"><span class="currency">¥</span>476,000</div>
-                    <div class="value-prop">无限用户 · 源代码 · 无限扩展</div>
-                    <ul>
-                        <li>中型版全部功能</li>
-                        <li>无限用户 · 用户管理</li>
-                        <li>完整源代码交付</li>
-                        <li>优先电话支持</li>
-                        <li>无限扩展能力</li>
-                        <li>终身免费升级</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/fZu4gA5rj2Z9gjIbKOefC0f" class="btn-buy" target="_blank">立即购买</a>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-
-                <!-- ENTERPRISE -->
-                <div class="pricing-card scroll-fade" style="border:2px solid var(--gold); background:rgba(255,255,255,0.9);">
-                    <div class="tier-label">旗舰</div>
-                    <div class="tier-name">企业旗舰版</div>
-                    <div class="tier-audience">联邦机构 · 跨国集团 · 最高安全</div>
-                    <div class="price"><span class="currency">¥</span>999,999</div>
-                    <div class="value-prop">无限用户 · 白标品牌 · 专属7×24支持</div>
-                    <ul>
-                        <li>大型版全部功能</li>
-                        <li>无限用户 · 用户管理</li>
-                        <li>白标品牌 · 完全定制</li>
-                        <li>完整源代码交付</li>
-                        <li>专属技术经理 7×24</li>
-                        <li>插件架构 · 无限扩展</li>
-                        <li>终身免费升级</li>
-                    </ul>
-                    <a href="https://buy.stripe.com/00w4gAaLD57h7Nc3eiefC0g" class="btn-buy gold-bg" target="_blank">立即咨询</a>
-                    <div class="post-note">购买后邮件获取下载链接</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FEATURE COMPARISON MATRIX
-    ============================================================ -->
-    <section class="section" id="matrix">
-        <div class="container">
-            <div class="scroll-fade" style="text-align:center;">
-                <span class="section-label">详细对比</span>
-                <h2 class="section-title">功能 <span class="gold">全景矩阵</span></h2>
-                <p class="section-sub" style="margin:0 auto 2rem;">
-                    从免费版到企业旗舰版，每个子系统的可用性一目了然。<br>
-                    所有付费版本均包含终身免费升级。
-                </p>
-            </div>
-            <div class="compare-wrap scroll-fade">
-                <table class="tier-grid-table">
-                    <thead>
-                        <tr>
-                            <th>功能</th>
-                            <th>免费</th>
-                            <th>基础</th>
-                            <th>进阶</th>
-                            <th>专业</th>
-                            <th>组织S</th>
-                            <th>组织M</th>
-                            <th>组织L</th>
-                            <th>企业</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="feature-label">无限对话记忆</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">9 大数学模块</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">私有化部署</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">用户数</td>
-                            <td>1</td><td>5</td><td>50</td><td>10</td>
-                            <td>100</td><td>1,000</td><td>∞</td><td>∞</td>
-                        </tr>
-                        <tr><td class="feature-label">完整 API</td>
-                            <td>只读</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">RLS 行级安全</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">AI‑Groups 融合</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">HPC‑Parallel</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">RAG 引擎</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">实时协作</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">语音 / 视觉</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">Web 搜索</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">工作流自动化</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">沙盒执行</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">用户管理</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">12+ 数据库套接字</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">插件架构</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">源代码交付</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">白标品牌</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">审计日志 / 合规</td>
-                            <td class="cross">—</td><td class="cross">—</td><td class="check">✔</td><td class="check">✔</td>
-                            <td class="check">✔</td><td class="check">✔</td><td class="check">✔</td><td class="check">✔</td>
-                        </tr>
-                        <tr><td class="feature-label">支持响应</td>
-                            <td>社区</td><td>邮件</td><td>邮件+电话</td><td>邮件+电话</td>
-                            <td>优先电话</td><td>优先电话</td><td>优先电话</td><td>7×24 专属</td>
-                        </tr>
-                        <tr><td class="feature-label">价格 (CNY)</td>
-                            <td>0</td><td>39</td><td>248</td><td>389</td>
-                            <td>705</td><td>61,775</td><td>476,000</td><td>999,999</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p style="text-align:center; color:var(--text-muted); margin-top:1rem;">✔ = 包含 &nbsp;&nbsp; — = 不包含 &nbsp;&nbsp; 所有付费版本均包含终身免费升级。</p>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FAQ
-    ============================================================ -->
-    <section class="section" id="faq">
-        <div class="container">
-            <div class="scroll-fade" style="text-align:center;">
-                <span class="section-label">常见问题</span>
-                <h2 class="section-title">定价 <span class="gold">常见问题</span></h2>
-                <p class="section-sub" style="margin:0 auto 2rem;">
-                    关于购买、升级、许可和支持的 6 个最常见问题。
-                </p>
-            </div>
-            <div class="faq-grid">
-                <div class="faq-item scroll-fade">
-                    <h4>一次购买可以使用多久？</h4>
-                    <p>永久。所有付费版本都是一次性买断，包含终身免费升级。您将永远拥有该层级的所有版本。</p>
-                </div>
-                <div class="faq-item scroll-fade">
-                    <h4>可以升级到更高层级吗？</h4>
-                    <p>可以。您只需支付两个层级的差价，即可升级到更高层级。联系销售团队获取升级链接。</p>
-                </div>
-                <div class="faq-item scroll-fade">
-                    <h4>购买后如何获取软件？</h4>
-                    <p>支付完成后，您将收到一封包含下载链接和许可证密钥的邮件。您也可以直接从我们的下载中心获取。</p>
-                </div>
-                <div class="faq-item scroll-fade">
-                    <h4>支持哪些支付方式？</h4>
-                    <p>我们支持 Stripe（信用卡）、支付宝、微信支付。企业采购可申请发票和对公转账。</p>
-                </div>
-                <div class="faq-item scroll-fade">
-                    <h4>用户数是否可以扩展？</h4>
-                    <p>可以。组织版和企业版支持按需扩展用户数。如需超过默认用户数，请联系销售定制。</p>
-                </div>
-                <div class="faq-item scroll-fade">
-                    <h4>免费版有什么限制？</h4>
-                    <p>免费版没有时间限制，包含无限对话、9个数学模块、1个用户、只读API和本地存储。适合个人学习和轻度创作。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FOOTER
-    ============================================================ -->
-    <footer class="footer">
-        <div class="container">
-            <div>
-                <h4>CrownStar AI</h4>
-                <p style="opacity:0.6;font-size:0.85rem;">世界首个主权AI平台 · 中国首发<br />深度集成 DeepSeek · 完全私有化</p>
-                <p style="margin-top:0.5rem;"><a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p>
-            </div>
-            <div>
-                <h4>产品</h4>
-                <a href="product.html">产品功能</a>
-                <a href="pricing.html">定价方案</a>
-                <a href="download-free.html">免费下载</a>
-                <a href="downloads.html">下载中心</a>
-            </div>
-            <div>
-                <h4>资源</h4>
-                <a href="case-studies.html">客户案例</a>
-                <a href="security.html">安全合规</a>
-                <a href="swagger.html" target="_blank">API文档</a>
-                <a href="articles.html">文章库</a>
-            </div>
-            <div>
-                <h4>公司</h4>
-                <a href="contact.html">联系我们</a>
-                <a href="https://github.com/crownstar-ai/crown-star-ai-bot" target="_blank">GitHub</a>
-                <a href="mailto:st3vens.ben@yandex.com">商务咨询</a>
-            </div>
-            <div class="bottom">
-                <p>© 2026 CrownStar AI. All rights reserved. <a href="sitemap.xml">站点地图</a></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ============================================================
-    JAVASCRIPT (Quick Access, Scroll, Particles)
-    ============================================================ -->
-    <script>
-        (function() {
-            // Quick Access
-            const quickBtn = document.getElementById('quickAccessBtn');
-            const quickDropdown = document.getElementById('quickAccessDropdown');
-            quickBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                quickDropdown.classList.toggle('show');
-            });
-            document.addEventListener('click', function() {
-                quickDropdown.classList.remove('show');
-            });
-            quickDropdown.addEventListener('click', function(e) {
-                e.stopPropagation();
-                setTimeout(() => { quickDropdown.classList.remove('show'); }, 100);
-            });
-
-            // Scroll animations
-            const fadeElements = document.querySelectorAll('.scroll-fade');
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            }, { threshold: 0.08 });
-            fadeElements.forEach(el => observer.observe(el));
-
-            // Header shadow
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', function() {
-                header.classList.toggle('scrolled', window.scrollY > 50);
-            });
-
-            // Particles
-            const canvas = document.getElementById('particles-canvas');
-            const ctx = canvas.getContext('2d');
-            let width, height, particles = [];
-
-            function resize() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 3 + 1;
-                    this.speedX = (Math.random() - 0.5) * 0.4;
-                    this.speedY = (Math.random() - 0.5) * 0.4;
-                    this.opacity = Math.random() * 0.2 + 0.05;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x < 0 || this.x > width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > height) this.speedY *= -1;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(10,46,92,${this.opacity})`;
-                    ctx.fill();
-                }
-            }
-
-            function drawLines() {
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 150) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(10,46,92,${0.03 * (1 - dist / 150)})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            const count = Math.min(60, Math.floor((width * height) / 15000));
-            for (let i = 0; i < count; i++) particles.push(new Particle());
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => { p.update();
-                    p.draw(); });
-                drawLines();
-                requestAnimationFrame(animateParticles);
-            }
-            animateParticles();
-
-            window.addEventListener('resize', function() {
-                resize();
-                particles = [];
-                const newCount = Math.min(60, Math.floor((width * height) / 15000));
-                for (let i = 0; i < newCount; i++) particles.push(new Particle());
-            });
-
-            // Background shift
-            const bgCanvas = document.getElementById('bg-canvas');
-            let bgHue = 220;
-            setInterval(() => {
-                bgHue += 0.2;
-                if (bgHue > 230) bgHue = 220;
-                bgCanvas.style.background =
-                    `linear-gradient(135deg, hsl(${bgHue}, 20%, 94%) 0%, #ffffff 60%, hsl(${bgHue+10}, 15%, 97%) 100%)`;
-            }, 3000);
-        })();
-    </script>
-</body>
-</html>
+<header class="header"><div class="container"><a href="index.html" class="logo">Crown<span>Star</span></a><nav class="nav"><a href="index.html">首页</a><a href="product.html">产品</a><a href="pricing.html" class="active" style="color:#c9a84c;">定价</a><a href="case-studies.html">案例</a><a href="security.html">安全</a><a href="articles.html">文章库</a><a href="contact.html" class="cta">联系我们</a></nav></div></header>
+<section class="page-hero"><div class="container"><h1>定价 · <span class="gold">一次购买，终身升级</span></h1><p class="subtitle">所有付费版本均包含 <strong>永久免费升级</strong> 和 <strong>源代码授权</strong>（组织版及以上）。</p><div class="release-note">🚀 <strong>v7.12</strong> 已发布 · 所有价格含终身免费升级<br><span style="font-size:0.75rem;color:#7a7a9a;"><a href="https://github.com/crownstar-ai/crown-star-ai-bot/releases/tag/v7.12" target="_blank">查看 GitHub Release</a></span></div></div></section>
+<div class="container"><div class="pricing-grid">    <div class="pricing-card">
+        
+        <div class="tier">社区版</div>
+        <div class="name">免费版</div>
+        <div class="price" style="font-size:1.8rem;color:#5a5a7a;">¥0</div>
+        <ul>
+            <li>永久免费</li>
+            <li>1 用户 · 只读 API</li>
+            <li>企业级安全</li>
+        </ul>
+        <a href="download-free.html" class="btn btn-buy" >免费下载</a>
+    </div>    <div class="pricing-card">
+        
+        <div class="tier">入门</div>
+        <div class="name">基础版</div>
+        <div class='price'><span class='currency'>¥</span>39</div>
+        <ul>
+            <li>一次性买断，终身升级</li>
+            <li>完整 API · 技术支持</li>
+            <li>企业级安全</li>
+        </ul>
+        <a href="https://buy.stripe.com/5kQcN69HzarBd7w4imefC0a" class="btn btn-buy" target='_blank'>立即购买</a>
+    </div>    <div class="pricing-card popular">
+        <div class="popular-badge">最受欢迎</div>
+        <div class="tier">入门</div>
+        <div class="name">进阶版</div>
+        <div class='price'><span class='currency'>¥</span>248</div>
+        <ul>
+            <li>一次性买断，终身升级</li>
+            <li>完整 API · 技术支持</li>
+            <li>企业级安全</li>
+        </ul>
+        <a href="https://buy.stripe.com/fZu28sbPH9nxffE9CGefC0b" class="btn btn-gold" target='_blank'>立即购买</a>
+    </div>    <div class="pricing-card">
+        
+        <div class="tier">入门</div>
+        <div class="name">专业版</div>
+        <div class='price'><span class='currency'>¥</span>389</div>
+        <ul>
+            <li>一次性买断，终身升级</li>
+            <li>完整 API · 技术支持</li>
+            <li>企业级安全</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gM14o4nf57hd7waGKefC0c" class="btn btn-buy" target='_blank'>立即购买</a>
+    </div>    <div class="pricing-card">
+        
+        <div class="tier">组织</div>
+        <div class="name">组织版 – 小型</div>
+        <div class='price'><span class='currency'>¥</span>705</div>
+        <ul>
+            <li>一次性买断，终身升级</li>
+            <li>完整 API · 技术支持</li>
+            <li>源代码授权</li>
+        </ul>
+        <a href="https://buy.stripe.com/aFadRa4nf1V54B08yCefC0d" class="btn btn-buy" target='_blank'>立即购买</a>
+    </div>    <div class="pricing-card">
+        
+        <div class="tier">组织</div>
+        <div class="name">组织版 – 中型</div>
+        <div class='price'><span class='currency'>¥</span>61,775</div>
+        <ul>
+            <li>一次性买断，终身升级</li>
+            <li>完整 API · 技术支持</li>
+            <li>源代码授权</li>
+        </ul>
+        <a href="https://buy.stripe.com/8x2cN6g5X57hgjI5mqefC0e" class="btn btn-buy" target='_blank'>立即购买</a>
+    </div>    <div class="pricing-card">
+        
+        <div class="tier">组织</div>
+        <div class="name">组织版 – 大型</div>
+        <div class='price'><span class='currency'>¥</span>476,000</div>
+        <ul>
+            <li>一次性买断，终身升级</li>
+            <li>完整 API · 技术支持</li>
+            <li>源代码授权</li>
+        </ul>
+        <a href="https://buy.stripe.com/fZu4gA5rj2Z9gjIbKOefC0f" class="btn btn-buy" target='_blank'>立即购买</a>
+    </div>    <div class="pricing-card">
+        
+        <div class="tier">入门</div>
+        <div class="name">企业旗舰版</div>
+        <div class='price'><span class='currency'>¥</span>999,999</div>
+        <ul>
+            <li>一次性买断，终身升级</li>
+            <li>完整 API · 技术支持</li>
+            <li>源代码授权</li>
+        </ul>
+        <a href="https://buy.stripe.com/00w4gAaLD57h7Nc3eiefC0g" class="btn btn-buy" target='_blank'>立即购买</a>
+    </div></div>
+<p style="text-align:center;color:#7a7a9a;font-size:0.9rem;">所有付费版本包含终身免费升级。购买后通过邮件获取下载链接和授权密钥。</p>
+</div>
+<footer class="footer"><div class="container"><p>© 2026 CrownStar. All rights reserved. <a href="mailto:st3vens.ben@yandex.com">st3vens.ben@yandex.com</a></p></div></footer>
+</body></html>
